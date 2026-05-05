@@ -1,12 +1,20 @@
 {
   "id": "github-copilot",
   "enabledByDefault": true,
-  "providers": ["github-copilot"],
+  "providers": [
+    "github-copilot"
+  ],
   "contracts": {
-    "memoryEmbeddingProviders": ["github-copilot"]
+    "memoryEmbeddingProviders": [
+      "github-copilot"
+    ]
   },
   "providerAuthEnvVars": {
-    "github-copilot": ["COPILOT_GITHUB_TOKEN", "GH_TOKEN", "GITHUB_TOKEN"]
+    "github-copilot": [
+      "COPILOT_GITHUB_TOKEN",
+      "GH_TOKEN",
+      "GITHUB_TOKEN"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -16,7 +24,7 @@
       "choiceLabel": "GitHub Copilot",
       "choiceHint": "Device login with your GitHub account",
       "groupId": "copilot",
-      "groupLabel": "Copilot",
+      "groupLabel": "$ Copilot",
       "groupHint": "GitHub + local proxy"
     }
   ],
@@ -28,7 +36,9 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "enabled": { "type": "boolean" }
+          "enabled": {
+            "type": "boolean"
+          }
         }
       }
     }

@@ -67,7 +67,7 @@ export const tlonPlugin = createChatChannelPlugin({
       selectionLabel: "Tlon (Urbit)",
       docsPath: "/channels/tlon",
       docsLabel: "tlon",
-      blurb: "Decentralized messaging on Urbit",
+      blurb: "Децентрализованный мессенджер на Urbit",
       aliases: ["urbit"],
       order: 90,
     },

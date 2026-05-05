@@ -26,7 +26,7 @@ export async function warnIfModelConfigLooksOff(
     );
     if (!known) {
       warnings.push(
-        `Model not found: ${ref.provider}/${ref.model}. Update agents.defaults.model or run /models list.`,
+        `Модель не найдена: ${ref.provider}/${ref.model}. Обновите agents.defaults.model или выполните /models list.`,
       );
     }
   }
@@ -37,7 +37,7 @@ export async function warnIfModelConfigLooksOff(
   const hasCustomKey = hasUsableCustomProviderApiKey(config, ref.provider);
   if (!hasProfile && !envKey && !hasCustomKey) {
     warnings.push(
-      `No auth configured for provider "${ref.provider}". The agent may fail until credentials are added. ${buildProviderAuthRecoveryHint(
+      `Для провайдера "${ref.provider}" не настроена авторизация. Агент может не работать, пока не добавлены учётные данные. ${buildProviderAuthRecoveryHint(
         {
           provider: ref.provider,
           config,
@@ -48,6 +48,6 @@ export async function warnIfModelConfigLooksOff(
   }
 
   if (warnings.length > 0) {
-    await prompter.note(warnings.join("\n"), "Model check");
+    await prompter.note(warnings.join("\n"), "Проверка модели");
   }
 }

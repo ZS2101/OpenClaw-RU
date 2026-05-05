@@ -67,7 +67,7 @@ async function runXaiSearchProviderSetup(
   await ctx.prompter.note(
     [
       "x_search lets your agent search X (formerly Twitter) posts via xAI.",
-      "It reuses the same xAI API key you just configured for Grok web search.",
+      "It reuses the same xAI API-ключ you just настроено for Grok web search.",
       `You can change this later with ${formatCliCommand("openclaw configure --section web")}.`,
     ].join("\n"),
     "X search",
@@ -78,13 +78,13 @@ async function runXaiSearchProviderSetup(
     options: [
       {
         value: "yes",
-        label: "Yes, enable x_search",
-        hint: "Search X posts with the same xAI key",
+        label: "Да, включить x_search",
+        hint: "Искать посты в X с тем же ключом xAI",
       },
       {
         value: "skip",
         label: "Skip for now",
-        hint: "Keep Grok web_search only",
+        hint: "Только Grok web_search",
       },
     ],
     initialValue: existingXSearch?.enabled === true || ctx.quickstartDefaults ? "yes" : "skip",
@@ -187,9 +187,9 @@ export function createXaiWebSearchProvider(): WebSearchProviderPlugin {
   return {
     id: "grok",
     label: "Grok (xAI)",
-    hint: "Requires xAI API key · xAI web-grounded responses",
+    hint: "Requires xAI API-ключ · xAI web-grounded responses",
     onboardingScopes: ["text-inference"],
-    credentialLabel: "xAI API key",
+    credentialLabel: "API-ключ xAI",
     envVars: ["XAI_API_KEY"],
     placeholder: "xai-...",
     signupUrl: "https://console.x.ai/",
@@ -229,7 +229,7 @@ export function createXaiWebSearchProvider(): WebSearchProviderPlugin {
             return {
               error: "missing_xai_api_key",
               message:
-                "web_search (grok) needs an xAI API key. Set XAI_API_KEY in the Gateway environment, or configure plugins.entries.xai.config.webSearch.apiKey.",
+                "web_search (grok) needs an xAI API-ключ. Set XAI_API_KEY in the Gateway environment, or configure plugins.entries.xai.config.webSearch.apiKey.",
               docs: "https://docs.openclaw.ai/tools/web",
             };
           }

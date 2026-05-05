@@ -73,10 +73,11 @@ export default definePluginEntry({
         setup: {
           choiceId: "sglang",
           choiceLabel: "SGLang",
-          choiceHint: "Fast self-hosted OpenAI-compatible server",
+          choiceHint: "Быстрый self-hosted сервер, совместимый с OpenAI",
           groupId: "sglang",
-          groupLabel: "SGLang",
-          groupHint: "Fast self-hosted server",
+          groupLabel: "∅ SGLang",
+          groupSortKey: 4,
+          groupHint: "Быстрый self-hosted сервер",
           methodId: "custom",
         },
         modelPicker: {

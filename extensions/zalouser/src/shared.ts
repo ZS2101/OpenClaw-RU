@@ -18,10 +18,10 @@ import { zalouserDoctor } from "./doctor.js";
 export const zalouserMeta = {
   id: "zalouser",
   label: "Zalo Personal",
-  selectionLabel: "Zalo (Personal Account)",
+  selectionLabel: "Zalo (Личный аккаунт)",
   docsPath: "/channels/zalouser",
   docsLabel: "zalouser",
-  blurb: "Zalo personal account via QR code login.",
+  blurb: "личный аккаунт Zalo через вход по QR-коду.",
   aliases: ["zlu"],
   order: 85,
   quickstartAllowFrom: false,

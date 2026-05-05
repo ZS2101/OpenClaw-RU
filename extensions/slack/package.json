@@ -24,7 +24,7 @@
       "detailLabel": "Slack Bot",
       "docsPath": "/channels/slack",
       "docsLabel": "slack",
-      "blurb": "supported (Socket Mode).",
+      "blurb": "поддерживается (через Socket Mode).",
       "systemImage": "number",
       "markdownCapable": true,
       "configuredState": {

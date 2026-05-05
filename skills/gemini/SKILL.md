@@ -1,6 +1,5 @@
 ---
-name: gemini
-description: Gemini CLI for one-shot Q&A, summaries, and generation.
+name: geminidescription: "Gemini CLI для разовых вопросов (one-shot Q&A), саммаризации и генерации."
 homepage: https://ai.google.dev/
 metadata:
   {

@@ -16,7 +16,7 @@ const DISCORD_CHANNEL_META = {
   detailLabel: "Discord Bot",
   docsPath: "/channels/discord",
   docsLabel: "discord",
-  blurb: "very well supported right now.",
+  blurb: "на данный момент отлично поддерживается.",
   systemImage: "bubble.left.and.bubble.right",
   markdownCapable: true,
 } as const;

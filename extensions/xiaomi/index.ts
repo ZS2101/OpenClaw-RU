@@ -15,12 +15,14 @@ export default defineSingleProviderPluginEntry({
     auth: [
       {
         methodId: "api-key",
-        label: "Xiaomi API key",
+        label: "API-ключ Xiaomi",
+        wizard: { groupLabel: "¥ Xiaomi" },
+        groupSortKey: 2,
         hint: "API key",
         optionKey: "xiaomiApiKey",
         flagName: "--xiaomi-api-key",
         envVar: "XIAOMI_API_KEY",
-        promptMessage: "Enter Xiaomi API key",
+        promptMessage: "Введите API-ключ Xiaomi",
         defaultModel: XIAOMI_DEFAULT_MODEL_REF,
         applyConfig: (cfg) => applyXiaomiConfig(cfg),
       },

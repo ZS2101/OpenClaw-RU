@@ -5,7 +5,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "bluebubbles",
     channelId: "bluebubbles",
     label: "BlueBubbles",
-    description: "iMessage via the BlueBubbles mac app + REST API.",
+    description: "iMessage через mac-приложение BlueBubbles + REST API.",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -643,7 +643,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "discord",
     channelId: "discord",
     label: "Discord",
-    description: "very well supported right now.",
+    description: "на данный момент отлично поддерживается.",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -3196,7 +3196,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "feishu",
     channelId: "feishu",
     label: "Feishu",
-    description: "飞书/Lark enterprise messaging with doc/wiki/drive tools.",
+    description: "корпоративный мессенджер 飞书/Lark с инструментами для документов/wiki/диска.",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -4309,7 +4309,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "googlechat",
     channelId: "googlechat",
     label: "Google Chat",
-    description: "Google Workspace Chat app with HTTP webhook.",
+    description: "приложение для Google Workspace Chat с HTTP-вебхуком.",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -5079,7 +5079,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "imessage",
     channelId: "imessage",
     label: "iMessage",
-    description: "this is still a work in progress.",
+    description: "всё ещё в разработке (WIP).",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -5671,7 +5671,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "irc",
     channelId: "irc",
     label: "IRC",
-    description: "classic IRC networks with DM/channel routing and pairing controls.",
+    description: "классические сети IRC с маршрутизацией ЛС/каналов и управлением сопряжениями.",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -6303,7 +6303,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "line",
     channelId: "line",
     label: "LINE",
-    description: "LINE Messaging API webhook bot.",
+    description: "вебхук-бот через LINE Messaging API.",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -6581,7 +6581,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "matrix",
     channelId: "matrix",
     label: "Matrix",
-    description: "open protocol; install the plugin to enable.",
+    description: "открытый протокол; установите плагин для активации.",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -7175,7 +7175,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "mattermost",
     channelId: "mattermost",
     label: "Mattermost",
-    description: "self-hosted Slack-style chat; install the plugin to enable.",
+    description: "self-hosted чат в стиле Slack; установите плагин для активации.",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -7793,7 +7793,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "msteams",
     channelId: "msteams",
     label: "Microsoft Teams",
-    description: "Teams SDK; enterprise support.",
+    description: "Teams SDK; корпоративная поддержка.",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -8285,7 +8285,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "nextcloud-talk",
     channelId: "nextcloud-talk",
     label: "Nextcloud Talk",
-    description: "Self-hosted chat via Nextcloud Talk webhook bots.",
+    description: "Self-hosted чат через вебхук-ботов Nextcloud Talk.",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -8981,7 +8981,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "nostr",
     channelId: "nostr",
     label: "Nostr",
-    description: "Decentralized protocol; encrypted DMs via NIP-04.",
+    description: "Децентрализованный протокол; зашифрованные ЛС через NIP-04.",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -9138,7 +9138,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "qa-channel",
     channelId: "qa-channel",
     label: "QA Channel",
-    description: "Synthetic Slack-class transport for automated OpenClaw QA scenarios.",
+    description: "Синтетический транспорт Slack-класса для автоматизированных QA-сценариев OpenClaw.",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -9277,7 +9277,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     channelId: "qqbot",
     label: "QQ Bot",
     description:
-      "connect to QQ via official QQ Bot API with group chat and direct message support.",
+      "подключение к QQ через официальный QQ Bot API с поддержкой групп и личных сообщений.",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -9670,7 +9670,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "signal",
     channelId: "signal",
     label: "Signal",
-    description: 'signal-cli linked device; more setup (David Reagans: "Hop on Discord.").',
+    description: 'привязанное устройство через signal-cli; требует доп. настройки (David Reagans: "Залетайте в Discord").',
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -10340,7 +10340,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "slack",
     channelId: "slack",
     label: "Slack",
-    description: "supported (Socket Mode).",
+    description: "поддерживается (через Socket Mode).",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -12289,7 +12289,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "synology-chat",
     channelId: "synology-chat",
     label: "Synology Chat",
-    description: "Connect your Synology NAS Chat to OpenClaw with full agent capabilities.",
+    description: "Подключите ваш Synology NAS Chat к OpenClaw с полной функциональностью агента.",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -12308,7 +12308,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "telegram",
     channelId: "telegram",
     label: "Telegram",
-    description: "simplest way to get started — register a bot with @BotFather and get going.",
+    description: "самый простой способ начать — зарегистрируйте бота у @BotFather и вперед.",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -14550,7 +14550,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "tlon",
     channelId: "tlon",
     label: "Tlon",
-    description: "decentralized messaging on Urbit; install the plugin to enable.",
+    description: "децентрализованный мессенджер на Urbit; установите плагин для активации.",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -14727,7 +14727,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "twitch",
     channelId: "twitch",
     label: "Twitch",
-    description: "Twitch chat integration",
+    description: "Интеграция с чатом Twitch",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       anyOf: [
@@ -14925,7 +14925,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "whatsapp",
     channelId: "whatsapp",
     label: "WhatsApp",
-    description: "works with your own number; recommend a separate phone + eSIM.",
+    description: "работает с вашим номером; рекомендуется использовать отдельный телефон + eSIM.",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -15503,7 +15503,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "zalo",
     channelId: "zalo",
     label: "Zalo",
-    description: "Vietnam-focused messaging platform with Bot API.",
+    description: "вьетнамский мессенджер с поддержкой Bot API.",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",
@@ -15929,7 +15929,7 @@ export const GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA = [
     pluginId: "zalouser",
     channelId: "zalouser",
     label: "Zalo Personal",
-    description: "Zalo personal account via QR code login.",
+    description: "личный аккаунт Zalo через вход по QR-коду.",
     schema: {
       $schema: "http://json-schema.org/draft-07/schema#",
       type: "object",

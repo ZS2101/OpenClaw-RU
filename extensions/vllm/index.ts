@@ -73,10 +73,11 @@ export default definePluginEntry({
         setup: {
           choiceId: "vllm",
           choiceLabel: "vLLM",
-          choiceHint: "Local/self-hosted OpenAI-compatible server",
+          choiceHint: "Локальный / self-hosted сервер, совместимый с OpenAI",
           groupId: "vllm",
-          groupLabel: "vLLM",
-          groupHint: "Local/self-hosted OpenAI-compatible",
+          groupLabel: "∅ vLLM",
+          groupSortKey: 4,
+          groupHint: "Локальный / self-hosted, совместимый с OpenAI",
           methodId: "custom",
         },
         modelPicker: {

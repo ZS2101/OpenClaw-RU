@@ -11,6 +11,7 @@ export type FlowOptionGroup = {
   id: string;
   label: string;
   hint?: string;
+  sortKey?: number;
 };
 
 export type FlowOption<Value extends string = string> = {

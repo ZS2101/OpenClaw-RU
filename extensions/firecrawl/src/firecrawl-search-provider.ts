@@ -27,9 +27,9 @@ export function createFirecrawlWebSearchProvider(): WebSearchProviderPlugin {
   return {
     id: "firecrawl",
     label: "Firecrawl Search",
-    hint: "Structured results with optional result scraping",
+    hint: "Структурированные результаты с опциональным скрапингом",
     onboardingScopes: ["text-inference"],
-    credentialLabel: "Firecrawl API key",
+    credentialLabel: "API-ключ Firecrawl",
     envVars: ["FIRECRAWL_API_KEY"],
     placeholder: "fc-...",
     signupUrl: "https://www.firecrawl.dev/",

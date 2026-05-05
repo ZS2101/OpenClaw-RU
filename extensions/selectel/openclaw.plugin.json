@@ -1,0 +1,60 @@
+{
+  "id": "selectel",
+  "activation": {
+    "onStartup": false
+  },
+  "enabledByDefault": true,
+  "providerDiscoveryEntry": "./provider-discovery.ts",
+  "providers": [
+    "selectel"
+  ],
+  "providerRequest": {
+    "providers": {
+      "selectel": {
+        "family": "selectel"
+      }
+    }
+  },
+  "providerAuthChoices": [
+    {
+      "provider": "selectel",
+      "method": "api-key",
+      "choiceId": "selectel-api-key",
+      "choiceLabel": "SELECTEL API Key",
+      "assistantPriority": 0,
+      "groupId": "selectel",
+      "groupLabel": "₽ Selectel",
+      "groupHint": "Russian provider"
+    }
+  ],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  },
+  "modelCatalog": {
+    "providers": {
+      "selectel": {
+        "baseUrl": "",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "default",
+            "name": "selectel default",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 32768,
+            "maxTokens": 4096,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          }
+        ]
+      }
+    }
+  }
+}

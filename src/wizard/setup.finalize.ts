@@ -74,7 +74,7 @@ export async function finalizeSetupWizard(
     process.platform === "linux" ? await isSystemdUserServiceAvailable() : true;
   if (process.platform === "linux" && !systemdAvailable) {
     await prompter.note(
-      "Systemd user services are unavailable. Skipping lingering checks and service install.",
+      "Пользовательские службы systemd недоступны. Пропускаем проверку lingering и установку службы.",
       "Systemd",
     );
   }
@@ -88,7 +88,7 @@ export async function finalizeSetupWizard(
         note: prompter.note,
       },
       reason:
-        "Linux installs use a systemd user service by default. Without lingering, systemd stops the user session on logout/idle and kills the Gateway.",
+        "Установки на Linux по умолчанию используют пользовательскую службу systemd. Без включенного lingering, systemd останавливает сессию пользователя при выходе/простое и убивает Шлюз.",
       requireConfirm: false,
     });
   }
@@ -104,7 +104,7 @@ export async function finalizeSetupWizard(
     installDaemon = true;
   } else {
     installDaemon = await prompter.confirm({
-      message: "Install Gateway service (recommended)",
+      message: "Установить службу шлюза (рекомендуется)",
       initialValue: true,
     });
   }
@@ -112,7 +112,7 @@ export async function finalizeSetupWizard(
   if (process.platform === "linux" && !systemdAvailable && installDaemon) {
     await prompter.note(
       "Systemd user services are unavailable; skipping service install. Use your container supervisor or `docker compose up -d`.",
-      "Gateway service",
+      "Служба шлюза",
     );
     installDaemon = false;
   }
@@ -122,14 +122,14 @@ export async function finalizeSetupWizard(
       flow === "quickstart"
         ? DEFAULT_GATEWAY_DAEMON_RUNTIME
         : await prompter.select({
-            message: "Gateway service runtime",
+            message: "Среда выполнения службы шлюза",
             options: GATEWAY_DAEMON_RUNTIME_OPTIONS,
             initialValue: opts.daemonRuntime ?? DEFAULT_GATEWAY_DAEMON_RUNTIME,
           });
     if (flow === "quickstart") {
       await prompter.note(
-        "QuickStart uses Node for the Gateway service (stable + supported).",
-        "Gateway service runtime",
+        "«Быстрый старт» использует Node для службы шлюза (стабильно + поддерживается).",
+        "Среда выполнения службы шлюза",
       );
     }
     const service = resolveGatewayService();
@@ -137,35 +137,35 @@ export async function finalizeSetupWizard(
     let restartWasScheduled = false;
     if (loaded) {
       const action = await prompter.select({
-        message: "Gateway service already installed",
+        message: "Служба шлюза уже установлена",
         options: [
-          { value: "restart", label: "Restart" },
-          { value: "reinstall", label: "Reinstall" },
-          { value: "skip", label: "Skip" },
+          { value: "restart", label: "Перезапустить" },
+          { value: "reinstall", label: "Переустановить" },
+          { value: "skip", label: "Пропустить" },
         ],
       });
       if (action === "restart") {
-        let restartDoneMessage = "Gateway service restarted.";
+        let restartDoneMessage = "Служба шлюза перезапущена.";
         await withWizardProgress(
-          "Gateway service",
+          "Служба шлюза",
           { doneMessage: () => restartDoneMessage },
           async (progress) => {
-            progress.update("Restarting Gateway service…");
+            progress.update("Перезапуск службы шлюза...");
             const restartResult = await service.restart({
               env: process.env,
               stdout: process.stdout,
             });
-            const restartStatus = describeGatewayServiceRestart("Gateway", restartResult);
+            const restartStatus = describeGatewayServiceRestart("Шлюз", restartResult);
             restartDoneMessage = restartStatus.progressMessage;
             restartWasScheduled = restartStatus.scheduled;
           },
         );
       } else if (action === "reinstall") {
         await withWizardProgress(
-          "Gateway service",
-          { doneMessage: "Gateway service uninstalled." },
+          "Служба шлюза",
+          { doneMessage: "Служба шлюза удалена." },
           async (progress) => {
-            progress.update("Uninstalling Gateway service…");
+            progress.update("Удаление службы шлюза...");
             await service.uninstall({ env: process.env, stdout: process.stdout });
           },
         );
@@ -176,22 +176,22 @@ export async function finalizeSetupWizard(
       !loaded ||
       (!restartWasScheduled && loaded && !(await service.isLoaded({ env: process.env })))
     ) {
-      const progress = prompter.progress("Gateway service");
+      const progress = prompter.progress("Служба шлюза");
       let installError: string | null = null;
       try {
-        progress.update("Preparing Gateway service…");
+        progress.update("Подготовка службы шлюза...");
         const tokenResolution = await resolveGatewayInstallToken({
           config: nextConfig,
           env: process.env,
         });
         for (const warning of tokenResolution.warnings) {
-          await prompter.note(warning, "Gateway service");
+          await prompter.note(warning, "Служба шлюза");
         }
         if (tokenResolution.unavailableReason) {
           installError = [
-            "Gateway install blocked:",
+            "Установка шлюза заблокирована:",
             tokenResolution.unavailableReason,
-            "Fix gateway auth config/token input and rerun setup.",
+            "Исправьте конфиг авторизации / токен шлюза и перезапустите настройку.",
           ].join(" ");
         } else {
           const { programArguments, workingDirectory, environment } = await buildGatewayInstallPlan(
@@ -204,7 +204,7 @@ export async function finalizeSetupWizard(
             },
           );
 
-          progress.update("Installing Gateway service…");
+          progress.update("Установка службы шлюза...");
           await service.install({
             env: process.env,
             stdout: process.stdout,
@@ -217,12 +217,12 @@ export async function finalizeSetupWizard(
         installError = formatErrorMessage(err);
       } finally {
         progress.stop(
-          installError ? "Gateway service install failed." : "Gateway service installed.",
+          installError ? "Ошибка установки службы шлюза." : "Служба шлюза установлена.",
         );
       }
       if (installError) {
-        await prompter.note(`Gateway service install failed: ${installError}`, "Gateway");
-        await prompter.note(gatewayInstallErrorHint(), "Gateway");
+        await prompter.note(`Gateway service install failed: ${installError}`, "Шлюз");
+        await prompter.note(gatewayInstallErrorHint(), "Шлюз");
       }
     }
   }
@@ -251,7 +251,7 @@ export async function finalizeSetupWizard(
             "https://docs.openclaw.ai/gateway/health",
             "https://docs.openclaw.ai/gateway/troubleshooting",
           ].join("\n"),
-          "Health check help",
+          "Справка по проверке статуса (Health check)",
         );
       }
     } else if (installDaemon) {
@@ -268,18 +268,18 @@ export async function finalizeSetupWizard(
           "https://docs.openclaw.ai/gateway/health",
           "https://docs.openclaw.ai/gateway/troubleshooting",
         ].join("\n"),
-        "Health check help",
+        "Справка по проверке статуса (Health check)",
       );
     } else {
       await prompter.note(
         [
-          "Gateway not detected yet.",
-          "Setup was run without Gateway service install, so no background gateway is expected.",
+          "Шлюз пока не обнаружен.",
+          "Настройка запущена без установки службы шлюза, поэтому фоновый шлюз не ожидается.",
           `Start now: ${formatCliCommand("openclaw gateway run")}`,
           `Or rerun with: ${formatCliCommand("openclaw onboard --install-daemon")}`,
           `Or skip this probe next time: ${formatCliCommand("openclaw onboard --skip-health")}`,
         ].join("\n"),
-        "Gateway",
+        "Шлюз",
       );
     }
   }
@@ -295,12 +295,12 @@ export async function finalizeSetupWizard(
 
   await prompter.note(
     [
-      "Add nodes for extra features:",
+      "Добавьте узлы (nodes) для дополнительных функций:",
       "- macOS app (system + notifications)",
       "- iOS app (camera/canvas)",
       "- Android app (camera/canvas)",
     ].join("\n"),
-    "Optional apps",
+    "Дополнительные приложения",
   );
 
   const controlUiBasePath =
@@ -331,7 +331,7 @@ export async function finalizeSetupWizard(
           "Could not resolve gateway.auth.password SecretRef for setup auth.",
           formatErrorMessage(error),
         ].join("\n"),
-        "Gateway auth",
+        "Авторизация шлюза",
       );
     }
   }
@@ -344,7 +344,7 @@ export async function finalizeSetupWizard(
     });
   }
   const gatewayStatusLine = gatewayProbe.ok
-    ? "Gateway: reachable"
+    ? "Шлюз: доступен"
     : `Gateway: not detected${gatewayProbe.detail ? ` (${gatewayProbe.detail})` : ""}`;
   const bootstrapPath = path.join(
     resolveUserPath(options.workspaceDir),
@@ -367,7 +367,7 @@ export async function finalizeSetupWizard(
     ]
       .filter(Boolean)
       .join("\n"),
-    "Control UI",
+    "Интерфейс управления",
   );
 
   let controlUiOpened = false;
@@ -380,34 +380,34 @@ export async function finalizeSetupWizard(
     if (hasBootstrap) {
       await prompter.note(
         [
-          "This is the defining action that makes your agent you.",
-          "Please take your time.",
-          "The more you tell it, the better the experience will be.",
-          'We will send: "Wake up, my friend!"',
+          "Это ключевой момент настройки, который делает вашего агента отражением вас самих.",
+          "Пожалуйста, не торопитесь.",
+          "Чем больше вы ему расскажете, тем лучше будет результат.",
+          'Мы отправим: «Просыпайся, дружище!»',
         ].join("\n"),
-        "Start TUI (best option!)",
+        "Запустить TUI (лучший вариант!)",
       );
     }
 
     await prompter.note(
       [
-        "Gateway token: shared auth for the Gateway + Control UI.",
+        "Токен шлюза: общий ключ авторизации для Шлюза и Control UI.",
         "Stored in: $OPENCLAW_CONFIG_PATH (default: ~/.openclaw/openclaw.json) under gateway.auth.token, or in OPENCLAW_GATEWAY_TOKEN.",
         `View token: ${formatCliCommand("openclaw config get gateway.auth.token")}`,
         `Generate token: ${formatCliCommand("openclaw doctor --generate-gateway-token")}`,
         "Web UI keeps dashboard URL tokens in memory for the current tab and strips them from the URL after load.",
         `Open the dashboard anytime: ${formatCliCommand("openclaw dashboard --no-open")}`,
-        "If prompted: paste the token into Control UI settings (or use the tokenized dashboard URL).",
+        "Если появится запрос: вставьте токен в настройки Control UI (или используйте URL дашборда с токеном).",
       ].join("\n"),
-      "Token",
+      "Токен",
     );
 
     hatchChoice = await prompter.select({
-      message: "How do you want to hatch your bot?",
+      message: "Как вы хотите запустить бота?",
       options: [
-        { value: "tui", label: "Hatch in TUI (recommended)" },
-        { value: "web", label: "Open the Web UI" },
-        { value: "later", label: "Do this later" },
+        { value: "tui", label: "Запустить в TUI (рекомендуется)" },
+        { value: "web", label: "Открыть Web UI" },
+        { value: "later", label: "Сделать это позже" },
       ],
       initialValue: "tui",
     });
@@ -420,7 +420,7 @@ export async function finalizeSetupWizard(
         password: settings.authMode === "password" ? resolvedGatewayPassword : "",
         // Safety: setup TUI should not auto-deliver to lastProvider/lastTo.
         deliver: false,
-        message: hasBootstrap ? "Wake up, my friend!" : undefined,
+        message: hasBootstrap ? "Просыпайся, дружище!" : undefined,
       });
       launchedTui = true;
     } else if (hatchChoice === "web") {
@@ -445,35 +445,35 @@ export async function finalizeSetupWizard(
         [
           `Dashboard link (with token): ${authedUrl}`,
           controlUiOpened
-            ? "Opened in your browser. Keep that tab to control OpenClaw."
-            : "Copy/paste this URL in a browser on this machine to control OpenClaw.",
+            ? "Открыто в браузере. Не закрывайте эту вкладку для управления OpenClaw."
+            : "Скопируйте и вставьте этот URL в браузер на этом компьютере, чтобы управлять OpenClaw.",
           controlUiOpenHint,
         ]
           .filter(Boolean)
           .join("\n"),
-        "Dashboard ready",
+        "Дашборд готов",
       );
     } else {
       await prompter.note(
         `When you're ready: ${formatCliCommand("openclaw dashboard --no-open")}`,
-        "Later",
+        "Позже",
       );
     }
   } else if (opts.skipUi) {
-    await prompter.note("Skipping Control UI/TUI prompts.", "Control UI");
+    await prompter.note("Пропуск настройки Control UI / TUI.", "Интерфейс управления");
   }
 
   await prompter.note(
     [
-      "Back up your agent workspace.",
-      "Docs: https://docs.openclaw.ai/concepts/agent-workspace",
+      "Сделайте бэкап воркспейса вашего агента.",
+      "Документация: https://docs.openclaw.ai/concepts/agent-workspace",
     ].join("\n"),
-    "Workspace backup",
+    "Бэкап воркспейса",
   );
 
   await prompter.note(
-    "Running agents on your computer is risky — harden your setup: https://docs.openclaw.ai/security",
-    "Security",
+    "Запуск агентов на вашем компьютере несет риски — обезопасьте свою конфигурацию: https://docs.openclaw.ai/security",
+    "Безопасность",
   );
 
   await setupWizardShellCompletion({ flow, prompter });
@@ -507,13 +507,13 @@ export async function finalizeSetupWizard(
       [
         `Dashboard link (with token): ${authedUrl}`,
         controlUiOpened
-          ? "Opened in your browser. Keep that tab to control OpenClaw."
-          : "Copy/paste this URL in a browser on this machine to control OpenClaw.",
+          ? "Открыто в браузере. Не закрывайте эту вкладку для управления OpenClaw."
+          : "Скопируйте и вставьте этот URL в браузер на этом компьютере, чтобы управлять OpenClaw.",
         controlUiOpenHint,
       ]
         .filter(Boolean)
         .join("\n"),
-      "Dashboard ready",
+      "Дашборд готов",
     );
   }
 
@@ -531,9 +531,9 @@ export async function finalizeSetupWizard(
     const envAvailable = entry ? hasKeyInEnv(entry) : false;
     const hasKey = keyConfigured || envAvailable;
     const keySource = storedKey
-      ? "API key: stored in config."
+      ? "API-ключ: сохранен в конфиге."
       : keyConfigured
-        ? "API key: configured via secret reference."
+        ? "API-ключ: настроен через ссылку на секрет (secret reference)."
         : envAvailable
           ? `API key: provided via ${entry?.envVars.join(" / ")} env var.`
           : undefined;
@@ -544,20 +544,20 @@ export async function finalizeSetupWizard(
           "web_search will not work until the provider is re-enabled or a different provider is selected.",
           `  ${formatCliCommand("openclaw configure --section web")}`,
           "",
-          "Docs: https://docs.openclaw.ai/tools/web",
+          "Документация: https://docs.openclaw.ai/tools/web",
         ].join("\n"),
-        "Web search",
+        "Веб-поиск",
       );
     } else if (webSearchEnabled !== false && hasKey) {
       await prompter.note(
         [
-          "Web search is enabled, so your agent can look things up online when needed.",
+          "Веб-поиск включен, поэтому ваш агент сможет искать информацию в интернете при необходимости.",
           "",
           `Provider: ${label}`,
           ...(keySource ? [keySource] : []),
-          "Docs: https://docs.openclaw.ai/tools/web",
+          "Документация: https://docs.openclaw.ai/tools/web",
         ].join("\n"),
-        "Web search",
+        "Веб-поиск",
       );
     } else if (!hasKey) {
       await prompter.note(
@@ -567,9 +567,9 @@ export async function finalizeSetupWizard(
           `  ${formatCliCommand("openclaw configure --section web")}`,
           "",
           `Get your key at: ${entry?.signupUrl ?? "https://docs.openclaw.ai/tools/web"}`,
-          "Docs: https://docs.openclaw.ai/tools/web",
+          "Документация: https://docs.openclaw.ai/tools/web",
         ].join("\n"),
-        "Web search",
+        "Веб-поиск",
       );
     } else {
       await prompter.note(
@@ -577,9 +577,9 @@ export async function finalizeSetupWizard(
           `Web search (${label}) is configured but disabled.`,
           `Re-enable: ${formatCliCommand("openclaw configure --section web")}`,
           "",
-          "Docs: https://docs.openclaw.ai/tools/web",
+          "Документация: https://docs.openclaw.ai/tools/web",
         ].join("\n"),
-        "Web search",
+        "Веб-поиск",
       );
     }
   } else {
@@ -593,28 +593,28 @@ export async function finalizeSetupWizard(
       await prompter.note(
         [
           `Web search is available via ${legacyDetected.label} (auto-detected).`,
-          "Docs: https://docs.openclaw.ai/tools/web",
+          "Документация: https://docs.openclaw.ai/tools/web",
         ].join("\n"),
-        "Web search",
+        "Веб-поиск",
       );
     } else if (codexNativeSummary) {
       await prompter.note(
         [
-          "Managed web search provider was skipped.",
+          "Провайдер управляемого веб-поиска был пропущен.",
           codexNativeSummary,
-          "Docs: https://docs.openclaw.ai/tools/web",
+          "Документация: https://docs.openclaw.ai/tools/web",
         ].join("\n"),
-        "Web search",
+        "Веб-поиск",
       );
     } else {
       await prompter.note(
         [
-          "Web search was skipped. You can enable it later:",
+          "Веб-поиск пропущен. Вы можете включить его позже:",
           `  ${formatCliCommand("openclaw configure --section web")}`,
           "",
-          "Docs: https://docs.openclaw.ai/tools/web",
+          "Документация: https://docs.openclaw.ai/tools/web",
         ].join("\n"),
-        "Web search",
+        "Веб-поиск",
       );
     }
   }
@@ -623,24 +623,24 @@ export async function finalizeSetupWizard(
     await prompter.note(
       [
         codexNativeSummary,
-        "Used only for Codex-capable models.",
-        "Docs: https://docs.openclaw.ai/tools/web",
+        "Используется только для моделей с поддержкой Codex.",
+        "Документация: https://docs.openclaw.ai/tools/web",
       ].join("\n"),
-      "Codex native search",
+      "Нативный поиск Codex",
     );
   }
 
   await prompter.note(
-    'What now: https://openclaw.ai/showcase ("What People Are Building").',
-    "What now",
+    'Что дальше: https://openclaw.ai/showcase ("Что люди создают").',
+    "Что дальше?",
   );
 
   await prompter.outro(
     controlUiOpened
-      ? "Onboarding complete. Dashboard opened; keep that tab to control OpenClaw."
+      ? "Настройка завершена. Дашборд открыт; не закрывайте эту вкладку для управления OpenClaw."
       : seededInBackground
-        ? "Onboarding complete. Web UI seeded in the background; open it anytime with the dashboard link above."
-        : "Onboarding complete. Use the dashboard link above to control OpenClaw.",
+        ? "Настройка завершена. Web UI запущен в фоновом режиме; вы можете открыть его в любой момент по ссылке на дашборд выше."
+        : "Настройка завершена. Используйте ссылку на дашборд выше для управления OpenClaw.",
   );
 
   return { launchedTui };

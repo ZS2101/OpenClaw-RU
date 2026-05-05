@@ -202,7 +202,7 @@ describe("maybeRepairGatewayDaemon", () => {
 
     expect(service.restart).toHaveBeenCalledTimes(1);
     expect(note).toHaveBeenCalledWith(
-      "restart scheduled, gateway will restart momentarily",
+      "запланирован перезапуск, gateway перезапустится через мгновение",
       "Gateway",
     );
     expect(sleep).not.toHaveBeenCalled();
@@ -225,7 +225,7 @@ describe("maybeRepairGatewayDaemon", () => {
 
     expect(service.restart).toHaveBeenCalledTimes(1);
     expect(note).toHaveBeenCalledWith(
-      "restart scheduled, gateway will restart momentarily",
+      "запланирован перезапуск, gateway перезапустится через мгновение",
       "Gateway",
     );
     expect(sleep).not.toHaveBeenCalled();

@@ -20,7 +20,7 @@ const buildGatewayInstallPlan = vi.hoisted(() =>
   })),
 );
 const gatewayServiceInstall = vi.hoisted(() => vi.fn(async () => {}));
-const gatewayServiceRestart = vi.hoisted(() =>
+const gatewayServiceПерезапустить = vi.hoisted(() =>
   vi.fn<() => Promise<{ outcome: "completed" } | { outcome: "scheduled" }>>(async () => ({
     outcome: "completed",
   })),
@@ -106,19 +106,19 @@ vi.mock("../daemon/service.js", () => ({
       ? {
           scheduled: true,
           daemonActionResult: "scheduled",
-          message: `restart scheduled, ${serviceNoun.toLowerCase()} will restart momentarily`,
-          progressMessage: `${serviceNoun} service restart scheduled.`,
+          message: `запланирован перезапуск, ${serviceNoun.toLowerCase()} перезапустится через мгновение`,
+          progressMessage: `Перезапуск службы ${serviceNoun} запланирован.`,
         }
       : {
           scheduled: false,
           daemonActionResult: "restarted",
-          message: `${serviceNoun} service restarted.`,
-          progressMessage: `${serviceNoun} service restarted.`,
+          message: `Служба ${serviceNoun} перезапущена.`,
+          progressMessage: `Служба ${serviceNoun} перезапущена.`,
         },
   ),
   resolveGatewayService: vi.fn(() => ({
     isLoaded: gatewayServiceIsLoaded,
-    restart: gatewayServiceRestart,
+    restart: gatewayServiceПерезапустить,
     uninstall: gatewayServiceUninstall,
     install: gatewayServiceInstall,
   })),
@@ -188,7 +188,7 @@ type AdvancedFinalizeArgs = {
   installDaemon?: boolean;
 };
 
-function createLaterPrompter() {
+function createПозжеPrompter() {
   return buildWizardPrompter({
     select: vi.fn(async () => "later") as never,
     confirm: vi.fn(async () => false),
@@ -229,7 +229,7 @@ function createAdvancedFinalizeArgs(params: AdvancedFinalizeArgs = {}) {
       tailscaleMode: "off" as const,
       tailscaleResetOnExit: false,
     },
-    prompter: params.prompter ?? createLaterPrompter(),
+    prompter: params.prompter ?? createПозжеPrompter(),
     runtime: params.runtime ?? createRuntime(),
   };
 }
@@ -245,8 +245,8 @@ describe("finalizeSetupWizard", () => {
     gatewayServiceInstall.mockClear();
     gatewayServiceIsLoaded.mockReset();
     gatewayServiceIsLoaded.mockResolvedValue(false);
-    gatewayServiceRestart.mockReset();
-    gatewayServiceRestart.mockResolvedValue({ outcome: "completed" });
+    gatewayServiceПерезапустить.mockReset();
+    gatewayServiceПерезапустить.mockResolvedValue({ outcome: "completed" });
     gatewayServiceUninstall.mockReset();
     resolveGatewayInstallToken.mockClear();
     isSystemdUserServiceAvailable.mockReset();
@@ -270,7 +270,7 @@ describe("finalizeSetupWizard", () => {
     process.env.OPENCLAW_GATEWAY_PASSWORD = "resolved-gateway-password"; // pragma: allowlist secret
     resolveSetupSecretInputString.mockResolvedValueOnce("resolved-gateway-password");
     const select = vi.fn(async (params: { message: string }) => {
-      if (params.message === "How do you want to hatch your bot?") {
+      if (params.message === "Как вы хотите запустить бота?") {
         return "tui";
       }
       return "later";
@@ -397,10 +397,10 @@ describe("finalizeSetupWizard", () => {
     const progressUpdate = vi.fn();
     const progressStop = vi.fn();
     gatewayServiceIsLoaded.mockResolvedValue(true);
-    gatewayServiceRestart.mockResolvedValueOnce({ outcome: "scheduled" });
+    gatewayServiceПерезапустить.mockResolvedValueOnce({ outcome: "scheduled" });
     const prompter = buildWizardPrompter({
       select: vi.fn(async (params: { message: string }) => {
-        if (params.message === "Gateway service already installed") {
+        if (params.message === "Служба шлюза уже установлена") {
           return "restart";
         }
         return "later";
@@ -433,15 +433,15 @@ describe("finalizeSetupWizard", () => {
       runtime: createRuntime(),
     });
 
-    expect(gatewayServiceRestart).toHaveBeenCalledTimes(1);
+    expect(gatewayServiceПерезапустить).toHaveBeenCalledTimes(1);
     expect(gatewayServiceInstall).not.toHaveBeenCalled();
     expect(gatewayServiceUninstall).not.toHaveBeenCalled();
-    expect(progressUpdate).toHaveBeenCalledWith("Restarting Gateway service…");
-    expect(progressStop).toHaveBeenCalledWith("Gateway service restart scheduled.");
+    expect(progressUpdate).toHaveBeenCalledWith("Перезапуск службы шлюза...");
+    expect(progressStop).toHaveBeenCalledWith("Перезапуск службы Шлюз запланирован.");
   });
 
   it("reports selected providers blocked by plugin policy as unavailable", async () => {
-    const prompter = createLaterPrompter();
+    const prompter = createПозжеPrompter();
 
     await finalizeSetupWizard(
       createAdvancedFinalizeArgs({
@@ -452,7 +452,7 @@ describe("finalizeSetupWizard", () => {
 
     expect(prompter.note).toHaveBeenCalledWith(
       expect.stringContaining("selected but unavailable under the current plugin policy"),
-      "Web search",
+      "Веб-поиск",
     );
     expect(resolveExistingKey).not.toHaveBeenCalled();
     expect(hasExistingKey).not.toHaveBeenCalled();
@@ -472,13 +472,13 @@ describe("finalizeSetupWizard", () => {
     ]);
     hasExistingKey.mockImplementation((_config, provider) => provider === "perplexity");
 
-    const prompter = createLaterPrompter();
+    const prompter = createПозжеPrompter();
 
     await finalizeSetupWizard(createAdvancedFinalizeArgs({ prompter }));
 
     expect(prompter.note).toHaveBeenCalledWith(
       expect.stringContaining("Web search is available via Perplexity Search (auto-detected)."),
-      "Web search",
+      "Веб-поиск",
     );
   });
 
@@ -496,7 +496,7 @@ describe("finalizeSetupWizard", () => {
     ]);
     hasExistingKey.mockImplementation((_config, provider) => provider === "firecrawl");
 
-    const prompter = createLaterPrompter();
+    const prompter = createПозжеPrompter();
 
     await finalizeSetupWizard(
       createAdvancedFinalizeArgs({
@@ -507,9 +507,9 @@ describe("finalizeSetupWizard", () => {
 
     expect(prompter.note).toHaveBeenCalledWith(
       expect.stringContaining(
-        "Web search is enabled, so your agent can look things up online when needed.",
+        "Веб-поиск включен, поэтому ваш агент сможет искать информацию в интернете при необходимости.",
       ),
-      "Web search",
+      "Веб-поиск",
     );
   });
 
@@ -522,7 +522,7 @@ describe("finalizeSetupWizard", () => {
       ok: false,
       detail: "gateway closed (1006 abnormal closure (no close frame)): no close reason",
     });
-    const prompter = createLaterPrompter();
+    const prompter = createПозжеPrompter();
     const runtime = createRuntime();
 
     await finalizeSetupWizard({
@@ -551,13 +551,13 @@ describe("finalizeSetupWizard", () => {
 
     expect(runtime.error).not.toHaveBeenCalledWith("health failed");
     expect(prompter.note).toHaveBeenCalledWith(
-      expect.stringContaining("Setup was run without Gateway service install"),
-      "Gateway",
+      expect.stringContaining("Настройка запущена без установки службы шлюза"),
+      "Шлюз",
     );
-    expect(prompter.note).not.toHaveBeenCalledWith(expect.any(String), "Dashboard ready");
+    expect(prompter.note).not.toHaveBeenCalledWith(expect.any(String), "Дашборд готов");
   });
 
-  it("does not show a Codex native search summary when web search is globally disabled", async () => {
+  it("does not show a Нативный поиск Codex summary when web search is globally disabled", async () => {
     const note = vi.fn(async () => {});
     const prompter = buildWizardPrompter({
       note,
@@ -602,8 +602,8 @@ describe("finalizeSetupWizard", () => {
     });
 
     expect(note).not.toHaveBeenCalledWith(
-      expect.stringContaining("Codex native search:"),
-      "Codex native search",
+      expect.stringContaining("Нативный поиск Codex:"),
+      "Нативный поиск Codex",
     );
   });
 });

@@ -259,9 +259,9 @@ async function promptWhatsAppDmAccess(params: {
   const policy = (await params.prompter.select({
     message: "WhatsApp DM policy",
     options: [
-      { value: "pairing", label: "Pairing (recommended)" },
+      { value: "pairing", label: "Сопряжение (рекомендуется)" },
       { value: "allowlist", label: "Allowlist only (block unknown senders)" },
-      { value: "open", label: "Open (public inbound DMs)" },
+      { value: "open", label: "Открытый (публичные входящие ЛС)" },
       { value: "disabled", label: "Disabled (ignore WhatsApp DMs)" },
     ],
   })) as DmPolicy;

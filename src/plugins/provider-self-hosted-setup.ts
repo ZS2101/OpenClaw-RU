@@ -203,20 +203,20 @@ export async function promptAndConfigureOpenAICompatibleSelfHostedProvider(
   params: OpenAICompatibleSelfHostedProviderSetupParams,
 ): Promise<OpenAICompatibleSelfHostedProviderPromptResult> {
   const baseUrlRaw = await params.prompter.text({
-    message: `${params.providerLabel} base URL`,
+    message: `${params.providerLabel}: базовый URL`,
     initialValue: params.defaultBaseUrl,
     placeholder: params.defaultBaseUrl,
-    validate: (value) => (value?.trim() ? undefined : "Required"),
+    validate: (value) => (value?.trim() ? undefined : "Обязательно"),
   });
   const apiKeyRaw = await params.prompter.text({
-    message: `${params.providerLabel} API key`,
-    placeholder: "sk-... (or any non-empty string)",
-    validate: (value) => (value?.trim() ? undefined : "Required"),
+    message: `${params.providerLabel}: API-ключ`,
+    placeholder: "sk-... (или любая непустая строка)",
+    validate: (value) => (value?.trim() ? undefined : "Обязательно"),
   });
   const modelIdRaw = await params.prompter.text({
-    message: `${params.providerLabel} model`,
+    message: `${params.providerLabel}: модель`,
     placeholder: params.modelPlaceholder,
-    validate: (value) => (value?.trim() ? undefined : "Required"),
+    validate: (value) => (value?.trim() ? undefined : "Обязательно"),
   });
 
   const baseUrl = (baseUrlRaw ?? "").trim().replace(/\/+$/, "");
@@ -283,8 +283,8 @@ function buildMissingNonInteractiveModelIdMessage(params: {
   modelPlaceholder: string;
 }): string {
   return [
-    `Missing --custom-model-id for --auth-choice ${params.authChoice}.`,
-    `Pass the ${params.providerLabel} model id to use, for example ${params.modelPlaceholder}.`,
+    `Не указан --custom-model-id для --auth-choice ${params.authChoice}.`,
+    `Укажите ID модели ${params.providerLabel}, например ${params.modelPlaceholder}.`,
   ].join("\n");
 }
 
@@ -369,6 +369,6 @@ export async function configureOpenAICompatibleSelfHostedProviderNonInteractive(
     provider: params.providerId,
     mode: "api_key",
   });
-  params.ctx.runtime.log(`Default ${params.providerLabel} model: ${modelId}`);
+  params.ctx.runtime.log(`Модель ${params.providerLabel} по умолчанию: ${modelId}`);
   return applyProviderDefaultModel(withProfile, configured.modelRef);
 }

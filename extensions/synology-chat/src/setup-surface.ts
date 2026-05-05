@@ -19,19 +19,19 @@ const channel = "synology-chat" as const;
 const DEFAULT_WEBHOOK_PATH = "/webhook/synology";
 
 const SYNOLOGY_SETUP_HELP_LINES = [
-  "1) Create an incoming webhook in Synology Chat and copy its URL",
-  "2) Create an outgoing webhook and copy its secret token",
+  "1) Создайте входящий webhook в Synology Chat и скопируйте его URL",
+  "2) Создайте исходящий webhook и скопируйте его секретный токен",
   `3) Point the outgoing webhook to https://<gateway-host>${DEFAULT_WEBHOOK_PATH}`,
-  "4) Keep allowed user IDs handy for DM allowlisting",
+  "4) Держите под рукой разрешенные ID пользователей для добавления в белый список ЛС",
   `Docs: ${formatDocsLink("/channels/synology-chat", "channels/synology-chat")}`,
 ];
 
 const SYNOLOGY_ALLOW_FROM_HELP_LINES = [
-  "Allowlist Synology Chat DMs by numeric user id.",
+  "Добавьте в белый список ЛС Synology Chat по числовому user id.",
   "Examples:",
   "- 123456",
   "- synology-chat:123456",
-  "Multiple entries: comma-separated.",
+  "Несколько значений: через запятую.",
   `Docs: ${formatDocsLink("/channels/synology-chat", "channels/synology-chat")}`,
 ];
 
@@ -189,10 +189,10 @@ export const synologyChatSetupWizard: ChannelSetupWizard = {
   channel,
   status: createStandardChannelSetupStatus({
     channelLabel: "Synology Chat",
-    configuredLabel: "configured",
-    unconfiguredLabel: "needs token + incoming webhook",
-    configuredHint: "configured",
-    unconfiguredHint: "needs token + incoming webhook",
+    configuredLabel: "настроено",
+    unconfiguredLabel: "нужен токен + входящий вебхук",
+    configuredHint: "настроено",
+    unconfiguredHint: "нужен токен + входящий вебхук",
     configuredScore: 1,
     unconfiguredScore: 0,
     includeStatusLine: true,
@@ -212,13 +212,13 @@ export const synologyChatSetupWizard: ChannelSetupWizard = {
     {
       inputKey: "token",
       providerHint: channel,
-      credentialLabel: "outgoing webhook token",
+      credentialLabel: "токен исходящего вебхука",
       preferredEnvVar: "SYNOLOGY_CHAT_TOKEN",
-      helpTitle: "Synology Chat webhook token",
+      helpTitle: "Токен webhook Synology Chat",
       helpLines: SYNOLOGY_SETUP_HELP_LINES,
-      envPrompt: "SYNOLOGY_CHAT_TOKEN detected. Use env var?",
+      envPrompt: "Обнаружен SYNOLOGY_CHAT_TOKEN. Использовать env var?",
       keepPrompt: "Synology Chat webhook token already configured. Keep it?",
-      inputPrompt: "Enter Synology Chat outgoing webhook token",
+      inputPrompt: "Введите токен исходящего webhook Synology Chat",
       allowEnv: ({ accountId }) => accountId === DEFAULT_ACCOUNT_ID,
       inspect: ({ cfg, accountId }) => {
         const account = resolveAccount(cfg, accountId);
@@ -256,9 +256,9 @@ export const synologyChatSetupWizard: ChannelSetupWizard = {
       message: "Incoming webhook URL",
       placeholder:
         "https://nas.example.com/webapi/entry.cgi?api=SYNO.Chat.External&method=incoming...",
-      helpTitle: "Synology Chat incoming webhook",
+      helpTitle: "Входящий webhook Synology Chat",
       helpLines: [
-        "Use the incoming webhook URL from Synology Chat integrations.",
+        "Используйте URL входящего webhook из интеграций Synology Chat.",
         "This is the URL OpenClaw uses to send replies back to Chat.",
       ],
       currentValue: ({ cfg, accountId }) => getRawAccountConfig(cfg, accountId).incomingUrl?.trim(),
@@ -278,10 +278,10 @@ export const synologyChatSetupWizard: ChannelSetupWizard = {
       placeholder: DEFAULT_WEBHOOK_PATH,
       required: false,
       applyEmptyValue: true,
-      helpTitle: "Synology Chat outgoing webhook path",
+      helpTitle: "Путь исходящего webhook Synology Chat",
       helpLines: [
         `Default path: ${DEFAULT_WEBHOOK_PATH}`,
-        "Change this only if you need multiple Synology Chat webhook routes.",
+        "Изменяйте это только если вам нужно несколько маршрутов webhook для Synology Chat.",
       ],
       currentValue: ({ cfg, accountId }) => getRawAccountConfig(cfg, accountId).webhookPath?.trim(),
       keepPrompt: (value) => `Outgoing webhook path set (${value}). Keep it?`,

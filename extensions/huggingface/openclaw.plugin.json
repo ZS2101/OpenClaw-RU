@@ -1,9 +1,14 @@
 {
   "id": "huggingface",
   "enabledByDefault": true,
-  "providers": ["huggingface"],
+  "providers": [
+    "huggingface"
+  ],
   "providerAuthEnvVars": {
-    "huggingface": ["HUGGINGFACE_HUB_TOKEN", "HF_TOKEN"]
+    "huggingface": [
+      "HUGGINGFACE_HUB_TOKEN",
+      "HF_TOKEN"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -13,7 +18,7 @@
       "choiceLabel": "Hugging Face API key",
       "choiceHint": "Inference API (HF token)",
       "groupId": "huggingface",
-      "groupLabel": "Hugging Face",
+      "groupLabel": "$ Hugging Face",
       "groupHint": "Inference API (HF token)",
       "optionKey": "huggingfaceApiKey",
       "cliFlag": "--huggingface-api-key",
@@ -29,7 +34,9 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "enabled": { "type": "boolean" }
+          "enabled": {
+            "type": "boolean"
+          }
         }
       }
     }

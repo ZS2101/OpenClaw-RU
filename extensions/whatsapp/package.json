@@ -28,11 +28,11 @@
     "channel": {
       "id": "whatsapp",
       "label": "WhatsApp",
-      "selectionLabel": "WhatsApp (QR link)",
+      "selectionLabel": "WhatsApp (Привязка по QR)",
       "detailLabel": "WhatsApp Web",
       "docsPath": "/channels/whatsapp",
       "docsLabel": "whatsapp",
-      "blurb": "works with your own number; recommend a separate phone + eSIM.",
+      "blurb": "работает с вашим номером; рекомендуется использовать отдельный телефон + eSIM.",
       "systemImage": "message",
       "persistedAuthState": {
         "specifier": "./auth-presence",

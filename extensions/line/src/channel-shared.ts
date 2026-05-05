@@ -16,7 +16,7 @@ export const lineChannelMeta = {
   detailLabel: "LINE Bot",
   docsPath: "/channels/line",
   docsLabel: "line",
-  blurb: "LINE Messaging API bot for Japan/Taiwan/Thailand markets.",
+  blurb: "бот через LINE Messaging API для рынков Японии/Тайваня/Таиланда.",
   systemImage: "message.fill",
 } as const;
 

@@ -1,11 +1,21 @@
 {
   "id": "google",
   "enabledByDefault": true,
-  "providers": ["google", "google-gemini-cli"],
-  "autoEnableWhenConfiguredProviders": ["google-gemini-cli"],
-  "cliBackends": ["google-gemini-cli"],
+  "providers": [
+    "google",
+    "google-gemini-cli"
+  ],
+  "autoEnableWhenConfiguredProviders": [
+    "google-gemini-cli"
+  ],
+  "cliBackends": [
+    "google-gemini-cli"
+  ],
   "providerAuthEnvVars": {
-    "google": ["GEMINI_API_KEY", "GOOGLE_API_KEY"]
+    "google": [
+      "GEMINI_API_KEY",
+      "GOOGLE_API_KEY"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -14,7 +24,7 @@
       "choiceId": "gemini-api-key",
       "choiceLabel": "Google Gemini API key",
       "groupId": "google",
-      "groupLabel": "Google",
+      "groupLabel": "$ Google",
       "groupHint": "Gemini API key + OAuth",
       "optionKey": "geminiApiKey",
       "cliFlag": "--gemini-api-key",
@@ -28,7 +38,7 @@
       "choiceLabel": "Gemini CLI OAuth",
       "choiceHint": "Google OAuth with project-aware token payload",
       "groupId": "google",
-      "groupLabel": "Google",
+      "groupLabel": "$ Google",
       "groupHint": "Gemini API key + OAuth"
     }
   ],
@@ -45,12 +55,24 @@
     }
   },
   "contracts": {
-    "mediaUnderstandingProviders": ["google"],
-    "imageGenerationProviders": ["google"],
-    "musicGenerationProviders": ["google"],
-    "speechProviders": ["google"],
-    "videoGenerationProviders": ["google"],
-    "webSearchProviders": ["gemini"]
+    "mediaUnderstandingProviders": [
+      "google"
+    ],
+    "imageGenerationProviders": [
+      "google"
+    ],
+    "musicGenerationProviders": [
+      "google"
+    ],
+    "speechProviders": [
+      "google"
+    ],
+    "videoGenerationProviders": [
+      "google"
+    ],
+    "webSearchProviders": [
+      "gemini"
+    ]
   },
   "configSchema": {
     "type": "object",
@@ -61,7 +83,10 @@
         "additionalProperties": false,
         "properties": {
           "apiKey": {
-            "type": ["string", "object"]
+            "type": [
+              "string",
+              "object"
+            ]
           },
           "model": {
             "type": "string"

@@ -5,7 +5,7 @@ export function buildMissingXSearchApiKeyPayload() {
   return {
     error: "missing_xai_api_key",
     message:
-      "x_search needs an xAI API key. Set XAI_API_KEY in the Gateway environment, or configure plugins.entries.xai.config.webSearch.apiKey.",
+      "x_search needs an xAI API-ключ. Set XAI_API_KEY in the Gateway environment, or configure plugins.entries.xai.config.webSearch.apiKey.",
     docs: "https://docs.openclaw.ai/tools/web",
   };
 }

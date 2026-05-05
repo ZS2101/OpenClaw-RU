@@ -1,6 +1,5 @@
 ---
-name: session-logs
-description: Search and analyze your own session logs (older/parent conversations) using jq.
+name: session-logsdescription: "Поиск и анализ собственных логов сессий (старых/родительских бесед) с использованием jq."
 metadata:
   {
     "openclaw":

@@ -1,0 +1,1 @@
+{"id":"vkteams","activation":{"onStartup":false},"channels":["vkteams"],"channelEnvVars":{"vkteams":["VKTEAMS_BOT_TOKEN"]},"configSchema":{"type":"object","additionalProperties":false,"properties":{}}}

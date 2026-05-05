@@ -85,7 +85,7 @@ export async function promptIMessageAllowFrom(params: {
       "- user@example.com",
       "- chat_id:123",
       "- chat_guid:... or chat_identifier:...",
-      "Multiple entries: comma-separated.",
+      "Несколько значений: через запятую.",
       `Docs: ${formatDocsLink("/imessage", "imessage")}`,
     ],
     message: "iMessage allowFrom (handle or chat_id)",
@@ -162,17 +162,17 @@ export function createIMessageCliPathTextInput(
     resolvePath: ({ cfg, accountId }) => resolveIMessageCliPath({ cfg, accountId }),
     shouldPrompt,
     helpTitle: "iMessage",
-    helpLines: ["imsg CLI path required to enable iMessage."],
+    helpLines: ["Для включения iMessage требуется путь к CLI imsg."],
   });
 }
 
 export const imessageCompletionNote = {
-  title: "iMessage next steps",
+  title: "Следующие шаги для iMessage",
   lines: [
-    "This is still a work in progress.",
+    "Это всё ещё в разработке (WIP).",
     "Ensure OpenClaw has Full Disk Access to Messages DB.",
-    "Grant Automation permission for Messages when prompted.",
-    "List chats with: imsg chats --limit 20",
+    "При появлении запроса предоставьте разрешение на автоматизацию для Сообщений.",
+    "Просмотр чатов: imsg chats --limit 20",
     `Docs: ${formatDocsLink("/imessage", "imessage")}`,
   ],
 };
@@ -183,10 +183,10 @@ export const imessageSetupAdapter: ChannelSetupAdapter = createPatchedAccountSet
 });
 
 export const imessageSetupStatusBase = {
-  configuredLabel: "configured",
-  unconfiguredLabel: "needs setup",
-  configuredHint: "imsg found",
-  unconfiguredHint: "imsg missing",
+  configuredLabel: "настроено",
+  unconfiguredLabel: "требуется настройка",
+  configuredHint: "imsg найден",
+  unconfiguredHint: "imsg не найден",
   configuredScore: 1,
   unconfiguredScore: 0,
   resolveConfigured: ({ cfg, accountId }: { cfg: OpenClawConfig; accountId?: string }) =>

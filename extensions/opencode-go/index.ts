@@ -17,7 +17,9 @@ export default definePluginEntry({
       auth: [
         createOpencodeCatalogApiKeyAuthMethod({
           providerId: PROVIDER_ID,
-          label: "OpenCode Go catalog",
+          label: "Каталог OpenCode Go",
+          wizard: { groupLabel: "$ OpenCode Go" },
+          groupSortKey: 3,
           optionKey: "opencodeGoApiKey",
           flagName: "--opencode-go-api-key",
           defaultModel: OPENCODE_GO_DEFAULT_MODEL_REF,
@@ -28,7 +30,7 @@ export default definePluginEntry({
             "Get your API key at: https://opencode.ai/auth",
           ].join("\n"),
           choiceId: "opencode-go",
-          choiceLabel: "OpenCode Go catalog",
+          choiceLabel: "Каталог OpenCode Go",
         }),
       ],
       ...PASSTHROUGH_GEMINI_REPLAY_HOOKS,

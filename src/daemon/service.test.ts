@@ -53,8 +53,8 @@ describe("resolveGatewayService", () => {
     expect(describeGatewayServiceRestart("Gateway", { outcome: "scheduled" })).toEqual({
       scheduled: true,
       daemonActionResult: "scheduled",
-      message: "restart scheduled, gateway will restart momentarily",
-      progressMessage: "Gateway service restart scheduled.",
+      message: "запланирован перезапуск, gateway перезапустится через мгновение",
+      progressMessage: "Перезапуск службы Gateway запланирован.",
     });
   });
 });

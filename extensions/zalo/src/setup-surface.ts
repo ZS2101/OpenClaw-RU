@@ -98,10 +98,10 @@ export const zaloSetupWizard: ChannelSetupWizard = {
   channel,
   status: createStandardChannelSetupStatus({
     channelLabel: "Zalo",
-    configuredLabel: "configured",
-    unconfiguredLabel: "needs token",
-    configuredHint: "recommended · configured",
-    unconfiguredHint: "recommended · newcomer-friendly",
+    configuredLabel: "настроено",
+    unconfiguredLabel: "нужен токен",
+    configuredHint: "рекомендуется · настроено",
+    unconfiguredHint: "рекомендуется · дружелюбно для новичков",
     configuredScore: 1,
     unconfiguredScore: 10,
     includeStatusLine: true,
@@ -135,15 +135,15 @@ export const zaloSetupWizard: ChannelSetupWizard = {
       cfg: next,
       prompter,
       providerHint: "zalo",
-      credentialLabel: "bot token",
+      credentialLabel: "токен бота",
       secretInputMode: options?.secretInputMode,
       accountConfigured,
       hasConfigToken,
       allowEnv,
       envValue: process.env.ZALO_BOT_TOKEN,
-      envPrompt: "ZALO_BOT_TOKEN detected. Use env var?",
+      envPrompt: "Обнаружен ZALO_BOT_TOKEN. Использовать env var?",
       keepPrompt: "Zalo token already configured. Keep it?",
-      inputPrompt: "Enter Zalo bot token",
+      inputPrompt: "Введите токен бота Zalo",
       preferredEnvVar: "ZALO_BOT_TOKEN",
       onMissingConfigured: async () => await noteZaloTokenHelp(prompter),
       applyUseEnv: async (currentCfg) =>
@@ -220,7 +220,7 @@ export const zaloSetupWizard: ChannelSetupWizard = {
         cfg: next,
         prompter,
         providerHint: "zalo-webhook",
-        credentialLabel: "webhook secret",
+        credentialLabel: "секрет вебхука",
         secretInputMode: options?.secretInputMode,
         ...buildSingleChannelSecretPromptState({
           accountConfigured: hasConfiguredSecretInput(resolvedAccount.config.webhookSecret),
@@ -229,7 +229,7 @@ export const zaloSetupWizard: ChannelSetupWizard = {
         }),
         envPrompt: "",
         keepPrompt: "Zalo webhook secret already configured. Keep it?",
-        inputPrompt: "Webhook secret (8-256 chars)",
+        inputPrompt: "Секрет webhook (8-256 символов)",
         preferredEnvVar: "ZALO_WEBHOOK_SECRET",
       });
       while (
@@ -242,7 +242,7 @@ export const zaloSetupWizard: ChannelSetupWizard = {
           cfg: next,
           prompter,
           providerHint: "zalo-webhook",
-          credentialLabel: "webhook secret",
+          credentialLabel: "секрет вебхука",
           secretInputMode: options?.secretInputMode,
           ...buildSingleChannelSecretPromptState({
             accountConfigured: false,
@@ -251,7 +251,7 @@ export const zaloSetupWizard: ChannelSetupWizard = {
           }),
           envPrompt: "",
           keepPrompt: "Zalo webhook secret already configured. Keep it?",
-          inputPrompt: "Webhook secret (8-256 chars)",
+          inputPrompt: "Секрет webhook (8-256 символов)",
           preferredEnvVar: "ZALO_WEBHOOK_SECRET",
         });
       }

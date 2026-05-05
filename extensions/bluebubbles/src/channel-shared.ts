@@ -17,11 +17,11 @@ import { normalizeBlueBubblesHandle } from "./targets.js";
 export const bluebubblesMeta = {
   id: "bluebubbles",
   label: "BlueBubbles",
-  selectionLabel: "BlueBubbles (macOS app)",
+  selectionLabel: "BlueBubbles (macOS-приложение)",
   detailLabel: "BlueBubbles",
   docsPath: "/channels/bluebubbles",
   docsLabel: "bluebubbles",
-  blurb: "iMessage via the BlueBubbles mac app + REST API.",
+  blurb: "iMessage через mac-приложение BlueBubbles + REST API.",
   systemImage: "bubble.left.and.text.bubble.right",
   aliases: ["bb"],
   order: 75,

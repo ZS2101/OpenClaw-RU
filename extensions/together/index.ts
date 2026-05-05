@@ -15,16 +15,17 @@ export default defineSingleProviderPluginEntry({
     auth: [
       {
         methodId: "api-key",
-        label: "Together AI API key",
+        label: "API-ключ Together AI",
         hint: "API key",
         optionKey: "togetherApiKey",
         flagName: "--together-api-key",
         envVar: "TOGETHER_API_KEY",
-        promptMessage: "Enter Together AI API key",
+        promptMessage: "Введите API-ключ Together AI",
         defaultModel: TOGETHER_DEFAULT_MODEL_REF,
         applyConfig: (cfg) => applyTogetherConfig(cfg),
         wizard: {
-          groupLabel: "Together AI",
+          groupLabel: "$ Together AI",
+          groupSortKey: 3,
         },
       },
     ],

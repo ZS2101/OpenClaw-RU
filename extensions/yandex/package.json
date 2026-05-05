@@ -1,0 +1,29 @@
+{
+  "name": "@rurik/yandex",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Rurik Yandex Messenger channel plugin",
+  "openclaw": {
+    "channel": {
+      "id": "yandex",
+      "label": "Yandex Messenger",
+      "selectionLabel": "Яндекс Мессенджер (Webhook)",
+      "detailLabel": "Yandex Bot",
+      "docsPath": "/channels/yandex",
+      "blurb": "бот для Яндекс Мессенджера с поддержкой вебхуков.",
+      "order": 2
+    },
+    "install": {
+      "npmSpec": "@rurik/yandex",
+      "defaultChoice": "npm"
+    },
+    "release": {
+      "publishToNpm": true
+    },
+    "setupEntry": "./setup-entry.ts",
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "type": "module"
+}

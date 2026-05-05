@@ -1,9 +1,14 @@
 {
   "id": "chutes",
   "enabledByDefault": true,
-  "providers": ["chutes"],
+  "providers": [
+    "chutes"
+  ],
   "providerAuthEnvVars": {
-    "chutes": ["CHUTES_API_KEY", "CHUTES_OAUTH_TOKEN"]
+    "chutes": [
+      "CHUTES_API_KEY",
+      "CHUTES_OAUTH_TOKEN"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -13,7 +18,7 @@
       "choiceLabel": "Chutes (OAuth)",
       "choiceHint": "Browser sign-in",
       "groupId": "chutes",
-      "groupLabel": "Chutes",
+      "groupLabel": "$ Chutes",
       "groupHint": "OAuth + API key"
     },
     {
@@ -23,7 +28,7 @@
       "choiceLabel": "Chutes API key",
       "choiceHint": "Open-source models including Llama, DeepSeek, and more",
       "groupId": "chutes",
-      "groupLabel": "Chutes",
+      "groupLabel": "$ Chutes",
       "groupHint": "OAuth + API key",
       "optionKey": "chutesApiKey",
       "cliFlag": "--chutes-api-key",

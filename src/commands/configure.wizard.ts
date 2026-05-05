@@ -35,7 +35,7 @@ import {
 } from "./configure.shared.js";
 import { formatHealthCheckFailure } from "./health-format.js";
 import { healthCommand } from "./health.js";
-import { noteChannelStatus, setupChannels } from "./onboard-channels.js";
+import { noteChannelStatus, настройкаChannels } from "./onboard-channels.js";
 import {
   applyWizardMetadata,
   DEFAULT_WORKSPACE,
@@ -47,7 +47,7 @@ import {
   waitForGatewayReachable,
 } from "./onboard-helpers.js";
 import { promptRemoteGatewayConfig } from "./onboard-remote.js";
-import { setupSkills } from "./onboard-skills.js";
+import { настройкаSkills } from "./onboard-skills.js";
 
 type ConfigureSectionChoice = WizardSection | "__continue";
 
@@ -148,7 +148,7 @@ async function promptConfigureSection(
         {
           value: "__continue",
           label: "Continue",
-          hint: hasSelection ? "Done" : "Skip for now",
+          hint: hasSelection ? "Готово" : "Пока пропустить",
         },
       ],
       initialValue: CONFIGURE_SECTION_OPTIONS[0]?.value,
@@ -187,17 +187,17 @@ async function promptWebToolsConfig(
   type WebSearchConfig = NonNullable<NonNullable<OpenClawConfig["tools"]>["web"]>["search"];
   const existingSearch = nextConfig.tools?.web?.search;
   const existingFetch = nextConfig.tools?.web?.fetch;
-  const { resolveSearchProviderOptions, setupSearch } = await import("./onboard-search.js");
+  const { resolveSearchProviderOptions, настройкаSearch } = await import("./onboard-search.js");
   const { isCodexNativeWebSearchRelevant } = await import("../agents/codex-native-web-search.js");
   const searchProviderOptions = resolveSearchProviderOptions(nextConfig);
 
   note(
     [
-      "Web search lets your agent look things up online using the `web_search` tool.",
+      "Поиск в интернете lets your agent look things up online using the `web_search` tool.",
       "Choose a managed provider now, and Codex-capable models can also use native Codex web search.",
       "Docs: https://docs.openclaw.ai/tools/web",
     ].join("\n"),
-    "Web search",
+    "Поиск в интернете",
   );
 
   const enableSearch = guardCancel(
@@ -223,7 +223,7 @@ async function promptWebToolsConfig(
         [
           "Codex-capable models can optionally use native Codex web search.",
           "Managed web_search still controls non-Codex models.",
-          "If no managed provider is configured, non-Codex models still rely on provider auto-detect and may have no search available.",
+          "If no managed provider is настроено, non-Codex models still rely on provider auto-detect and may have no search available.",
           ...(describeCodexNativeWebSearch(nextConfig)
             ? [describeCodexNativeWebSearch(nextConfig)!]
             : ["Recommended mode: cached."]),
@@ -289,11 +289,11 @@ async function promptWebToolsConfig(
       if (configureManagedProvider) {
         note(
           [
-            "No web search providers are currently available under this plugin policy.",
+            "Нет доступных провайдеров поиска при текущей политике плагинов.",
             "Enable plugins or remove deny rules, then rerun configure.",
             "Docs: https://docs.openclaw.ai/tools/web",
           ].join("\n"),
-          "Web search",
+          "Поиск в интернете",
         );
       }
       if (nextSearch.openaiCodex?.enabled !== true) {
@@ -303,7 +303,7 @@ async function promptWebToolsConfig(
         };
       }
     } else if (configureManagedProvider) {
-      workingConfig = await setupSearch(workingConfig, runtime, prompter);
+      workingConfig = await настройкаSearch(workingConfig, runtime, prompter);
       nextSearch = {
         ...workingConfig.tools?.web?.search,
         enabled: workingConfig.tools?.web?.search?.provider ? true : existingSearch?.enabled,
@@ -421,7 +421,7 @@ export async function runConfigureWizard(
             value: "remote",
             label: "Remote (info-only)",
             hint: !remoteUrl
-              ? "No remote URL configured yet"
+              ? "No remote URL настроено yet"
               : remoteProbe?.ok
                 ? `Gateway reachable (${remoteUrl})`
                 : `Configured but unreachable (${remoteUrl})`,
@@ -443,7 +443,7 @@ export async function runConfigureWizard(
       });
       currentBaseHash = undefined;
       logConfigUpdated(runtime);
-      outro("Remote gateway configured.");
+      outro("Remote gateway настроено.");
       return;
     }
 
@@ -490,7 +490,7 @@ export async function runConfigureWizard(
           return;
         } catch (err) {
           if (err instanceof ConfigMutationConflictError && attempt < maxRetries - 1) {
-            // Config was mutated externally (e.g. plugin wrote token during auth setup).
+            // Config was mutated externally (e.g. plugin wrote token during auth настройка).
             // Re-read the on-disk config and merge plugin changes into nextConfig so
             // the retry won't silently overwrite them.
             const freshSnapshot = await readConfigFileSnapshot();
@@ -564,7 +564,7 @@ export async function runConfigureWizard(
       await noteChannelStatus({ cfg: nextConfig, prompter });
       const channelMode = await promptChannelMode(runtime);
       if (channelMode === "configure") {
-        nextConfig = await setupChannels(nextConfig, runtime, prompter, {
+        nextConfig = await настройкаChannels(nextConfig, runtime, prompter, {
           allowDisable: true,
           allowSignalInstall: true,
           skipConfirm: true,
@@ -627,7 +627,7 @@ export async function runConfigureWizard(
 
       if (selected.includes("skills")) {
         const wsDir = resolveUserPath(workspaceDir);
-        nextConfig = await setupSkills(nextConfig, wsDir, runtime, prompter);
+        nextConfig = await настройкаSkills(nextConfig, wsDir, runtime, prompter);
       }
 
       await persistConfig();
@@ -694,7 +694,7 @@ export async function runConfigureWizard(
 
         if (choice === "skills") {
           const wsDir = resolveUserPath(workspaceDir);
-          nextConfig = await setupSkills(nextConfig, wsDir, runtime, prompter);
+          nextConfig = await настройкаSkills(nextConfig, wsDir, runtime, prompter);
           await persistConfig();
         }
 

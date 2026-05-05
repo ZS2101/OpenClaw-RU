@@ -24,11 +24,11 @@
     "channel": {
       "id": "qa-channel",
       "label": "QA Channel",
-      "selectionLabel": "QA Channel (Synthetic)",
+      "selectionLabel": "QA-канал (Синтетический)",
       "detailLabel": "QA Channel",
       "docsPath": "/channels/qa-channel",
       "docsLabel": "qa-channel",
-      "blurb": "Synthetic Slack-class transport for automated OpenClaw QA scenarios.",
+      "blurb": "Синтетический транспорт Slack-класса для автоматизированных QA-сценариев OpenClaw.",
       "systemImage": "checklist",
       "order": 999,
       "exposure": {

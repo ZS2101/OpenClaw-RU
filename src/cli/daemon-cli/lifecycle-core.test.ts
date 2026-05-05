@@ -315,7 +315,7 @@ describe("runServiceRestart token drift", () => {
     expect(postRestartCheck).not.toHaveBeenCalled();
     const payload = readJsonLog<{ result?: string; message?: string }>();
     expect(payload.result).toBe("scheduled");
-    expect(payload.message).toBe("restart scheduled, gateway will restart momentarily");
+    expect(payload.message).toBe("запланирован перезапуск, gateway перезапустится через мгновение");
   });
 
   it("emits scheduled when service start routes through a scheduled restart", async () => {
@@ -331,7 +331,7 @@ describe("runServiceRestart token drift", () => {
     expect(service.isLoaded).toHaveBeenCalled();
     const payload = readJsonLog<{ result?: string; message?: string }>();
     expect(payload.result).toBe("scheduled");
-    expect(payload.message).toBe("restart scheduled, gateway will restart momentarily");
+    expect(payload.message).toBe("запланирован перезапуск, gateway перезапустится через мгновение");
   });
 
   it("fails start when restarting a stopped installed service errors", async () => {

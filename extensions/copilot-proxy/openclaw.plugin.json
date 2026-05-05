@@ -1,8 +1,12 @@
 {
   "id": "copilot-proxy",
   "enabledByDefault": true,
-  "providers": ["copilot-proxy"],
-  "autoEnableWhenConfiguredProviders": ["copilot-proxy"],
+  "providers": [
+    "copilot-proxy"
+  ],
+  "autoEnableWhenConfiguredProviders": [
+    "copilot-proxy"
+  ],
   "providerAuthChoices": [
     {
       "provider": "copilot-proxy",
@@ -11,7 +15,7 @@
       "choiceLabel": "Copilot Proxy",
       "choiceHint": "Configure base URL + model ids",
       "groupId": "copilot",
-      "groupLabel": "Copilot",
+      "groupLabel": "$ Copilot",
       "groupHint": "GitHub + local proxy"
     }
   ],

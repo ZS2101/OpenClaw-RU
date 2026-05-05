@@ -226,6 +226,7 @@
   "opencode",
   "volc-model-catalog-shared",
   "provider-onboard",
+  "provider-policy-shared",
   "provider-stream-family",
   "provider-stream-shared",
   "provider-stream",

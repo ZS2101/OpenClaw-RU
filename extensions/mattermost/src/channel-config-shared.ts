@@ -17,11 +17,11 @@ import type { MattermostConfig } from "./types.js";
 export const mattermostMeta = {
   id: "mattermost",
   label: "Mattermost",
-  selectionLabel: "Mattermost (plugin)",
+  selectionLabel: "Mattermost (плагин)",
   detailLabel: "Mattermost Bot",
   docsPath: "/channels/mattermost",
   docsLabel: "mattermost",
-  blurb: "self-hosted Slack-style chat; install the plugin to enable.",
+  blurb: "self-hosted чат в стиле Slack; установите плагин для активации.",
   systemImage: "bubble.left.and.bubble.right",
   order: 65,
   quickstartAllowFrom: true,

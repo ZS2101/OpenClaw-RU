@@ -174,7 +174,7 @@ export async function runProviderPluginAuthMethod(params: {
   }
 
   if (params.emitNotes !== false && result.notes && result.notes.length > 0) {
-    await params.prompter.note(result.notes.join("\n"), "Provider notes");
+    await params.prompter.note(result.notes.join("\n"), "Заметки провайдера");
   }
 
   return {
@@ -232,8 +232,8 @@ export async function applyAuthChoiceLoadedPluginProvider(
         workspaceDir,
       });
       await params.prompter.note(
-        `Default model set to ${applied.defaultModel}`,
-        "Model configured",
+        `Модель по умолчанию: ${applied.defaultModel}`,
+        "Модель настроена",
       );
       return { config: nextConfig };
     }
@@ -256,7 +256,7 @@ export async function applyAuthChoicePluginProvider(
   let nextConfig = enableResult.config;
   if (!enableResult.enabled) {
     await params.prompter.note(
-      `${options.label} plugin is disabled (${enableResult.reason ?? "blocked"}).`,
+      `${options.label}: плагин отключён (${enableResult.reason ?? "заблокирован"}).`,
       options.label,
     );
     return { config: nextConfig };
@@ -281,7 +281,7 @@ export async function applyAuthChoicePluginProvider(
   const provider = resolveProviderMatch(providers, options.providerId);
   if (!provider) {
     await params.prompter.note(
-      `${options.label} auth plugin is not available. Enable it and re-run onboarding.`,
+      `${options.label}: плагин авторизации недоступен. Включите его и перезапустите настройку.`,
       options.label,
     );
     return { config: nextConfig };
@@ -289,7 +289,7 @@ export async function applyAuthChoicePluginProvider(
 
   const method = pickAuthMethod(provider, options.methodId) ?? provider.auth[0];
   if (!method) {
-    await params.prompter.note(`${options.label} auth method missing.`, options.label);
+    await params.prompter.note(`${options.label}: метод авторизации отсутствует.`, options.label);
     return { config: nextConfig };
   }
 
@@ -319,15 +319,15 @@ export async function applyAuthChoicePluginProvider(
         workspaceDir,
       });
       await params.prompter.note(
-        `Default model set to ${applied.defaultModel}`,
-        "Model configured",
+        `Модель по умолчанию: ${applied.defaultModel}`,
+        "Модель настроена",
       );
       return { config: nextConfig };
     }
     if (params.agentId) {
       await params.prompter.note(
-        `Default model set to ${applied.defaultModel} for agent "${params.agentId}".`,
-        "Model configured",
+        `Модель по умолчанию: ${applied.defaultModel} для агента "${params.agentId}".`,
+        "Модель настроена",
       );
     }
     nextConfig = restoreConfiguredPrimaryModel(nextConfig, params.config);

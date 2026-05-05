@@ -63,9 +63,9 @@ export async function configureGatewayForSetup(
       : Number.parseInt(
           normalizeWizardTextInput(
             await prompter.text({
-              message: "Gateway port",
+              message: "Порт шлюза",
               initialValue: String(localPort),
-              validate: (value) => (Number.isFinite(Number(value)) ? undefined : "Invalid port"),
+              validate: (value) => (Number.isFinite(Number(value)) ? undefined : "Неверный порт"),
             }),
           ),
           10,
@@ -75,13 +75,13 @@ export async function configureGatewayForSetup(
     flow === "quickstart"
       ? quickstartGateway.bind
       : await prompter.select<GatewayWizardSettings["bind"]>({
-          message: "Gateway bind",
+          message: "Привязка (bind) шлюза",
           options: [
             { value: "loopback", label: "Loopback (127.0.0.1)" },
             { value: "lan", label: "LAN (0.0.0.0)" },
-            { value: "tailnet", label: "Tailnet (Tailscale IP)" },
-            { value: "auto", label: "Auto (Loopback → LAN)" },
-            { value: "custom", label: "Custom IP" },
+            { value: "tailnet", label: "Tailnet (IP-адрес Tailscale)" },
+            { value: "auto", label: "Авто (Loopback → LAN)" },
+            { value: "custom", label: "Свой IP" },
           ],
         });
 
@@ -90,7 +90,7 @@ export async function configureGatewayForSetup(
     const needsPrompt = flow !== "quickstart" || !customBindHost;
     if (needsPrompt) {
       const input = await prompter.text({
-        message: "Custom IP address",
+        message: "Свой IP-адрес",
         placeholder: "192.168.1.100",
         initialValue: customBindHost ?? "",
         validate: validateIPv4AddressInput,
@@ -103,14 +103,14 @@ export async function configureGatewayForSetup(
     flow === "quickstart"
       ? quickstartGateway.authMode
       : ((await prompter.select({
-          message: "Gateway auth",
+          message: "Авторизация шлюза",
           options: [
             {
               value: "token",
-              label: "Token",
-              hint: "Recommended default (local + remote)",
+              label: "Токен",
+              hint: "Рекомендуется по умолчанию (локальный + удаленный)",
             },
-            { value: "password", label: "Password" },
+            { value: "password", label: "Пароль" },
           ],
           initialValue: "token",
         })) as GatewayAuthChoice);
@@ -119,7 +119,7 @@ export async function configureGatewayForSetup(
     flow === "quickstart"
       ? quickstartGateway.tailscaleMode
       : await prompter.select<GatewayWizardSettings["tailscaleMode"]>({
-          message: "Tailscale exposure",
+          message: "Доступ через Tailscale",
           options: [...TAILSCALE_EXPOSURE_OPTIONS],
         });
 
@@ -129,7 +129,7 @@ export async function configureGatewayForSetup(
   if (tailscaleMode !== "off") {
     tailscaleBin = await findTailscaleBinary();
     if (!tailscaleBin) {
-      await prompter.note(TAILSCALE_MISSING_BIN_NOTE_LINES.join("\n"), "Tailscale Warning");
+      await prompter.note(TAILSCALE_MISSING_BIN_NOTE_LINES.join("\n"), "Предупреждение Tailscale");
     }
   }
 
@@ -137,7 +137,7 @@ export async function configureGatewayForSetup(
   if (tailscaleMode !== "off" && flow !== "quickstart") {
     await prompter.note(TAILSCALE_DOCS_LINES.join("\n"), "Tailscale");
     tailscaleResetOnExit = await prompter.confirm({
-      message: "Reset Tailscale serve/funnel on exit?",
+      message: "Сбрасывать Tailscale serve/funnel при выходе?",
       initialValue: false,
     });
   }
@@ -146,13 +146,13 @@ export async function configureGatewayForSetup(
   // - Tailscale wants bind=loopback so we never expose a non-loopback server + tailscale serve/funnel at once.
   // - Funnel requires password auth.
   if (tailscaleMode !== "off" && bind !== "loopback") {
-    await prompter.note("Tailscale requires bind=loopback. Adjusting bind to loopback.", "Note");
+    await prompter.note("Tailscale требует bind=loopback. Изменяем привязку на loopback.", "Примечание");
     bind = "loopback";
     customBindHost = undefined;
   }
 
   if (tailscaleMode === "funnel" && authMode !== "password") {
-    await prompter.note("Tailscale funnel requires password auth.", "Note");
+    await prompter.note("Для Tailscale Funnel требуется авторизация по паролю.", "Примечание");
     authMode = "password";
   }
 
@@ -173,11 +173,11 @@ export async function configureGatewayForSetup(
             prompter,
             explicitMode: opts.secretInputMode,
             copy: {
-              modeMessage: "How do you want to provide the gateway token?",
-              plaintextLabel: "Generate/store plaintext token",
-              plaintextHint: "Default",
-              refLabel: "Use SecretRef",
-              refHint: "Store a reference instead of plaintext",
+              modeMessage: "Как вы хотите указать токен шлюза?",
+              plaintextLabel: "Сгенерировать / сохранить токен в открытом виде",
+              plaintextHint: "По умолчанию",
+              refLabel: "Использовать SecretRef",
+              refHint: "Сохранить ссылку (SecretRef) вместо открытого текста",
             },
           });
     if (tokenMode === "ref") {
@@ -196,7 +196,7 @@ export async function configureGatewayForSetup(
           prompter,
           preferredEnvVar: "OPENCLAW_GATEWAY_TOKEN",
           copy: {
-            sourceMessage: "Where is this gateway token stored?",
+            sourceMessage: "Где хранится этот токен шлюза?",
             envVarPlaceholder: "OPENCLAW_GATEWAY_TOKEN",
           },
         });
@@ -210,8 +210,8 @@ export async function configureGatewayForSetup(
       gatewayTokenInput = gatewayToken;
     } else {
       const tokenInput = await prompter.text({
-        message: "Gateway token (blank to generate)",
-        placeholder: "Needed for multi-machine or non-loopback access",
+        message: "Токен шлюза (оставьте пустым для генерации)",
+        placeholder: "Требуется для доступа с других машин или не через loopback",
         initialValue:
           quickstartTokenString ??
           normalizeGatewayTokenInput(process.env.OPENCLAW_GATEWAY_TOKEN) ??
@@ -230,9 +230,9 @@ export async function configureGatewayForSetup(
         prompter,
         explicitMode: opts.secretInputMode,
         copy: {
-          modeMessage: "How do you want to provide the gateway password?",
-          plaintextLabel: "Enter password now",
-          plaintextHint: "Stores the password directly in OpenClaw config",
+          modeMessage: "Как вы хотите указать пароль шлюза?",
+          plaintextLabel: "Ввести пароль сейчас",
+          plaintextHint: "Сохраняет пароль прямо в конфиге OpenClaw",
         },
       });
       if (selectedMode === "ref") {
@@ -242,7 +242,7 @@ export async function configureGatewayForSetup(
           prompter,
           preferredEnvVar: "OPENCLAW_GATEWAY_PASSWORD",
           copy: {
-            sourceMessage: "Where is this gateway password stored?",
+            sourceMessage: "Где хранится этот пароль шлюза?",
             envVarPlaceholder: "OPENCLAW_GATEWAY_PASSWORD",
           },
         });
@@ -250,7 +250,7 @@ export async function configureGatewayForSetup(
       } else {
         password = normalizeWizardTextInput(
           await prompter.text({
-            message: "Gateway password",
+            message: "Пароль шлюза",
             validate: validateGatewayPasswordInput,
           }),
         );

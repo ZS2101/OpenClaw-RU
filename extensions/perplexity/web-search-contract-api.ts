@@ -9,9 +9,9 @@ export function createPerplexityWebSearchProvider(): WebSearchProviderPlugin {
   return {
     id: "perplexity",
     label: "Perplexity Search",
-    hint: "Requires Perplexity API key or OpenRouter API key · structured results",
+    hint: "Требуется API-ключ Perplexity или OpenRouter · структурированные результаты",
     onboardingScopes: ["text-inference"],
-    credentialLabel: "Perplexity API key",
+    credentialLabel: "API-ключ Perplexity",
     envVars: ["PERPLEXITY_API_KEY", "OPENROUTER_API_KEY"],
     placeholder: "pplx-...",
     signupUrl: "https://www.perplexity.ai/settings/api",

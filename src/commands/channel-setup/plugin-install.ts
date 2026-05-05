@@ -96,7 +96,7 @@ async function promptInstallChoice(params: {
     ? [
         {
           value: "local",
-          label: "Use local plugin path",
+          label: "Использовать локальный путь к плагину",
           hint: localPath,
         },
       ]
@@ -104,7 +104,7 @@ async function promptInstallChoice(params: {
   const options: Array<{ value: InstallChoice; label: string; hint?: string }> = [
     { value: "npm", label: `Download from npm (${entry.install.npmSpec})` },
     ...localOptions,
-    { value: "skip", label: "Skip for now" },
+    { value: "skip", label: "Пока пропустить" },
   ];
   const initialValue: InstallChoice =
     defaultChoice === "local" && !localPath ? "npm" : defaultChoice;
@@ -208,7 +208,7 @@ export async function ensureChannelSetupPluginInstalled(params: {
 
   await prompter.note(
     `Failed to install ${entry.install.npmSpec}: ${result.error}`,
-    "Plugin install",
+    "Установка плагинов",
   );
 
   if (localPath) {

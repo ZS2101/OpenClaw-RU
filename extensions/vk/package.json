@@ -1,0 +1,29 @@
+{
+  "name": "@rurik/vk",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Rurik VK channel plugin",
+  "openclaw": {
+    "channel": {
+      "id": "vk",
+      "label": "VK",
+      "selectionLabel": "VK (Бот сообщества)",
+      "detailLabel": "VK Bot",
+      "docsPath": "/channels/vk",
+      "blurb": "российская социальная сеть — бот сообщества через Long Poll.",
+      "order": 1
+    },
+    "install": {
+      "npmSpec": "@rurik/vk",
+      "defaultChoice": "npm"
+    },
+    "release": {
+      "publishToNpm": true
+    },
+    "setupEntry": "./setup-entry.ts",
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "type": "module"
+}

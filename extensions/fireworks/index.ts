@@ -61,12 +61,14 @@ export default defineSingleProviderPluginEntry({
     auth: [
       {
         methodId: "api-key",
-        label: "Fireworks API key",
+        label: "API-ключ Fireworks",
+        wizard: { groupLabel: "$ Fireworks" },
+        groupSortKey: 3,
         hint: "API key",
         optionKey: "fireworksApiKey",
         flagName: "--fireworks-api-key",
         envVar: "FIREWORKS_API_KEY",
-        promptMessage: "Enter Fireworks API key",
+        promptMessage: "Введите API-ключ Fireworks",
         defaultModel: FIREWORKS_DEFAULT_MODEL_REF,
         applyConfig: (cfg) => applyFireworksConfig(cfg),
       },

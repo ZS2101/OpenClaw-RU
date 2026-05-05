@@ -81,6 +81,10 @@ function resolveWizardSetup(params: {
     methodId,
     ...(wizard.onboardingScopes ? { onboardingScopes: wizard.onboardingScopes } : {}),
     ...(wizard.modelAllowlist ? { modelAllowlist: wizard.modelAllowlist } : {}),
+    ...(typeof wizard.groupSortKey === "number" &&
+    Number.isFinite(wizard.groupSortKey)
+      ? { groupSortKey: wizard.groupSortKey }
+      : {}),
   };
 }
 

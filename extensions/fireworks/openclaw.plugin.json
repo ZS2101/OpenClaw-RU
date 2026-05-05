@@ -1,9 +1,13 @@
 {
   "id": "fireworks",
   "enabledByDefault": true,
-  "providers": ["fireworks"],
+  "providers": [
+    "fireworks"
+  ],
   "providerAuthEnvVars": {
-    "fireworks": ["FIREWORKS_API_KEY"]
+    "fireworks": [
+      "FIREWORKS_API_KEY"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -12,7 +16,7 @@
       "choiceId": "fireworks-api-key",
       "choiceLabel": "Fireworks API key",
       "groupId": "fireworks",
-      "groupLabel": "Fireworks",
+      "groupLabel": "$ Fireworks",
       "groupHint": "API key",
       "optionKey": "fireworksApiKey",
       "cliFlag": "--fireworks-api-key",

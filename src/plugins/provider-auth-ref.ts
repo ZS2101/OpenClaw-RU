@@ -103,7 +103,7 @@ async function promptEnvSecretRefForSetup(params: {
 }): Promise<{ ref: SecretRef; resolvedValue: string }> {
   const env = params.env ?? process.env;
   const envVarRaw = await params.prompter.text({
-    message: params.copy?.envVarMessage ?? "Environment variable name",
+    message: params.copy?.envVarMessage ?? "Имя переменной окружения",
     initialValue: params.defaultEnvVar || undefined,
     placeholder: params.copy?.envVarPlaceholder ?? "OPENAI_API_KEY",
     validate: (value) => {
@@ -145,7 +145,7 @@ async function promptEnvSecretRefForSetup(params: {
   await params.prompter.note(
     params.copy?.envValidatedMessage?.(envVar) ??
       `Validated environment variable ${envVar}. OpenClaw will store a reference, not the key value.`,
-    "Reference validated",
+    "Ссылка проверена",
   );
   return { ref, resolvedValue };
 }
@@ -164,8 +164,8 @@ async function promptProviderSecretRefForSetup(params: {
   if (externalProviders.length === 0) {
     await params.prompter.note(
       params.copy?.noProvidersMessage ??
-        "No file/exec secret providers are configured yet. Add one under secrets.providers, or select Environment variable.",
-      "No providers configured",
+        "Файловые/исполняемые секретные провайдеры ещё не настроены. Добавьте в secrets.providers или выберите «Переменная окружения».",
+      "Нет настроенных провайдеров",
     );
     throw new Error("retry");
   }
@@ -174,29 +174,29 @@ async function promptProviderSecretRefForSetup(params: {
     preferFirstProviderForSource: true,
   });
   const selectedProvider = await params.prompter.select<string>({
-    message: "Select secret provider",
+    message: "Выберите секретный провайдер",
     initialValue:
       externalProviders.find(([providerName]) => providerName === defaultProvider)?.[0] ??
       externalProviders[0]?.[0],
     options: externalProviders.map(([providerName, provider]) => ({
       value: providerName,
       label: providerName,
-      hint: provider?.source === "exec" ? "Exec provider" : "File provider",
+      hint: provider?.source === "exec" ? "Исполняемый провайдер" : "Файловый провайдер",
     })),
   });
   const providerEntry = params.config.secrets?.providers?.[selectedProvider];
   if (!providerEntry || (providerEntry.source !== "file" && providerEntry.source !== "exec")) {
     await params.prompter.note(
       `Provider "${selectedProvider}" is not a file/exec provider.`,
-      "Invalid provider",
+      "Некорректный провайдер",
     );
     throw new Error("retry");
   }
 
   const idPrompt =
     providerEntry.source === "file"
-      ? "Secret id (JSON pointer for json mode, or 'value' for singleValue mode)"
-      : "Secret id for the exec provider";
+      ? "ID секрета (JSON pointer для режима json, или 'value' для singleValue)"
+      : "ID секрета для исполняемого провайдера";
   const idDefault =
     providerEntry.source === "file"
       ? providerEntry.mode === "singleValue"
@@ -210,7 +210,7 @@ async function promptProviderSecretRefForSetup(params: {
     validate: (value) => {
       const candidate = value.trim();
       if (!candidate) {
-        return "Secret id cannot be empty.";
+        return "ID секрета не может быть пустым.";
       }
       if (
         providerEntry.source === "file" &&
@@ -248,7 +248,7 @@ async function promptProviderSecretRefForSetup(params: {
     await params.prompter.note(
       params.copy?.providerValidatedMessage?.(selectedProvider, id, providerEntry.source) ??
         `Validated ${providerEntry.source} reference ${selectedProvider}:${id}. OpenClaw will store a reference, not the key value.`,
-      "Reference validated",
+      "Ссылка проверена",
     );
     return { ref, resolvedValue };
   } catch (error) {
@@ -256,9 +256,9 @@ async function promptProviderSecretRefForSetup(params: {
       [
         `Could not validate provider reference ${selectedProvider}:${id}.`,
         formatErrorMessage(error),
-        "Check your provider configuration and try again.",
+        "Проверьте конфигурацию провайдера и попробуйте снова.",
       ].join("\n"),
-      "Reference check failed",
+      "Проверка ссылки не удалась",
     );
     throw new Error("retry", { cause: error });
   }
@@ -279,18 +279,18 @@ export async function promptSecretRefForSetup(params: {
 
   while (true) {
     const sourceRaw: SecretRefChoice = await params.prompter.select<SecretRefChoice>({
-      message: params.copy?.sourceMessage ?? "Where is this API key stored?",
+      message: params.copy?.sourceMessage ?? "Где хранится этот API-ключ?",
       initialValue: sourceChoice,
       options: [
         {
           value: "env",
-          label: "Environment variable",
-          hint: "Reference a variable from your runtime environment",
+          label: "Переменная окружения",
+          hint: "Ссылка на переменную из вашего окружения",
         },
         {
           value: "provider",
-          label: "Configured secret provider",
-          hint: "Use a configured file or exec secret provider",
+          label: "Настроенный секретный провайдер",
+          hint: "Использовать настроенный файловый или исполняемый секретный провайдер",
         },
       ],
     });

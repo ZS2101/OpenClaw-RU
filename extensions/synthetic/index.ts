@@ -14,12 +14,14 @@ export default defineSingleProviderPluginEntry({
     auth: [
       {
         methodId: "api-key",
-        label: "Synthetic API key",
+        label: "API-ключ Synthetic",
+        wizard: { groupLabel: "$ Synthetic" },
+        groupSortKey: 3,
         hint: "Anthropic-compatible (multi-model)",
         optionKey: "syntheticApiKey",
         flagName: "--synthetic-api-key",
         envVar: "SYNTHETIC_API_KEY",
-        promptMessage: "Enter Synthetic API key",
+        promptMessage: "Введите API-ключ Synthetic",
         defaultModel: SYNTHETIC_DEFAULT_MODEL_REF,
         applyConfig: (cfg) => applySyntheticConfig(cfg),
       },

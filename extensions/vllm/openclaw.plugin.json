@@ -1,9 +1,13 @@
 {
   "id": "vllm",
   "enabledByDefault": true,
-  "providers": ["vllm"],
+  "providers": [
+    "vllm"
+  ],
   "providerAuthEnvVars": {
-    "vllm": ["VLLM_API_KEY"]
+    "vllm": [
+      "VLLM_API_KEY"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -13,7 +17,7 @@
       "choiceLabel": "vLLM",
       "choiceHint": "Local/self-hosted OpenAI-compatible server",
       "groupId": "vllm",
-      "groupLabel": "vLLM",
+      "groupLabel": "\u2205 vLLM",
       "groupHint": "Local/self-hosted OpenAI-compatible"
     }
   ],

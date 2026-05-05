@@ -109,7 +109,7 @@ const meta: ChannelMeta = {
   selectionLabel: "Feishu/Lark (飞书)",
   docsPath: "/channels/feishu",
   docsLabel: "feishu",
-  blurb: "飞书/Lark enterprise messaging.",
+  blurb: "корпоративный мессенджер 飞书/Lark.",
   aliases: ["lark"],
   order: 70,
 };

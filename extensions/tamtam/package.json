@@ -1,0 +1,29 @@
+{
+  "name": "@rurik/tamtam",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Rurik TamTam channel plugin",
+  "openclaw": {
+    "channel": {
+      "id": "tamtam",
+      "label": "TamTam",
+      "selectionLabel": "TamTam (Long Poll)",
+      "detailLabel": "TamTam Bot",
+      "docsPath": "/channels/tamtam",
+      "blurb": "бот для мессенджера TamTam от Mail.ru.",
+      "order": 4
+    },
+    "install": {
+      "npmSpec": "@rurik/tamtam",
+      "defaultChoice": "npm"
+    },
+    "release": {
+      "publishToNpm": true
+    },
+    "setupEntry": "./setup-entry.ts",
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "type": "module"
+}

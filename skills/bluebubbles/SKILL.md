@@ -1,6 +1,6 @@
 ---
 name: bluebubbles
-description: Use when you need to send or manage iMessages via BlueBubbles (recommended iMessage integration). Calls go through the generic message tool with channel="bluebubbles".
+description: "Используйте, когда нужно отправить или управлять iMessage через BlueBubbles (рекомендуемая интеграция iMessage). Вызовы проходят через API-сервер gBlueBubbles. eneric message tool with channel="bluebubbles"."
 metadata: { "openclaw": { "emoji": "🫧", "requires": { "config": ["channels.bluebubbles"] } } }
 ---
 

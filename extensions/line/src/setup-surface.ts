@@ -24,20 +24,20 @@ import {
 const channel = "line" as const;
 
 const LINE_SETUP_HELP_LINES = [
-  "1) Open the LINE Developers Console and create or pick a Messaging API channel",
-  "2) Copy the channel access token and channel secret",
-  "3) Enable Use webhook in the Messaging API settings",
+  "1) Откройте LINE Developers Console и создайте или выберите канал Messaging API",
+  "2) Скопируйте channel access token и channel secret",
+  "3) Включите Use webhook в настройках Messaging API",
   "4) Point the webhook at https://<gateway-host>/line/webhook",
   `Docs: ${formatDocsLink("/channels/line", "channels/line")}`,
 ];
 
 const LINE_ALLOW_FROM_HELP_LINES = [
-  "Allowlist LINE DMs by user id.",
-  "LINE ids are case-sensitive.",
+  "Добавьте в белый список ЛС LINE по user id.",
+  "LINE ids чувствительны к регистру.",
   "Examples:",
   "- U1234567890abcdef1234567890abcdef",
   "- line:user:U1234567890abcdef1234567890abcdef",
-  "Multiple entries: comma-separated.",
+  "Несколько значений: через запятую.",
   `Docs: ${formatDocsLink("/channels/line", "channels/line")}`,
 ];
 
@@ -87,10 +87,10 @@ export const lineSetupWizard: ChannelSetupWizard = {
   channel,
   status: createStandardChannelSetupStatus({
     channelLabel: "LINE",
-    configuredLabel: "configured",
-    unconfiguredLabel: "needs token + secret",
-    configuredHint: "configured",
-    unconfiguredHint: "needs token + secret",
+    configuredLabel: "настроено",
+    unconfiguredLabel: "нужен токен + секрет",
+    configuredHint: "настроено",
+    unconfiguredHint: "нужен токен + секрет",
     configuredScore: 1,
     unconfiguredScore: 0,
     includeStatusLine: true,
@@ -108,13 +108,13 @@ export const lineSetupWizard: ChannelSetupWizard = {
     {
       inputKey: "token",
       providerHint: channel,
-      credentialLabel: "channel access token",
+      credentialLabel: "токен доступа канала (channel access token)",
       preferredEnvVar: "LINE_CHANNEL_ACCESS_TOKEN",
       helpTitle: "LINE Messaging API",
       helpLines: LINE_SETUP_HELP_LINES,
-      envPrompt: "LINE_CHANNEL_ACCESS_TOKEN detected. Use env var?",
+      envPrompt: "Обнаружен LINE_CHANNEL_ACCESS_TOKEN. Использовать env var?",
       keepPrompt: "LINE channel access token already configured. Keep it?",
-      inputPrompt: "Enter LINE channel access token",
+      inputPrompt: "Введите channel access token LINE",
       allowEnv: ({ accountId }) => accountId === DEFAULT_ACCOUNT_ID,
       inspect: ({ cfg, accountId }) => {
         const resolved = resolveLineAccount({ cfg, accountId });
@@ -154,13 +154,13 @@ export const lineSetupWizard: ChannelSetupWizard = {
     {
       inputKey: "password",
       providerHint: "line-secret",
-      credentialLabel: "channel secret",
+      credentialLabel: "секрет канала (channel secret)",
       preferredEnvVar: "LINE_CHANNEL_SECRET",
       helpTitle: "LINE Messaging API",
       helpLines: LINE_SETUP_HELP_LINES,
-      envPrompt: "LINE_CHANNEL_SECRET detected. Use env var?",
+      envPrompt: "Обнаружен LINE_CHANNEL_SECRET. Использовать env var?",
       keepPrompt: "LINE channel secret already configured. Keep it?",
-      inputPrompt: "Enter LINE channel secret",
+      inputPrompt: "Введите channel secret LINE",
       allowEnv: ({ accountId }) => accountId === DEFAULT_ACCOUNT_ID,
       inspect: ({ cfg, accountId }) => {
         const resolved = resolveLineAccount({ cfg, accountId });
@@ -219,9 +219,9 @@ export const lineSetupWizard: ChannelSetupWizard = {
   completionNote: {
     title: "LINE webhook",
     lines: [
-      "Enable Use webhook in the LINE console after saving credentials.",
+      "Включите Use webhook в консоли LINE после сохранения учетных данных.",
       "Default webhook URL: https://<gateway-host>/line/webhook",
-      "If you set channels.line.webhookPath, update the URL to match.",
+      "Если вы задали channels.line.webhookPath, обновите URL для соответствия.",
       `Docs: ${formatDocsLink("/channels/line", "channels/line")}`,
     ],
   },

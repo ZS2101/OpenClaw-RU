@@ -78,7 +78,7 @@ function createLazyCodeExecutionTool(ctx: {
   }
 
   return {
-    label: "Code Execution",
+    label: "Выполнение кода (Code Execution)",
     name: "code_execution",
     description:
       "Run sandboxed Python analysis with xAI. Use for calculations, tabulation, summaries, and chart-style analysis without local machine access.",
@@ -140,16 +140,17 @@ export default defineSingleProviderPluginEntry({
     auth: [
       {
         methodId: "api-key",
-        label: "xAI API key",
+        label: "API-ключ xAI",
         hint: "API key",
         optionKey: "xaiApiKey",
         flagName: "--xai-api-key",
         envVar: "XAI_API_KEY",
-        promptMessage: "Enter xAI API key",
+        promptMessage: "Введите API-ключ xAI",
         defaultModel: XAI_DEFAULT_MODEL_REF,
         applyConfig: (cfg) => applyXaiConfig(cfg),
         wizard: {
-          groupLabel: "xAI (Grok)",
+          groupLabel: "$ xAI (Grok)",
+          groupSortKey: 3,
         },
       },
     ],

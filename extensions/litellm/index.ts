@@ -14,12 +14,12 @@ export default defineSingleProviderPluginEntry({
     auth: [
       {
         methodId: "api-key",
-        label: "LiteLLM API key",
+        label: "API-ключ LiteLLM",
         hint: "Unified gateway for 100+ LLM providers",
         optionKey: "litellmApiKey",
         flagName: "--litellm-api-key",
         envVar: "LITELLM_API_KEY",
-        promptMessage: "Enter LiteLLM API key",
+        promptMessage: "Введите API-ключ LiteLLM",
         defaultModel: LITELLM_DEFAULT_MODEL_REF,
         applyConfig: (cfg) => applyLitellmConfig(cfg),
         noteTitle: "LiteLLM",
@@ -29,7 +29,9 @@ export default defineSingleProviderPluginEntry({
           "Default proxy runs on http://localhost:4000",
         ].join("\n"),
         wizard: {
-          groupHint: "Unified LLM gateway (100+ providers)",
+          groupLabel: "∅ LiteLLM",
+          groupSortKey: 4,
+          groupHint: "Единый LLM-шлюз (100+ провайдеров)",
         },
       },
     ],

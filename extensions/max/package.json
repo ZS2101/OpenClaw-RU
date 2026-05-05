@@ -1,0 +1,29 @@
+{
+  "name": "@rurik/max",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Rurik MAX channel plugin",
+  "openclaw": {
+    "channel": {
+      "id": "max",
+      "label": "MAX",
+      "selectionLabel": "MAX (Webhook)",
+      "detailLabel": "MAX Bot",
+      "docsPath": "/channels/max",
+      "blurb": "MAX messenger — российский корпоративный мессенджер.",
+      "order": 5
+    },
+    "install": {
+      "npmSpec": "@rurik/max",
+      "defaultChoice": "npm"
+    },
+    "release": {
+      "publishToNpm": true
+    },
+    "setupEntry": "./setup-entry.ts",
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "type": "module"
+}

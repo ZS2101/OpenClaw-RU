@@ -39,7 +39,7 @@ const GROUP_LABELS: Record<string, string> = {
   commands: "Commands",
   session: "Session",
   cron: "Cron",
-  hooks: "Hooks",
+  hooks: "Хуки",
   ui: "UI",
   browser: "Browser",
   talk: "Talk",

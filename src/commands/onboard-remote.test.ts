@@ -89,12 +89,12 @@ describe("promptRemoteGatewayConfig", () => {
     ]);
 
     const text: WizardPrompter["text"] = vi.fn(async (params) => {
-      if (params.message === "Gateway WebSocket URL") {
+      if (params.message === "WebSocket URL шлюза") {
         expect(params.initialValue).toBe("wss://gateway.tailnet.ts.net:18789");
         expect(params.validate?.(String(params.initialValue))).toBeUndefined();
         return String(params.initialValue);
       }
-      if (params.message === "Gateway token") {
+      if (params.message === "Токен шлюза") {
         return "token-123";
       }
       return "";
@@ -104,9 +104,9 @@ describe("promptRemoteGatewayConfig", () => {
       text,
       confirm: true,
       selectResponses: {
-        "Select gateway": "0",
-        "Connection method": "direct",
-        "Gateway auth": "token",
+        "Выбрать шлюз": "0",
+        "Способ подключения": "direct",
+        "Авторизация шлюза": "token",
       },
     });
 
@@ -115,8 +115,8 @@ describe("promptRemoteGatewayConfig", () => {
     expect(next.gateway?.remote?.token).toBe("token-123");
     expect(next.gateway?.remote?.tlsFingerprint).toBe("sha256:abc123");
     expect(prompter.note).toHaveBeenCalledWith(
-      expect.stringContaining("Direct remote access defaults to TLS."),
-      "Direct remote",
+      expect.stringContaining("Прямой удаленный доступ"),
+      "Прямое удаленное подключение",
     );
   });
 
@@ -133,12 +133,12 @@ describe("promptRemoteGatewayConfig", () => {
     ]);
 
     const select = createSelectPrompter({
-      "Select gateway": "0",
-      "Connection method": "direct",
+      "Выбрать шлюз": "0",
+      "Способ подключения": "direct",
     });
     const manualUrl = "wss://manual.example.com:18789";
     const text: WizardPrompter["text"] = vi.fn(async (params) => {
-      if (params.message === "Gateway WebSocket URL") {
+      if (params.message === "WebSocket URL шлюза") {
         expect(params.initialValue).toBe("ws://127.0.0.1:18789");
         return manualUrl;
       }
@@ -179,7 +179,7 @@ describe("promptRemoteGatewayConfig", () => {
     ]);
 
     const text: WizardPrompter["text"] = vi.fn(async (params) => {
-      if (params.message === "Gateway WebSocket URL") {
+      if (params.message === "WebSocket URL шлюза") {
         return String(params.initialValue);
       }
       return "";
@@ -189,9 +189,9 @@ describe("promptRemoteGatewayConfig", () => {
       text,
       confirm: true,
       selectResponses: {
-        "Select gateway": "0",
-        "Connection method": "direct",
-        "Gateway auth": "off",
+        "Выбрать шлюз": "0",
+        "Способ подключения": "direct",
+        "Авторизация шлюза": "off",
       },
     });
 
@@ -212,7 +212,7 @@ describe("promptRemoteGatewayConfig", () => {
     ]);
 
     const text: WizardPrompter["text"] = vi.fn(async (params) => {
-      if (params.message === "Gateway WebSocket URL") {
+      if (params.message === "WebSocket URL шлюза") {
         return "wss://other.example:443";
       }
       return "";
@@ -222,9 +222,9 @@ describe("promptRemoteGatewayConfig", () => {
       text,
       confirm: true,
       selectResponses: {
-        "Select gateway": "0",
-        "Connection method": "direct",
-        "Gateway auth": "off",
+        "Выбрать шлюз": "0",
+        "Способ подключения": "direct",
+        "Авторизация шлюза": "off",
       },
     });
 
@@ -246,16 +246,16 @@ describe("promptRemoteGatewayConfig", () => {
     ]);
 
     const select: WizardPrompter["select"] = vi.fn(async (params) => {
-      if (params.message === "Select gateway") {
+      if (params.message === "Выбрать шлюз") {
         return "0" as never;
       }
-      if (params.message === "Gateway auth") {
+      if (params.message === "Авторизация шлюза") {
         return "off" as never;
       }
       return (params.options[0]?.value ?? "") as never;
     });
     const text: WizardPrompter["text"] = vi.fn(async (params) => {
-      if (params.message === "Gateway WebSocket URL") {
+      if (params.message === "WebSocket URL шлюза") {
         expect(params.initialValue).toBe("ws://127.0.0.1:18789");
         return String(params.initialValue);
       }
@@ -271,17 +271,17 @@ describe("promptRemoteGatewayConfig", () => {
 
     expect(next.gateway?.remote?.url).toBe("ws://127.0.0.1:18789");
     expect(select).not.toHaveBeenCalledWith(
-      expect.objectContaining({ message: "Connection method" }),
+      expect.objectContaining({ message: "Способ подключения" }),
     );
   });
 
   it("validates insecure ws:// remote URLs and allows only loopback ws:// by default", async () => {
     const text: WizardPrompter["text"] = vi.fn(async (params) => {
-      if (params.message === "Gateway WebSocket URL") {
+      if (params.message === "WebSocket URL шлюза") {
         // ws:// to public IPs is rejected
-        expect(params.validate?.("ws://203.0.113.10:18789")).toContain("Use wss://");
+        expect(params.validate?.("ws://203.0.113.10:18789")).toContain("Используйте wss://");
         // ws:// to private IPs remains blocked by default
-        expect(params.validate?.("ws://10.0.0.8:18789")).toContain("Use wss://");
+        expect(params.validate?.("ws://10.0.0.8:18789")).toContain("Используйте wss://");
         expect(params.validate?.("ws://127.0.0.1:18789")).toBeUndefined();
         expect(params.validate?.("wss://remote.example.com:18789")).toBeUndefined();
         return "wss://remote.example.com:18789";
@@ -292,7 +292,7 @@ describe("promptRemoteGatewayConfig", () => {
     const { next } = await runRemotePrompt({
       text,
       confirm: false,
-      selectResponses: { "Gateway auth": "off" },
+      selectResponses: { "Авторизация шлюза": "off" },
     });
 
     expect(next.gateway?.mode).toBe("remote");
@@ -303,9 +303,9 @@ describe("promptRemoteGatewayConfig", () => {
   it("allows ws:// hostname remote URLs when OPENCLAW_ALLOW_INSECURE_PRIVATE_WS=1", async () => {
     process.env.OPENCLAW_ALLOW_INSECURE_PRIVATE_WS = "1";
     const text: WizardPrompter["text"] = vi.fn(async (params) => {
-      if (params.message === "Gateway WebSocket URL") {
+      if (params.message === "WebSocket URL шлюза") {
         expect(params.validate?.("ws://openclaw-gateway.ai:18789")).toBeUndefined();
-        expect(params.validate?.("ws://1.1.1.1:18789")).toContain("Use wss://");
+        expect(params.validate?.("ws://1.1.1.1:18789")).toContain("Используйте wss://");
         return "ws://openclaw-gateway.ai:18789";
       }
       return "";
@@ -314,7 +314,7 @@ describe("promptRemoteGatewayConfig", () => {
     const { next } = await runRemotePrompt({
       text,
       confirm: false,
-      selectResponses: { "Gateway auth": "off" },
+      selectResponses: { "Авторизация шлюза": "off" },
     });
 
     expect(next.gateway?.mode).toBe("remote");
@@ -324,7 +324,7 @@ describe("promptRemoteGatewayConfig", () => {
   it("supports storing remote auth as an external env secret ref", async () => {
     process.env.OPENCLAW_GATEWAY_TOKEN = "remote-token-value";
     const text: WizardPrompter["text"] = vi.fn(async (params) => {
-      if (params.message === "Gateway WebSocket URL") {
+      if (params.message === "WebSocket URL шлюза") {
         return "wss://remote.example.com:18789";
       }
       if (params.message === "Environment variable name") {
@@ -334,13 +334,13 @@ describe("promptRemoteGatewayConfig", () => {
     }) as WizardPrompter["text"];
 
     const select: WizardPrompter["select"] = vi.fn(async (params) => {
-      if (params.message === "Gateway auth") {
+      if (params.message === "Авторизация шлюза") {
         return "token" as never;
       }
-      if (params.message === "How do you want to provide this gateway token?") {
+      if (params.message === "Как вы хотите указать этот токен шлюза?") {
         return "ref" as never;
       }
-      if (params.message === "Where is this gateway token stored?") {
+      if (params.message === "Где хранится этот токен шлюза?") {
         return "env" as never;
       }
       return (params.options[0]?.value ?? "") as never;

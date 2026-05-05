@@ -1,6 +1,6 @@
 ---
 name: mcporter
-description: Use the mcporter CLI to list, configure, auth, and call MCP servers/tools directly (HTTP or stdio), including ad-hoc servers, config edits, and CLI/type generation.
+description: "Используйте mcporter CLI для просмотра, настройки, авторизации и прямого вызова MCP-серверов/инструментов (HTTP или stdio), включая ad-hoc запуск серверов через npx. s, config edits, and CLI/type generation."
 homepage: http://mcporter.dev
 metadata:
   {

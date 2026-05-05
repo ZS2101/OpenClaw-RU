@@ -91,7 +91,7 @@ export const createIMessageTestPlugin = (params?: {
     label: "iMessage",
     selectionLabel: "iMessage (imsg)",
     docsPath: "/channels/imessage",
-    blurb: "iMessage test stub.",
+    blurb: "тестовая заглушка для iMessage.",
     aliases: ["imsg"],
   },
   capabilities: { chatTypes: ["direct", "group"], media: true },

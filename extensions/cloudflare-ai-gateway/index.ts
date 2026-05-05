@@ -71,10 +71,11 @@ export default definePluginEntry({
           wizard: {
             choiceId: "cloudflare-ai-gateway-api-key",
             choiceLabel: "Cloudflare AI Gateway",
-            choiceHint: "Account ID + Gateway ID + API key",
+            choiceHint: "Account ID + Gateway ID + API-ключ",
             groupId: "cloudflare-ai-gateway",
-            groupLabel: "Cloudflare AI Gateway",
-            groupHint: "Account ID + Gateway ID + API key",
+            groupLabel: "$ Cloudflare AI Gateway",
+            groupSortKey: 3,
+            groupHint: "Account ID + Gateway ID + API-ключ",
           },
           run: async (ctx) => {
             const metadata = await resolveCloudflareGatewayMetadataInteractive({
@@ -96,7 +97,7 @@ export default definePluginEntry({
               expectedProviders: [PROVIDER_ID],
               provider: PROVIDER_ID,
               envLabel: PROVIDER_ENV_VAR,
-              promptMessage: "Enter Cloudflare AI Gateway API key",
+              promptMessage: "Введите API-ключ Cloudflare AI Gateway",
               normalize: normalizeApiKeyInput,
               validate: validateApiKeyInput,
               prompter: ctx.prompter,

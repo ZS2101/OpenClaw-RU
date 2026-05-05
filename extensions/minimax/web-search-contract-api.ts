@@ -12,7 +12,7 @@ export function createMiniMaxWebSearchProvider(): WebSearchProviderPlugin {
     id: "minimax",
     label: "MiniMax Search",
     hint: "Structured results via MiniMax Coding Plan search API",
-    credentialLabel: "MiniMax Coding Plan key",
+    credentialLabel: "Ключ MiniMax Coding Plan",
     envVars: [...MINIMAX_CODING_PLAN_ENV_VARS],
     placeholder: "sk-cp-...",
     signupUrl: "https://platform.minimax.io/user-center/basic-information/interface-key",

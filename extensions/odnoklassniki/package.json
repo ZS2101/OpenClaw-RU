@@ -1,0 +1,29 @@
+{
+  "name": "@rurik/odnoklassniki",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Rurik Odnoklassniki channel plugin",
+  "openclaw": {
+    "channel": {
+      "id": "odnoklassniki",
+      "label": "Odnoklassniki",
+      "selectionLabel": "OK (Webhook)",
+      "detailLabel": "OK Bot",
+      "docsPath": "/channels/odnoklassniki",
+      "blurb": "бот для социальной сети Одноклассники.",
+      "order": 3
+    },
+    "install": {
+      "npmSpec": "@rurik/odnoklassniki",
+      "defaultChoice": "npm"
+    },
+    "release": {
+      "publishToNpm": true
+    },
+    "setupEntry": "./setup-entry.ts",
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "type": "module"
+}

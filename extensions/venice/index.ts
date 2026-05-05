@@ -20,12 +20,12 @@ export default defineSingleProviderPluginEntry({
     auth: [
       {
         methodId: "api-key",
-        label: "Venice AI API key",
+        label: "API-ключ Venice AI",
         hint: "Privacy-focused (uncensored models)",
         optionKey: "veniceApiKey",
         flagName: "--venice-api-key",
         envVar: "VENICE_API_KEY",
-        promptMessage: "Enter Venice AI API key",
+        promptMessage: "Введите API-ключ Venice AI",
         defaultModel: VENICE_DEFAULT_MODEL_REF,
         applyConfig: (cfg) => applyVeniceConfig(cfg),
         noteMessage: [
@@ -35,7 +35,8 @@ export default defineSingleProviderPluginEntry({
         ].join("\n"),
         noteTitle: "Venice AI",
         wizard: {
-          groupLabel: "Venice AI",
+          groupLabel: "$ Venice AI",
+          groupSortKey: 3,
         },
       },
     ],

@@ -1,11 +1,21 @@
 {
   "id": "stepfun",
   "enabledByDefault": true,
-  "providers": ["stepfun", "stepfun-plan"],
-  "autoEnableWhenConfiguredProviders": ["stepfun", "stepfun-plan"],
+  "providers": [
+    "stepfun",
+    "stepfun-plan"
+  ],
+  "autoEnableWhenConfiguredProviders": [
+    "stepfun",
+    "stepfun-plan"
+  ],
   "providerAuthEnvVars": {
-    "stepfun": ["STEPFUN_API_KEY"],
-    "stepfun-plan": ["STEPFUN_API_KEY"]
+    "stepfun": [
+      "STEPFUN_API_KEY"
+    ],
+    "stepfun-plan": [
+      "STEPFUN_API_KEY"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -15,7 +25,7 @@
       "choiceLabel": "StepFun Standard API key (China)",
       "choiceHint": "Endpoint: api.stepfun.com/v1",
       "groupId": "stepfun",
-      "groupLabel": "StepFun",
+      "groupLabel": "\u00a5 StepFun",
       "groupHint": "Standard / Step Plan (China / Global)",
       "optionKey": "stepfunApiKey",
       "cliFlag": "--stepfun-api-key",
@@ -29,7 +39,7 @@
       "choiceLabel": "StepFun Standard API key (Global/Intl)",
       "choiceHint": "Endpoint: api.stepfun.ai/v1",
       "groupId": "stepfun",
-      "groupLabel": "StepFun",
+      "groupLabel": "\u00a5 StepFun",
       "groupHint": "Standard / Step Plan (China / Global)",
       "optionKey": "stepfunApiKey",
       "cliFlag": "--stepfun-api-key",
@@ -43,7 +53,7 @@
       "choiceLabel": "StepFun Step Plan API key (China)",
       "choiceHint": "Endpoint: api.stepfun.com/step_plan/v1",
       "groupId": "stepfun",
-      "groupLabel": "StepFun",
+      "groupLabel": "\u00a5 StepFun",
       "groupHint": "Standard / Step Plan (China / Global)",
       "optionKey": "stepfunApiKey",
       "cliFlag": "--stepfun-api-key",
@@ -57,7 +67,7 @@
       "choiceLabel": "StepFun Step Plan API key (Global/Intl)",
       "choiceHint": "Endpoint: api.stepfun.ai/step_plan/v1",
       "groupId": "stepfun",
-      "groupLabel": "StepFun",
+      "groupLabel": "\u00a5 StepFun",
       "groupHint": "Standard / Step Plan (China / Global)",
       "optionKey": "stepfunApiKey",
       "cliFlag": "--stepfun-api-key",

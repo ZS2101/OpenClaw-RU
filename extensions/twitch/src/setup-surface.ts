@@ -308,7 +308,7 @@ const twitchDmPolicy: ChannelSetupDmPolicy = {
 };
 
 const twitchGroupAccess: NonNullable<ChannelSetupWizard["groupAccess"]> = {
-  label: "Twitch chat",
+  label: "Чат Twitch",
   placeholder: "",
   skipAllowlistEntries: true,
   currentPolicy: ({ cfg }) => resolveTwitchGroupPolicy(cfg),
@@ -342,10 +342,10 @@ export const twitchSetupWizard: ChannelSetupWizard = {
   resolveAccountIdForConfigure: ({ defaultAccountId }) => defaultAccountId,
   resolveShouldPromptAccountIds: () => false,
   status: {
-    configuredLabel: "configured",
-    unconfiguredLabel: "needs username, token, and clientId",
-    configuredHint: "configured",
-    unconfiguredHint: "needs setup",
+    configuredLabel: "настроено",
+    unconfiguredLabel: "нужны имя пользователя, токен и clientId",
+    configuredHint: "настроено",
+    unconfiguredHint: "требуется настройка",
     resolveConfigured: ({ cfg }) => {
       const account = getAccountConfig(cfg, resolveSetupAccountId(cfg));
       return account ? isAccountConfigured(account) : false;

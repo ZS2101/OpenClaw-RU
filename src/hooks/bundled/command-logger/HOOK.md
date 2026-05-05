@@ -1,6 +1,6 @@
 ---
 name: command-logger
-description: "Log all command events to a centralized audit file"
+description: "Логировать все события команд в центральный файл аудита"
 homepage: https://docs.openclaw.ai/automation/hooks#command-logger
 metadata:
   {

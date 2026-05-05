@@ -1,6 +1,6 @@
 ---
 name: slack
-description: Use when you need to control Slack from OpenClaw via the slack tool, including reacting to messages or pinning/unpinning items in Slack channels or DMs.
+description: "Используйте, когда нужно управлять Slack из OpenClaw через инструмент slack, включая реакции на сообщения или закрепление/открепление тредов. items in Slack channels or DMs."
 metadata: { "openclaw": { "emoji": "💬", "requires": { "config": ["channels.slack"] } } }
 ---
 

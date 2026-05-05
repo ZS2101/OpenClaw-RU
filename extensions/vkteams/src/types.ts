@@ -1,0 +1,4 @@
+export interface VKTeamsConfig { enabled?: boolean; token?: string; name?: string; apiUrl?: string; dmPolicy?:"open"|"pairing"|"allowlist"|"disabled"; groupPolicy?:"open"|"disabled"|"allowlist"; allowFrom?:string[]; groupAllowFrom?:string[]; groups?:Record<string,VKTeamsGroupConfig>; accounts?:Record<string,VKTeamsAccountConfig>; defaultAccount?:string; }
+export interface VKTeamsAccountConfig { enabled?: boolean; token?: string; name?: string; apiUrl?: string; dmPolicy?:"open"|"pairing"|"allowlist"|"disabled"; groupPolicy?:"open"|"disabled"|"allowlist"; allowFrom?:string[]; groupAllowFrom?:string[]; groups?:Record<string,VKTeamsGroupConfig>; }
+export interface VKTeamsGroupConfig { requireMention?: boolean; }
+export interface VKTeamsProbeResult { ok: boolean; latencyMs: number; botName?: string; error?: string; }

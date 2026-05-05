@@ -62,11 +62,11 @@ const promptIrcAllowFrom = createPromptParsedAllowFromForAccount<CoreConfig>({
   defaultAccountId: (cfg) => resolveDefaultIrcAccountId(cfg),
   noteTitle: "IRC allowlist",
   noteLines: [
-    "Allowlist IRC DMs by sender.",
+    "Добавьте в белый список ЛС IRC по отправителю.",
     "Examples:",
     "- alice",
     "- alice!ident@example.org",
-    "Multiple entries: comma-separated.",
+    "Несколько значений: через запятую.",
   ],
   message: "IRC allowFrom (nick or nick!user@host)",
   placeholder: "alice, bob!ident@example.org",
@@ -176,10 +176,10 @@ export const ircSetupWizard: ChannelSetupWizard = {
   channel,
   status: createStandardChannelSetupStatus({
     channelLabel: "IRC",
-    configuredLabel: "configured",
-    unconfiguredLabel: "needs host + nick",
-    configuredHint: "configured",
-    unconfiguredHint: "needs host + nick",
+    configuredLabel: "настроено",
+    unconfiguredLabel: "нужен хост + ник",
+    configuredHint: "настроено",
+    unconfiguredHint: "нужен хост + ник",
     configuredScore: 1,
     unconfiguredScore: 0,
     includeStatusLine: true,
@@ -356,7 +356,7 @@ export const ircSetupWizard: ChannelSetupWizard = {
     },
   ],
   groupAccess: {
-    label: "IRC channels",
+    label: "IRC-каналы",
     placeholder: "#openclaw, #ops, *",
     currentPolicy: ({ cfg, accountId }) =>
       resolveIrcAccount({ cfg: cfg as CoreConfig, accountId }).config.groupPolicy ?? "allowlist",
@@ -380,11 +380,11 @@ export const ircSetupWizard: ChannelSetupWizard = {
   allowFrom: createAllowFromSection({
     helpTitle: "IRC allowlist",
     helpLines: [
-      "Allowlist IRC DMs by sender.",
+      "Добавьте в белый список ЛС IRC по отправителю.",
       "Examples:",
       "- alice",
       "- alice!ident@example.org",
-      "Multiple entries: comma-separated.",
+      "Несколько значений: через запятую.",
     ],
     message: "IRC allowFrom (nick or nick!user@host)",
     placeholder: "alice, bob!ident@example.org",

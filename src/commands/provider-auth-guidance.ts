@@ -52,7 +52,7 @@ export function buildProviderAuthRecoveryHint(params: {
     parts.push(`\`${formatCliCommand("openclaw configure")}\``);
   }
   if (params.includeEnvVar) {
-    parts.push("set an API key env var");
+    parts.push("установить переменную окружения с API-ключом");
   }
   if (parts.length === 0) {
     return `Run \`${formatCliCommand("openclaw configure")}\`.`;

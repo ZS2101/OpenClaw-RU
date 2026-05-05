@@ -40,10 +40,11 @@ export const entraIdAuthMethod: ProviderAuthMethod = {
   wizard: {
     choiceId: "microsoft-foundry-entra",
     choiceLabel: "Microsoft Foundry (Entra ID / az login)",
-    choiceHint: "Use your Azure login — no API key needed",
+    choiceHint: "Используйте логин Azure — API-ключ не требуется",
     groupId: "microsoft-foundry",
-    groupLabel: "Microsoft Foundry",
-    groupHint: "Entra ID + API key",
+    groupLabel: "$ Microsoft Foundry",
+    groupSortKey: 3,
+    groupHint: "Entra ID + API-ключ",
   },
   run: async (ctx: ProviderAuthContext): Promise<ProviderAuthResult> => {
     if (!isAzCliInstalled()) {
@@ -196,10 +197,11 @@ export const apiKeyAuthMethod: ProviderAuthMethod = {
   kind: "api_key",
   wizard: {
     choiceId: "microsoft-foundry-apikey",
-    choiceLabel: "Microsoft Foundry (API key)",
+    choiceLabel: "Microsoft Foundry (API-ключ)",
     groupId: "microsoft-foundry",
-    groupLabel: "Microsoft Foundry",
-    groupHint: "Entra ID + API key",
+    groupLabel: "$ Microsoft Foundry",
+    groupSortKey: 3,
+    groupHint: "Entra ID + API-ключ",
   },
   run: async (ctx) => {
     const authStore = ensureAuthProfileStore(ctx.agentDir, {
@@ -221,7 +223,7 @@ export const apiKeyAuthMethod: ProviderAuthMethod = {
       expectedProviders: [PROVIDER_ID],
       provider: PROVIDER_ID,
       envLabel: "AZURE_OPENAI_API_KEY",
-      promptMessage: "Enter Azure OpenAI API key",
+      promptMessage: "Введите API-ключ Azure OpenAI",
       normalize: normalizeApiKeyInput,
       validate: validateApiKeyInput,
       prompter: ctx.prompter,

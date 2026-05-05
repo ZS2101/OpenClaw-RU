@@ -1,6 +1,5 @@
 ---
-name: taskflow
-description: Use when work should span one or more detached tasks but still behave like one job with a single owner context. TaskFlow is the durable flow substrate under authoring layers like Lobster, ACPX, plugins, or plain code. Keep conditional logic in the caller; use TaskFlow for flow identity, child-task linkage, waiting state, revision-checked mutations, and user-facing emergence.
+name: taskflowdescription: "Используйте, когда работа должна охватывать одну или несколько изолированных задач, но вести себя как одно задание с единым контекстом владельца. TaskFlow — это надежная основа потока под слоями авторинга, такими как Lobster, ACPX, плагины или обычный код. Keep conditional logic in the caller; use TaskFlow for flow identity, child-task linkage, waiting state, revision-checked mutations, and user-facing emergence."
 metadata: { "openclaw": { "emoji": "🪝" } }
 ---
 

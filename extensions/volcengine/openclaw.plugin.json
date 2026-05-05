@@ -1,9 +1,14 @@
 {
   "id": "volcengine",
   "enabledByDefault": true,
-  "providers": ["volcengine", "volcengine-plan"],
+  "providers": [
+    "volcengine",
+    "volcengine-plan"
+  ],
   "providerAuthEnvVars": {
-    "volcengine": ["VOLCANO_ENGINE_API_KEY"]
+    "volcengine": [
+      "VOLCANO_ENGINE_API_KEY"
+    ]
   },
   "providerAuthAliases": {
     "volcengine-plan": "volcengine"
@@ -15,7 +20,7 @@
       "choiceId": "volcengine-api-key",
       "choiceLabel": "Volcano Engine API key",
       "groupId": "volcengine",
-      "groupLabel": "Volcano Engine",
+      "groupLabel": "\u00a5 Volcano Engine",
       "groupHint": "API key",
       "optionKey": "volcengineApiKey",
       "cliFlag": "--volcengine-api-key",

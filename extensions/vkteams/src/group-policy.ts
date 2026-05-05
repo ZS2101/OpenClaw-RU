@@ -1,0 +1,1 @@
+export function applyVKTeamsGroupGating():{shouldProcess:boolean}{return{shouldProcess:true};} export function checkVKTeamsDmAccess(p:{senderId:string;allowFrom?:string[]}):{allowed:boolean;reason?:string}{const af=p.allowFrom??[];if(af.length===0||af.includes("*")||af.includes(p.senderId))return{allowed:true};return{allowed:false,reason:"sender not in allowFrom"};}

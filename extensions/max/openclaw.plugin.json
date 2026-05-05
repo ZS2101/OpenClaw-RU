@@ -1,0 +1,7 @@
+{
+  "id": "max",
+  "activation": { "onStartup": false },
+  "channels": ["max"],
+  "channelEnvVars": { "max": ["MAX_BOT_TOKEN"] },
+  "configSchema": { "type": "object", "additionalProperties": false, "properties": {} }
+}

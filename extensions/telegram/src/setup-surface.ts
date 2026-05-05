@@ -31,10 +31,10 @@ export const telegramSetupWizard: ChannelSetupWizard = {
   channel,
   status: createStandardChannelSetupStatus({
     channelLabel: "Telegram",
-    configuredLabel: "configured",
-    unconfiguredLabel: "needs token",
-    configuredHint: "recommended · configured",
-    unconfiguredHint: "recommended · newcomer-friendly",
+    configuredLabel: "настроено",
+    unconfiguredLabel: "нужен токен",
+    configuredHint: "рекомендуется · настроено",
+    unconfiguredHint: "рекомендуется · дружелюбно для новичков",
     configuredScore: 1,
     unconfiguredScore: 10,
     resolveConfigured: ({ cfg, accountId }) =>
@@ -51,13 +51,13 @@ export const telegramSetupWizard: ChannelSetupWizard = {
     {
       inputKey: "token",
       providerHint: channel,
-      credentialLabel: "Telegram bot token",
+      credentialLabel: "токен бота Telegram",
       preferredEnvVar: "TELEGRAM_BOT_TOKEN",
-      helpTitle: "Telegram bot token",
+      helpTitle: "Токен бота Telegram",
       helpLines: TELEGRAM_TOKEN_HELP_LINES,
-      envPrompt: "TELEGRAM_BOT_TOKEN detected. Use env var?",
+      envPrompt: "Обнаружен TELEGRAM_BOT_TOKEN. Использовать env var?",
       keepPrompt: "Telegram token already configured. Keep it?",
-      inputPrompt: "Enter Telegram bot token",
+      inputPrompt: "Введите токен бота Telegram",
       allowEnv: ({ accountId }) => accountId === DEFAULT_ACCOUNT_ID,
       inspect: ({ cfg, accountId }) => {
         const resolved = resolveTelegramAccount({ cfg, accountId });

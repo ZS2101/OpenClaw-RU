@@ -22,7 +22,7 @@ import { WizardCancelledError } from "./prompts.js";
 
 function guardCancel<T>(value: T | symbol): T {
   if (isCancel(value)) {
-    cancel(stylePromptTitle("Setup cancelled.") ?? "Setup cancelled.");
+    cancel(stylePromptTitle("Настройка отменена.") ?? "Настройка отменена.");
     throw new WizardCancelledError();
   }
   return value;
@@ -111,7 +111,7 @@ export function createClackPrompter(): WizardPrompter {
     },
     confirm: async (params) =>
       guardCancel(
-        await confirm({
+        await confirm({ active: "Да", inactive: "Нет",
           message: stylePromptMessage(params.message),
           initialValue: params.initialValue,
         }),

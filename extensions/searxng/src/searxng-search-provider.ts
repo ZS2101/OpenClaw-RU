@@ -40,10 +40,10 @@ export function createSearxngWebSearchProvider(): WebSearchProviderPlugin {
   return {
     id: "searxng",
     label: "SearXNG Search",
-    hint: "Self-hosted meta-search with no API key required",
+    hint: "Self-hosted meta-search with no API-ключ required",
     onboardingScopes: ["text-inference"],
     requiresCredential: true,
-    credentialLabel: "SearXNG Base URL",
+    credentialLabel: "Base URL SearXNG",
     envVars: ["SEARXNG_BASE_URL"],
     placeholder: "http://localhost:8080",
     signupUrl: "https://docs.searxng.org/",

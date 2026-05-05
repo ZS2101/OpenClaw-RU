@@ -104,7 +104,7 @@ export async function promptSignalAllowFrom(params: {
       "Examples:",
       "- +15555550123",
       "- uuid:123e4567-e89b-12d3-a456-426614174000",
-      "Multiple entries: comma-separated.",
+      "Несколько значений: через запятую.",
       `Docs: ${formatDocsLink("/signal", "signal")}`,
     ],
     message: "Signal allowFrom (E.164 or uuid)",
@@ -191,7 +191,7 @@ export function createSignalCliPathTextInput(
     shouldPrompt,
     helpTitle: "Signal",
     helpLines: [
-      "signal-cli not found. Install it, then rerun this step or set channels.signal.cliPath.",
+      "signal-cli не найден. Установите его, затем повторите этот шаг или задайте channels.signal.cliPath.",
     ],
   });
 }
@@ -242,10 +242,10 @@ export function createSignalSetupWizardProxy(loadWizard: () => Promise<ChannelSe
     channel,
     loadWizard,
     status: {
-      configuredLabel: "configured",
-      unconfiguredLabel: "needs setup",
-      configuredHint: "signal-cli found",
-      unconfiguredHint: "signal-cli missing",
+      configuredLabel: "настроено",
+      unconfiguredLabel: "требуется настройка",
+      configuredHint: "signal-cli найден",
+      unconfiguredHint: "signal-cli не найден",
       configuredScore: 1,
       unconfiguredScore: 0,
     },

@@ -30,11 +30,11 @@
     "channel": {
       "id": "qqbot",
       "label": "QQ Bot",
-      "selectionLabel": "QQ Bot (Official API)",
+      "selectionLabel": "QQ Bot (Официальный API)",
       "detailLabel": "QQ Bot",
       "docsPath": "/channels/qqbot",
       "docsLabel": "qqbot",
-      "blurb": "connect to QQ via official QQ Bot API with group chat and direct message support.",
+      "blurb": "подключение к QQ через официальный QQ Bot API с поддержкой групп и личных сообщений.",
       "systemImage": "bubble.left.and.bubble.right"
     },
     "install": {

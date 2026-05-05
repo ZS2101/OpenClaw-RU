@@ -8,10 +8,10 @@ const channel = "whatsapp" as const;
 export const whatsappSetupWizard: ChannelSetupWizard = {
   channel,
   status: {
-    configuredLabel: "linked",
-    unconfiguredLabel: "not linked",
-    configuredHint: "linked",
-    unconfiguredHint: "not linked",
+    configuredLabel: "привязан",
+    unconfiguredLabel: "не привязан",
+    configuredHint: "привязан",
+    unconfiguredHint: "не привязан",
     configuredScore: 5,
     unconfiguredScore: 4,
     resolveConfigured: async ({ cfg, accountId }) => {

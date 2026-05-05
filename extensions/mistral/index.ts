@@ -23,16 +23,17 @@ export default defineSingleProviderPluginEntry({
     auth: [
       {
         methodId: "api-key",
-        label: "Mistral API key",
+        label: "API-ключ Mistral",
         hint: "API key",
         optionKey: "mistralApiKey",
         flagName: "--mistral-api-key",
         envVar: "MISTRAL_API_KEY",
-        promptMessage: "Enter Mistral API key",
+        promptMessage: "Введите API-ключ Mistral",
         defaultModel: MISTRAL_DEFAULT_MODEL_REF,
         applyConfig: (cfg) => applyMistralConfig(cfg),
         wizard: {
-          groupLabel: "Mistral AI",
+          groupLabel: "$ Mistral AI",
+          groupSortKey: 3,
         },
       },
     ],

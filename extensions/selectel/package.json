@@ -1,0 +1,13 @@
+{
+  "name": "@rurik/selectel-provider",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Rurik Selectel provider plugin",
+  "devDependencies": {
+    "@openclaw/plugin-sdk": "workspace:*"
+  },
+  "openclaw": {
+    "extensions": ["./index.ts"]
+  }
+}

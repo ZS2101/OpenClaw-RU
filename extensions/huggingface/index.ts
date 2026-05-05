@@ -21,12 +21,14 @@ export default defineSingleProviderPluginEntry({
     auth: [
       {
         methodId: "api-key",
-        label: "Hugging Face API key",
+        label: "API-ключ Hugging Face",
+        wizard: { groupLabel: "$ Hugging Face" },
+        groupSortKey: 3,
         hint: "Inference API (HF token)",
         optionKey: "huggingfaceApiKey",
         flagName: "--huggingface-api-key",
         envVar: "HUGGINGFACE_HUB_TOKEN",
-        promptMessage: "Enter Hugging Face API key",
+        promptMessage: "Введите API-ключ Hugging Face",
         defaultModel: HUGGINGFACE_DEFAULT_MODEL_REF,
         applyConfig: (cfg) => applyHuggingfaceConfig(cfg),
       },

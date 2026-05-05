@@ -16,10 +16,10 @@ import { lookupTelegramChatId } from "./api-fetch.js";
 const channel = "telegram" as const;
 
 export const TELEGRAM_TOKEN_HELP_LINES = [
-  "1) Open Telegram and chat with @BotFather",
-  "2) Run /newbot (or /mybots)",
-  "3) Copy the token (looks like 123456:ABC...)",
-  "Tip: you can also set TELEGRAM_BOT_TOKEN in your env.",
+  "1) Откройте Telegram и начните чат с @BotFather",
+  "2) Выполните /newbot (или /mybots)",
+  "3) Скопируйте токен (выглядит как 123456:ABC...)",
+  "Совет: вы также можете задать TELEGRAM_BOT_TOKEN как env var.",
   `Docs: ${formatDocsLink("/telegram")}`,
   "Website: https://openclaw.ai",
 ];

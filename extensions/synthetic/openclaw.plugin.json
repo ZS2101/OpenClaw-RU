@@ -1,9 +1,13 @@
 {
   "id": "synthetic",
   "enabledByDefault": true,
-  "providers": ["synthetic"],
+  "providers": [
+    "synthetic"
+  ],
   "providerAuthEnvVars": {
-    "synthetic": ["SYNTHETIC_API_KEY"]
+    "synthetic": [
+      "SYNTHETIC_API_KEY"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -12,7 +16,7 @@
       "choiceId": "synthetic-api-key",
       "choiceLabel": "Synthetic API key",
       "groupId": "synthetic",
-      "groupLabel": "Synthetic",
+      "groupLabel": "$ Synthetic",
       "groupHint": "Anthropic-compatible (multi-model)",
       "optionKey": "syntheticApiKey",
       "cliFlag": "--synthetic-api-key",

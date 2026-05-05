@@ -31,10 +31,10 @@
     "channel": {
       "id": "matrix",
       "label": "Matrix",
-      "selectionLabel": "Matrix (plugin)",
+      "selectionLabel": "Matrix (плагин)",
       "docsPath": "/channels/matrix",
       "docsLabel": "matrix",
-      "blurb": "open protocol; install the plugin to enable.",
+      "blurb": "открытый протокол; установите плагин для активации.",
       "order": 70,
       "quickstartAllowFrom": true,
       "persistedAuthState": {

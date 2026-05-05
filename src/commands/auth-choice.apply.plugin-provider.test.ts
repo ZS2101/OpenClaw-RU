@@ -238,7 +238,7 @@ describe("applyAuthChoiceLoadedPluginProvider", () => {
     });
     expect(note).toHaveBeenCalledWith(
       "Detected local Ollama runtime.\nPulled model metadata.",
-      "Provider notes",
+      "Заметки провайдера",
     );
   });
 
@@ -335,8 +335,8 @@ describe("applyAuthChoiceLoadedPluginProvider", () => {
     });
     expect(runProviderModelSelectedHook).not.toHaveBeenCalled();
     expect(note).toHaveBeenCalledWith(
-      'Default model set to ollama/qwen3:4b for agent "worker".',
-      "Model configured",
+      'Модель по умолчанию: ollama/qwen3:4b для агента "worker".',
+      "Модель настроена",
     );
   });
 
@@ -370,6 +370,6 @@ describe("applyAuthChoiceLoadedPluginProvider", () => {
       },
     });
     expect(resolvePluginProviders).not.toHaveBeenCalled();
-    expect(note).toHaveBeenCalledWith("Ollama plugin is disabled (plugins disabled).", "Ollama");
+    expect(note).toHaveBeenCalledWith("Ollama: плагин отключён (plugins disabled).", "Ollama");
   });
 });

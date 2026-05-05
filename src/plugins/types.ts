@@ -955,6 +955,8 @@ export type ProviderPluginWizardSetup = {
   groupId?: string;
   groupLabel?: string;
   groupHint?: string;
+  /** Numeric sort key for ordering provider groups in selection UI. Lower = first. */
+  groupSortKey?: number;
   methodId?: string;
   /**
    * Interactive onboarding surfaces where this auth choice should appear.

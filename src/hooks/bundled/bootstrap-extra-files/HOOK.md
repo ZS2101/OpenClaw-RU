@@ -1,6 +1,6 @@
 ---
 name: bootstrap-extra-files
-description: "Inject additional workspace bootstrap files via glob/path patterns"
+description: "Добавлять дополнительные файлы bootstrap рабочей области через glob/path шаблоны"
 homepage: https://docs.openclaw.ai/automation/hooks#bootstrap-extra-files
 metadata:
   {

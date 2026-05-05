@@ -679,7 +679,7 @@ export const FIELD_LABELS: Record<string, string> = {
   "cron.runLog": "Cron Run Log Pruning",
   "cron.runLog.maxBytes": "Cron Run Log Max Bytes",
   "cron.runLog.keepLines": "Cron Run Log Keep Lines",
-  hooks: "Hooks",
+  hooks: "Хуки",
   "hooks.enabled": "Hooks Enabled",
   "hooks.path": "Hooks Endpoint Path",
   "hooks.token": "Hooks Auth Token",

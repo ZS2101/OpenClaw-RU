@@ -57,7 +57,7 @@ function clearQQBotCredentialField(
 }
 
 const QQBOT_SETUP_HELP_LINES = [
-  "To create a QQ Bot, visit the QQ Open Platform:",
+  "Чтобы создать QQ Bot, посетите QQ Open Platform:",
   `  ${formatDocsLink("https://q.qq.com", "q.qq.com")}`,
   "",
   "1. Create an application and note the AppID.",
@@ -68,10 +68,10 @@ export const qqbotSetupWizard: ChannelSetupWizard = {
   channel,
   status: createStandardChannelSetupStatus({
     channelLabel: "QQ Bot",
-    configuredLabel: "configured",
-    unconfiguredLabel: "needs AppID + AppSecret",
-    configuredHint: "configured",
-    unconfiguredHint: "needs AppID + AppSecret",
+    configuredLabel: "настроено",
+    unconfiguredLabel: "требуются AppID + AppSecret",
+    configuredHint: "настроено",
+    unconfiguredHint: "требуются AppID + AppSecret",
     configuredScore: 1,
     unconfiguredScore: 6,
     resolveConfigured: ({ cfg, accountId }) =>
@@ -95,9 +95,9 @@ export const qqbotSetupWizard: ChannelSetupWizard = {
       preferredEnvVar: "QQBOT_APP_ID",
       helpTitle: "QQ Bot AppID",
       helpLines: QQBOT_SETUP_HELP_LINES,
-      envPrompt: "QQBOT_APP_ID detected. Use env var?",
+      envPrompt: "Обнаружен QQBOT_APP_ID. Использовать env var?",
       keepPrompt: "QQ Bot AppID already configured. Keep it?",
-      inputPrompt: "Enter QQ Bot AppID",
+      inputPrompt: "Введите QQ Bot AppID",
       allowEnv: ({ accountId }) => accountId === DEFAULT_ACCOUNT_ID,
       inspect: ({ cfg, accountId }) => {
         const resolved = resolveQQBotAccount(cfg, accountId, { allowUnresolvedSecretRef: true });
@@ -128,9 +128,9 @@ export const qqbotSetupWizard: ChannelSetupWizard = {
       preferredEnvVar: "QQBOT_CLIENT_SECRET",
       helpTitle: "QQ Bot AppSecret",
       helpLines: QQBOT_SETUP_HELP_LINES,
-      envPrompt: "QQBOT_CLIENT_SECRET detected. Use env var?",
+      envPrompt: "Обнаружен QQBOT_CLIENT_SECRET. Использовать env var?",
       keepPrompt: "QQ Bot AppSecret already configured. Keep it?",
-      inputPrompt: "Enter QQ Bot AppSecret",
+      inputPrompt: "Введите QQ Bot AppSecret",
       allowEnv: ({ accountId }) => accountId === DEFAULT_ACCOUNT_ID,
       inspect: ({ cfg, accountId }) => {
         const resolved = resolveQQBotAccount(cfg, accountId, { allowUnresolvedSecretRef: true });

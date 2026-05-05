@@ -1,6 +1,5 @@
 ---
-name: taskflow-inbox-triage
-description: Example TaskFlow authoring pattern for inbox triage. Use when messages need different treatment based on intent, with some routes notifying immediately, some waiting on outside answers, and others rolling into a later summary.
+name: taskflow-inbox-triagedescription: "Пример паттерна авторинга TaskFlow для сортировки входящих (inbox triage). Используйте, когда сообщения требуют разной обработки в зависимости от намерений: одни маршруты уведомляют сразу, другие ждут внешних ответов, а третьи переносятся в последующее саммари."
 metadata: { "openclaw": { "emoji": "📥" } }
 ---
 

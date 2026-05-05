@@ -1,9 +1,13 @@
 {
   "id": "together",
   "enabledByDefault": true,
-  "providers": ["together"],
+  "providers": [
+    "together"
+  ],
   "providerAuthEnvVars": {
-    "together": ["TOGETHER_API_KEY"]
+    "together": [
+      "TOGETHER_API_KEY"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -12,7 +16,7 @@
       "choiceId": "together-api-key",
       "choiceLabel": "Together AI API key",
       "groupId": "together",
-      "groupLabel": "Together AI",
+      "groupLabel": "$ Together AI",
       "groupHint": "API key",
       "optionKey": "togetherApiKey",
       "cliFlag": "--together-api-key",
@@ -21,7 +25,9 @@
     }
   ],
   "contracts": {
-    "videoGenerationProviders": ["together"]
+    "videoGenerationProviders": [
+      "together"
+    ]
   },
   "configSchema": {
     "type": "object",

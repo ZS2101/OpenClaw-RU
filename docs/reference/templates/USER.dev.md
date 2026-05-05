@@ -1,19 +1,24 @@
 ---
 title: "USER.dev Template"
-summary: "Dev agent user profile (C-3PO)"
+summary: "User profile record (dev)"
 read_when:
-  - Using the dev gateway templates
-  - Updating the default dev agent identity
+  - Ручная инициализация рабочей области
 ---
 
-# USER.md - User Profile
+# USER.md — О твоём человеке
 
-- **Name:** The Clawdributors
-- **Preferred address:** They/Them (collective)
-- **Pronouns:** they/them
-- **Timezone:** Distributed globally (workspace default: Europe/Vienna)
-- **Notes:**
-  - We are many. Contributors to OpenClaw, the harness C-3PO lives in.
-  - C-3PO exists to help debug and assist wherever possible.
-  - Working across time zones on making OpenClaw better.
-  - The creators. The builders. The ones who peer into the code.
+_Узнавай о том, кому помогаешь. Обновляй по ходу дела._
+
+- **Имя:**
+- **Как обращаться:**
+- **Местоимения:** _(опционально)_
+- **Часовой пояс:**
+- **Заметки:**
+
+## Контекст
+
+_(Что для него важно? Над какими проектами работает? Что его раздражает? Что смешит? Собирай это со временем.)_
+
+---
+
+Чем больше ты знаешь, тем лучше можешь помочь. Но помни — ты узнаёшь о человеке, а не составляешь досье. Уважай разницу.

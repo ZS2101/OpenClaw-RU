@@ -1,0 +1,60 @@
+{
+  "id": "cometapi",
+  "activation": {
+    "onStartup": false
+  },
+  "enabledByDefault": true,
+  "providerDiscoveryEntry": "./provider-discovery.ts",
+  "providers": [
+    "cometapi"
+  ],
+  "providerRequest": {
+    "providers": {
+      "cometapi": {
+        "family": "cometapi"
+      }
+    }
+  },
+  "providerAuthChoices": [
+    {
+      "provider": "cometapi",
+      "method": "api-key",
+      "choiceId": "cometapi-api-key",
+      "choiceLabel": "COMETAPI API Key",
+      "assistantPriority": 0,
+      "groupId": "cometapi",
+      "groupLabel": "₽ CometAPI",
+      "groupHint": "Russian provider"
+    }
+  ],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  },
+  "modelCatalog": {
+    "providers": {
+      "cometapi": {
+        "baseUrl": "https://api.cometapi.com/v1",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "default",
+            "name": "cometapi default",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 32768,
+            "maxTokens": 4096,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          }
+        ]
+      }
+    }
+  }
+}

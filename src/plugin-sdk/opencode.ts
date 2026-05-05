@@ -6,7 +6,8 @@ const OPENCODE_SHARED_PROFILE_IDS = ["opencode:default", "opencode-go:default"] 
 const OPENCODE_SHARED_HINT = "Shared API key for Zen + Go catalogs";
 const OPENCODE_SHARED_WIZARD_GROUP = {
   groupId: "opencode",
-  groupLabel: "OpenCode",
+  groupLabel: "$ OpenCode",
+  groupSortKey: 3,
   groupHint: OPENCODE_SHARED_HINT,
 } as const;
 

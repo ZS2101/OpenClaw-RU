@@ -1,6 +1,5 @@
 ---
-name: spotify-player
-description: Terminal Spotify playback/search via spogo (preferred) or spotify_player.
+name: spotify-playerdescription: "Управление воспроизведением/поиском Spotify в терминале через spogo (предпочтительно) или spotify_player."
 homepage: https://www.spotify.com
 metadata:
   {

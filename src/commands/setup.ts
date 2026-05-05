@@ -158,11 +158,11 @@ export async function setupCommand(
     dir: workspace,
     ensureBootstrapFiles: !next.agents?.defaults?.skipBootstrap,
   });
-  runtime.log(`Workspace OK: ${shortenHomePath(ws.dir)}`);
+  runtime.log(`Воркспейс OK: ${shortenHomePath(ws.dir)}`);
 
   const sessionsDir = await (
     deps.resolveSessionTranscriptsDir ?? resolveDefaultSessionTranscriptsDir
   )();
   await (deps.mkdir ?? fs.mkdir)(sessionsDir, { recursive: true });
-  runtime.log(`Sessions OK: ${shortenHomePath(sessionsDir)}`);
+  runtime.log(`Сессии OK: ${shortenHomePath(sessionsDir)}`);
 }

@@ -32,6 +32,8 @@ export default definePluginEntry({
         createOpencodeCatalogApiKeyAuthMethod({
           providerId: PROVIDER_ID,
           label: "OpenCode Zen catalog",
+          wizard: { groupLabel: "$ OpenCode Zen" },
+          groupSortKey: 3,
           optionKey: "opencodeZenApiKey",
           flagName: "--opencode-zen-api-key",
           defaultModel: OPENCODE_ZEN_DEFAULT_MODEL,
@@ -43,7 +45,7 @@ export default definePluginEntry({
             "Choose the Zen catalog when you want the curated multi-model proxy.",
           ].join("\n"),
           choiceId: "opencode-zen",
-          choiceLabel: "OpenCode Zen catalog",
+          choiceLabel: "Каталог OpenCode Zen",
         }),
       ],
       ...PASSTHROUGH_GEMINI_REPLAY_HOOKS,

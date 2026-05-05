@@ -1,6 +1,5 @@
 ---
-name: notion
-description: Notion API for creating and managing pages, databases, and blocks.
+name: notiondescription: "Notion API для создания и управления страницами, базами данных и блоками."
 homepage: https://developers.notion.com
 metadata:
   {

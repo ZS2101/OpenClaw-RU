@@ -1,9 +1,13 @@
 {
   "id": "sglang",
   "enabledByDefault": true,
-  "providers": ["sglang"],
+  "providers": [
+    "sglang"
+  ],
   "providerAuthEnvVars": {
-    "sglang": ["SGLANG_API_KEY"]
+    "sglang": [
+      "SGLANG_API_KEY"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -13,7 +17,7 @@
       "choiceLabel": "SGLang",
       "choiceHint": "Fast self-hosted OpenAI-compatible server",
       "groupId": "sglang",
-      "groupLabel": "SGLang",
+      "groupLabel": "\u2205 SGLang",
       "groupHint": "Fast self-hosted server"
     }
   ],

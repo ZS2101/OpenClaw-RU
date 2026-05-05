@@ -1,9 +1,13 @@
 {
   "id": "litellm",
   "enabledByDefault": true,
-  "providers": ["litellm"],
+  "providers": [
+    "litellm"
+  ],
   "providerAuthEnvVars": {
-    "litellm": ["LITELLM_API_KEY"]
+    "litellm": [
+      "LITELLM_API_KEY"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -13,7 +17,7 @@
       "choiceLabel": "LiteLLM API key",
       "choiceHint": "Unified gateway for 100+ LLM providers",
       "groupId": "litellm",
-      "groupLabel": "LiteLLM",
+      "groupLabel": "\u2205 LiteLLM",
       "groupHint": "Unified LLM gateway (100+ providers)",
       "optionKey": "litellmApiKey",
       "cliFlag": "--litellm-api-key",

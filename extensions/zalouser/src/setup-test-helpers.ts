@@ -15,7 +15,7 @@ export const zalouserSetupPlugin = {
     label: "ZaloUser",
     selectionLabel: "ZaloUser",
     docsPath: "/channels/zalouser",
-    blurb: "Unofficial Zalo personal account connector.",
+    blurb: "неофициальный коннектор для личного аккаунта Zalo.",
   },
   capabilities: {
     chatTypes: ["direct", "group"] as Array<"direct" | "group">,

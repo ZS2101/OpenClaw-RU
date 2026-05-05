@@ -1,0 +1,29 @@
+{
+  "name": "@rurik/vkteams",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Rurik VK Teams channel plugin",
+  "openclaw": {
+    "channel": {
+      "id": "vkteams",
+      "label": "VK Teams",
+      "selectionLabel": "VK Teams (Long Poll)",
+      "detailLabel": "VK Teams Bot",
+      "docsPath": "/channels/vkteams",
+      "blurb": "бот для корпоративного мессенджера VK Teams.",
+      "order": 6
+    },
+    "install": {
+      "npmSpec": "@rurik/vkteams",
+      "defaultChoice": "npm"
+    },
+    "release": {
+      "publishToNpm": true
+    },
+    "setupEntry": "./setup-entry.ts",
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "type": "module"
+}

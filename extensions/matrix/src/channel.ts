@@ -79,10 +79,10 @@ const loadMatrixChannelRuntime = createLazyRuntimeNamedExport(
 const meta = {
   id: "matrix",
   label: "Matrix",
-  selectionLabel: "Matrix (plugin)",
+  selectionLabel: "Matrix (плагин)",
   docsPath: "/channels/matrix",
   docsLabel: "matrix",
-  blurb: "open protocol; configure a homeserver + access token.",
+  blurb: "открытый протокол; настройте homeserver + токен доступа.",
   order: 70,
   quickstartAllowFrom: true,
 };

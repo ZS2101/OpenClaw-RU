@@ -120,7 +120,7 @@ async function runZaiApiKeyAuth(
     expectedProviders: [PROVIDER_ID, "z-ai"],
     provider: PROVIDER_ID,
     envLabel: "ZAI_API_KEY",
-    promptMessage: "Enter Z.AI API key",
+    promptMessage: "Введите API-ключ Z.AI",
     normalize: normalizeApiKeyInput,
     validate: validateApiKeyInput,
     prompter: ctx.prompter,
@@ -222,7 +222,8 @@ function buildZaiApiKeyMethod(params: {
       choiceLabel: params.choiceLabel,
       ...(params.choiceHint ? { choiceHint: params.choiceHint } : {}),
       groupId: "zai",
-      groupLabel: "Z.AI",
+      groupLabel: "¥ Z.AI",
+      groupSortKey: 2,
       groupHint: "GLM Coding Plan / Global / CN",
     },
     run: async (ctx) => await runZaiApiKeyAuth(ctx, params.endpoint),
@@ -245,7 +246,7 @@ export default definePluginEntry({
         buildZaiApiKeyMethod({
           id: "api-key",
           choiceId: "zai-api-key",
-          choiceLabel: "Z.AI API key",
+          choiceLabel: "API-ключ Z.AI",
         }),
         buildZaiApiKeyMethod({
           id: "coding-global",

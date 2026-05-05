@@ -36,7 +36,7 @@
       "selectionLabel": "Microsoft Teams (Teams SDK)",
       "docsPath": "/channels/msteams",
       "docsLabel": "msteams",
-      "blurb": "Teams SDK; enterprise support.",
+      "blurb": "Teams SDK; корпоративная поддержка.",
       "aliases": [
         "teams"
       ],

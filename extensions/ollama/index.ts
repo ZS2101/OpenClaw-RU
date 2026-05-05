@@ -218,10 +218,11 @@ export default definePluginEntry({
         setup: {
           choiceId: "ollama",
           choiceLabel: "Ollama",
-          choiceHint: "Cloud and local open models",
+          choiceHint: "Облачные и локальные открытые модели",
           groupId: "ollama",
-          groupLabel: "Ollama",
-          groupHint: "Cloud and local open models",
+          groupLabel: "∅ Ollama",
+          groupSortKey: 4,
+          groupHint: "Облачные и локальные открытые модели",
           methodId: "local",
           modelSelection: {
             promptWhenAuthChoiceProvided: true,

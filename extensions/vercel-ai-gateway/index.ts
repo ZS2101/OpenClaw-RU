@@ -14,17 +14,19 @@ export default defineSingleProviderPluginEntry({
     auth: [
       {
         methodId: "api-key",
-        label: "Vercel AI Gateway API key",
+        label: "API-ключ Vercel AI Gateway",
         hint: "API key",
         optionKey: "aiGatewayApiKey",
         flagName: "--ai-gateway-api-key",
         envVar: "AI_GATEWAY_API_KEY",
-        promptMessage: "Enter Vercel AI Gateway API key",
+        promptMessage: "Введите API-ключ Vercel AI Gateway",
         defaultModel: VERCEL_AI_GATEWAY_DEFAULT_MODEL_REF,
         applyConfig: (cfg) => applyVercelAiGatewayConfig(cfg),
         wizard: {
           choiceId: "ai-gateway-api-key",
           groupId: "ai-gateway",
+          groupLabel: "$ Vercel AI Gateway",
+          groupSortKey: 3,
         },
       },
     ],

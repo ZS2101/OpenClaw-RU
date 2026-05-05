@@ -959,6 +959,10 @@
       "types": "./dist/plugin-sdk/provider-onboard.d.ts",
       "default": "./dist/plugin-sdk/provider-onboard.js"
     },
+    "./plugin-sdk/provider-policy-shared": {
+      "types": "./dist/plugin-sdk/provider-policy-shared.d.ts",
+      "default": "./dist/plugin-sdk/provider-policy-shared.js"
+    },
     "./plugin-sdk/provider-stream-family": {
       "types": "./dist/plugin-sdk/provider-stream-family.d.ts",
       "default": "./dist/plugin-sdk/provider-stream-family.js"

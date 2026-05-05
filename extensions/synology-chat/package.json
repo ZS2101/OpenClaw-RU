@@ -17,7 +17,7 @@
       "selectionLabel": "Synology Chat (Webhook)",
       "docsPath": "/channels/synology-chat",
       "docsLabel": "synology-chat",
-      "blurb": "Connect your Synology NAS Chat to OpenClaw with full agent capabilities.",
+      "blurb": "Подключите ваш Synology NAS Chat к OpenClaw с полной функциональностью агента.",
       "order": 90
     },
     "install": {

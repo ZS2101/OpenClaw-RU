@@ -1,9 +1,13 @@
 {
   "id": "kilocode",
   "enabledByDefault": true,
-  "providers": ["kilocode"],
+  "providers": [
+    "kilocode"
+  ],
   "providerAuthEnvVars": {
-    "kilocode": ["KILOCODE_API_KEY"]
+    "kilocode": [
+      "KILOCODE_API_KEY"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -13,7 +17,7 @@
       "choiceLabel": "Kilo Gateway API key",
       "choiceHint": "API key (OpenRouter-compatible)",
       "groupId": "kilocode",
-      "groupLabel": "Kilo Gateway",
+      "groupLabel": "$ Kilo Gateway",
       "groupHint": "API key (OpenRouter-compatible)",
       "optionKey": "kilocodeApiKey",
       "cliFlag": "--kilocode-api-key",

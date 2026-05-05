@@ -105,7 +105,10 @@ export function registerGoogleGeminiCliProvider(api: OpenClawPluginApi) {
       setup: {
         choiceId: "google-gemini-cli",
         choiceLabel: "Gemini CLI OAuth",
-        choiceHint: "Google OAuth with project-aware token payload",
+        choiceHint: "Google OAuth с project-aware токеном",
+        groupId: "google",
+        groupLabel: "$ Google",
+        groupSortKey: 3,
         methodId: "oauth",
       },
     },

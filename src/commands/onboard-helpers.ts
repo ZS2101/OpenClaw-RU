@@ -32,7 +32,7 @@ export { resolveControlUiLinks };
 
 export function guardCancel<T>(value: T | symbol, runtime: RuntimeEnv): T {
   if (isCancel(value)) {
-    cancel(stylePromptTitle("Setup cancelled.") ?? "Setup cancelled.");
+    cancel(stylePromptTitle("Настройка отменена.") ?? "Настройка отменена.");
     runtime.exit(0);
     throw new Error("unreachable");
   }
@@ -66,7 +66,7 @@ export function summarizeExistingConfig(config: OpenClawConfig): string {
   if (config.skills?.install?.nodeManager) {
     rows.push(shortenHomeInString(`skills.nodeManager: ${config.skills.install.nodeManager}`));
   }
-  return rows.length ? rows.join("\n") : "No key settings detected.";
+  return rows.length ? rows.join("\n") : "Ключевые настройки не обнаружены.";
 }
 
 export function normalizeGatewayTokenInput(value: unknown): string {
@@ -84,11 +84,11 @@ export function normalizeGatewayTokenInput(value: unknown): string {
 
 export function validateGatewayPasswordInput(value: unknown): string | undefined {
   if (typeof value !== "string") {
-    return "Required";
+    return "Обязательно";
   }
   const trimmed = value.trim();
   if (!trimmed) {
-    return "Required";
+    return "Обязательно";
   }
   if (trimmed === "undefined" || trimmed === "null") {
     return 'Cannot be the literal string "undefined" or "null"';
@@ -103,7 +103,7 @@ export function printWizardHeader(runtime: RuntimeEnv) {
     "██░███░██░▀▀░██░▄▄▄██░█░█░██░█████░████░▀▀░██░█░█░██",
     "██░▀▀▀░██░█████░▀▀▀██░██▄░██░▀▀▄██░▀▀░█░██░██▄▀▄▀▄██",
     "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀",
-    "                  🦞 OPENCLAW 🦞                    ",
+    "                🦞 OPENCLAW RU 🦞                    ",
     " ",
   ].join("\n");
   runtime.log(header);
@@ -141,9 +141,9 @@ export function formatControlUiSshHint(params: {
     : undefined;
   const sshTarget = resolveSshTargetHint();
   return [
-    "No GUI detected. Open from your computer:",
+    "GUI не обнаружен. Откройте с вашего компьютера:",
     `ssh -N -L ${params.port}:127.0.0.1:${params.port} ${sshTarget}`,
-    "Then open:",
+    "Затем откройте:",
     localUrl,
     authedUrl,
     "Docs:",
@@ -170,10 +170,10 @@ export async function ensureWorkspaceAndSessions(
     dir: workspaceDir,
     ensureBootstrapFiles: !options?.skipBootstrap,
   });
-  runtime.log(`Workspace OK: ${shortenHomePath(ws.dir)}`);
+  runtime.log(`Воркспейс OK: ${shortenHomePath(ws.dir)}`);
   const sessionsDir = resolveSessionTranscriptsDirForAgent(options?.agentId);
   await fs.mkdir(sessionsDir, { recursive: true });
-  runtime.log(`Sessions OK: ${shortenHomePath(sessionsDir)}`);
+  runtime.log(`Сессии OK: ${shortenHomePath(sessionsDir)}`);
 }
 
 export function resolveNodeManagerOptions(): Array<{

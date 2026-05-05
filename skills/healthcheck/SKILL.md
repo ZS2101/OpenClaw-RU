@@ -1,6 +1,5 @@
 ---
-name: healthcheck
-description: Host security hardening and risk-tolerance configuration for OpenClaw deployments. Use when a user asks for security audits, firewall/SSH/update hardening, risk posture, exposure review, OpenClaw cron scheduling for periodic checks, or version status checks on a machine running OpenClaw (laptop, workstation, Pi, VPS).
+name: healthcheckdescription: "Усиление безопасности хоста и настройка допустимого уровня риска для развертываний OpenClaw. Используйте, когда пользователь просит провести аудит безопасности, усилить защиту фаервола/SSH/обновлений, оценить риски, проверить уязвимости, настроить cron-планировщик OpenClaw для периодических проверок или проверить статус версий на машине с OpenClaw (ноутбук, рабочая станция, Pi, VPS)."
 ---
 
 # OpenClaw Host Hardening

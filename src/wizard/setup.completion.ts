@@ -36,7 +36,7 @@ async function resolveProfileHint(shell: ShellCompletionStatus["shell"]): Promis
 
 function formatReloadHint(shell: ShellCompletionStatus["shell"], profileHint: string): string {
   if (shell === "powershell") {
-    return "Restart your shell (or reload your PowerShell profile).";
+    return "Перезапустите ваш shell (или перезагрузите профиль PowerShell).";
   }
   return `Restart your shell or run: source ${profileHint}`;
 }
@@ -91,7 +91,7 @@ export async function setupWizardShellCompletion(params: {
     if (!cacheGenerated) {
       await params.prompter.note(
         `Failed to generate completion cache. Run \`${cliName} completion --install\` later.`,
-        "Shell completion",
+        "Автокомплит шелла",
       );
       return;
     }
@@ -102,7 +102,7 @@ export async function setupWizardShellCompletion(params: {
     const profileHint = await resolveProfileHint(completionStatus.shell);
     await params.prompter.note(
       `Shell completion installed. ${formatReloadHint(completionStatus.shell, profileHint)}`,
-      "Shell completion",
+      "Автокомплит шелла",
     );
   }
   // Case 4: Both profile and cache exist (using cached version) - all good, nothing to do

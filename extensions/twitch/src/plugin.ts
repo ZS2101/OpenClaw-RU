@@ -68,9 +68,9 @@ export const twitchPlugin: ChannelPlugin<ResolvedTwitchAccount> =
       meta: {
         id: "twitch",
         label: "Twitch",
-        selectionLabel: "Twitch (Chat)",
+        selectionLabel: "Twitch (Чат)",
         docsPath: "/channels/twitch",
-        blurb: "Twitch chat integration",
+        blurb: "Интеграция с чатом Twitch",
         aliases: ["twitch-chat"],
       },
       setup: twitchSetupAdapter,

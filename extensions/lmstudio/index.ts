@@ -117,10 +117,11 @@ export default definePluginEntry({
         setup: {
           choiceId: PROVIDER_ID,
           choiceLabel: "LM Studio",
-          choiceHint: "Local/self-hosted LM Studio server",
+          choiceHint: "Локальный / self-hosted сервер LM Studio",
           groupId: PROVIDER_ID,
-          groupLabel: "LM Studio",
-          groupHint: "Self-hosted open-weight models",
+          groupLabel: "∅ LM Studio",
+          groupSortKey: 4,
+          groupHint: "Self-hosted модели с открытыми весами",
           methodId: "custom",
         },
         modelPicker: {

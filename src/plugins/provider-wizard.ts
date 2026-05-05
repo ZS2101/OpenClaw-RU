@@ -23,6 +23,7 @@ export type ProviderWizardOption = {
   groupId: string;
   groupLabel: string;
   groupHint?: string;
+  groupSortKey?: number;
   onboardingScopes?: Array<"text-inference" | "image-generation">;
   assistantPriority?: number;
   assistantVisibility?: "visible" | "manual-only";
@@ -99,6 +100,10 @@ function buildSetupOptionForMethod(params: {
       : {}),
     ...(params.wizard.assistantVisibility
       ? { assistantVisibility: params.wizard.assistantVisibility }
+      : {}),
+    ...(typeof params.wizard.groupSortKey === "number" &&
+    Number.isFinite(params.wizard.groupSortKey)
+      ? { groupSortKey: params.wizard.groupSortKey }
       : {}),
   };
 }

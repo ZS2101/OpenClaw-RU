@@ -20,7 +20,9 @@ function compareAssistantOptions(a: AuthChoiceOption, b: AuthChoiceOption): numb
 }
 
 function compareGroupLabels(a: AuthChoiceGroup, b: AuthChoiceGroup): number {
-  return a.label.localeCompare(b.label);
+  const sortA = a.sortKey ?? Number.MAX_SAFE_INTEGER;
+  const sortB = b.sortKey ?? Number.MAX_SAFE_INTEGER;
+  return sortA - sortB || a.label.localeCompare(b.label);
 }
 
 function resolveProviderChoiceOptions(params?: {
@@ -46,6 +48,9 @@ function resolveProviderChoiceOptions(params?: {
           groupId: contribution.option.group.id as AuthChoiceGroupId,
           groupLabel: contribution.option.group.label,
           ...(contribution.option.group.hint ? { groupHint: contribution.option.group.hint } : {}),
+          ...(contribution.option.group.sortKey !== undefined
+            ? { groupSortKey: contribution.option.group.sortKey }
+            : {}),
         }
       : {}),
   }));
@@ -97,7 +102,7 @@ export function buildAuthChoiceOptions(params: {
     );
 
   if (params.includeSkip) {
-    options.push({ value: "skip", label: "Skip for now" });
+    options.push({ value: "skip", label: "Пропустить" });
   }
 
   return options;
@@ -133,6 +138,7 @@ export function buildAuthChoiceGroups(params: {
       value: option.groupId,
       label: option.groupLabel,
       ...(option.groupHint ? { hint: option.groupHint } : {}),
+      ...(option.groupSortKey !== undefined ? { sortKey: option.groupSortKey } : {}),
       options: [option],
     });
   }
@@ -144,7 +150,7 @@ export function buildAuthChoiceGroups(params: {
     .toSorted(compareGroupLabels);
 
   const skipOption = params.includeSkip
-    ? ({ value: "skip", label: "Skip for now" } satisfies AuthChoiceOption)
+    ? ({ value: "skip", label: "Пропустить" } satisfies AuthChoiceOption)
     : undefined;
 
   return { groups, skipOption };

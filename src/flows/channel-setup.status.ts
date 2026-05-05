@@ -97,12 +97,12 @@ export async function collectChannelStatus(params: {
     .filter((meta) => !statusByChannel.has(meta.id))
     .map((meta) => {
       const configured = isChannelConfigured(params.cfg, meta.id);
-      const statusLabel = configured ? "configured (plugin disabled)" : "not configured";
+      const statusLabel = configured ? "настроено (плагин отключён)" : "не настроено";
       return {
         channel: meta.id,
         configured,
         statusLines: [`${meta.label}: ${statusLabel}`],
-        selectionHint: configured ? "configured · plugin disabled" : "not configured",
+        selectionHint: configured ? "настроено · плагин отключён" : "не настроено",
         quickstartScore: 0,
       };
     });
@@ -115,10 +115,10 @@ export async function collectChannelStatus(params: {
       const statusLabel = configured
         ? pluginEnabled
           ? "configured"
-          : "configured (plugin disabled)"
+          : "настроено (плагин отключён)"
         : pluginEnabled
           ? "installed"
-          : "installed (plugin disabled)";
+          : "установлен (плагин отключён)";
       return {
         channel: entry.id as ChannelChoice,
         configured,
@@ -130,8 +130,8 @@ export async function collectChannelStatus(params: {
   const catalogStatuses = installableCatalogEntries.map((entry) => ({
     channel: entry.id,
     configured: false,
-    statusLines: [`${entry.meta.label}: install plugin to enable`],
-    selectionHint: "plugin · install",
+    statusLines: [`${entry.meta.label}: установите плагин для активации`],
+    selectionHint: "плагин · установить",
     quickstartScore: 0,
   }));
   const combinedStatuses = [
@@ -167,7 +167,7 @@ export async function noteChannelStatus(params: {
     resolveAdapter: params.resolveAdapter,
   });
   if (statusLines.length > 0) {
-    await params.prompter.note(statusLines.join("\n"), "Channel status");
+    await params.prompter.note(statusLines.join("\n"), "Статус каналов");
   }
 }
 
@@ -186,17 +186,17 @@ export async function noteChannelPrimer(
   );
   await prompter.note(
     [
-      "DM security: default is pairing; unknown DMs get a pairing code.",
-      `Approve with: ${formatCliCommand("openclaw pairing approve <channel> <code>")}`,
-      'Public DMs require dmPolicy="open" + allowFrom=["*"].',
+      "Безопасность ЛС: по умолчанию включено сопряжение; неизвестные ЛС получают код сопряжения.",
+      `Подтвердите командой: ${formatCliCommand("openclaw pairing approve <channel> <code>")}`,
+      'Для публичных ЛС требуется dmPolicy="open" + allowFrom=["*"].',
       "Multi-user DMs: run: " +
         formatCliCommand('openclaw config set session.dmScope "per-channel-peer"') +
         ' (or "per-account-channel-peer" for multi-account channels) to isolate sessions.',
-      `Docs: ${formatDocsLink("/channels/pairing", "channels/pairing")}`,
+      `Документация: ${formatDocsLink("/channels/pairing", "channels/pairing")}`,
       "",
       ...channelLines,
     ].join("\n"),
-    "How channels work",
+    "Как работают каналы",
   );
 }
 

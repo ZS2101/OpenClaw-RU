@@ -35,8 +35,9 @@ const MINIMAX_USAGE_ENV_VAR_KEYS = [
 ] as const;
 const MINIMAX_WIZARD_GROUP = {
   groupId: "minimax",
-  groupLabel: "MiniMax",
-  groupHint: "M2.7 (recommended)",
+  groupLabel: "¥ MiniMax",
+  groupSortKey: 2,
+  groupHint: "M2.7 (рекомендуется)",
 } as const;
 const HYBRID_ANTHROPIC_OPENAI_REPLAY_HOOKS = buildProviderReplayFamilyHooks({
   family: "hybrid-anthropic-openai",

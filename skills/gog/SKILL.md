@@ -1,6 +1,5 @@
 ---
-name: gog
-description: Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs.
+name: gogdescription: "Google Workspace CLI для Gmail, Calendar, Drive, Contacts, Sheets и Docs."
 homepage: https://gogcli.sh
 metadata:
   {

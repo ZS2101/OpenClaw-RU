@@ -26,10 +26,10 @@
     "channel": {
       "id": "nostr",
       "label": "Nostr",
-      "selectionLabel": "Nostr (NIP-04 DMs)",
+      "selectionLabel": "Nostr (ЛС через NIP-04)",
       "docsPath": "/channels/nostr",
       "docsLabel": "nostr",
-      "blurb": "Decentralized protocol; encrypted DMs via NIP-04.",
+      "blurb": "Децентрализованный протокол; зашифрованные ЛС через NIP-04.",
       "order": 55,
       "quickstartAllowFrom": true
     },

@@ -22,19 +22,19 @@ import { resolveDefaultNostrAccountId, resolveNostrAccount } from "./types.js";
 const channel = "nostr" as const;
 
 const NOSTR_SETUP_HELP_LINES = [
-  "Use a Nostr private key in nsec or 64-character hex format.",
-  "Relay URLs are optional. Leave blank to keep the default relay set.",
-  "Env vars supported: NOSTR_PRIVATE_KEY (default account only).",
+  "Используйте приватный ключ Nostr в формате nsec или 64-символьном hex.",
+  "URL релеев необязательны. Оставьте пустым, чтобы использовать релеи по умолчанию.",
+  "Поддерживаемые env vars: NOSTR_PRIVATE_KEY (только для аккаунта по умолчанию).",
   `Docs: ${formatDocsLink("/channels/nostr", "channels/nostr")}`,
 ];
 
 const NOSTR_ALLOW_FROM_HELP_LINES = [
-  "Allowlist Nostr DMs by npub or hex pubkey.",
+  "Добавьте в белый список ЛС Nostr по npub или hex pubkey.",
   "Examples:",
   "- npub1...",
   "- nostr:npub1...",
   "- 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
-  "Multiple entries: comma-separated.",
+  "Несколько значений: через запятую.",
   `Docs: ${formatDocsLink("/channels/nostr", "channels/nostr")}`,
 ];
 
@@ -152,10 +152,10 @@ export const nostrSetupWizard: ChannelSetupWizard = {
   resolveShouldPromptAccountIds: () => false,
   status: createStandardChannelSetupStatus({
     channelLabel: "Nostr",
-    configuredLabel: "configured",
-    unconfiguredLabel: "needs private key",
-    configuredHint: "configured",
-    unconfiguredHint: "needs private key",
+    configuredLabel: "настроено",
+    unconfiguredLabel: "нужен приватный ключ",
+    configuredHint: "настроено",
+    unconfiguredHint: "нужен приватный ключ",
     configuredScore: 1,
     unconfiguredScore: 0,
     includeStatusLine: true,
@@ -189,13 +189,13 @@ export const nostrSetupWizard: ChannelSetupWizard = {
     {
       inputKey: "privateKey",
       providerHint: channel,
-      credentialLabel: "private key",
+      credentialLabel: "приватный ключ",
       preferredEnvVar: "NOSTR_PRIVATE_KEY",
-      helpTitle: "Nostr private key",
+      helpTitle: "Приватный ключ Nostr",
       helpLines: NOSTR_SETUP_HELP_LINES,
-      envPrompt: "NOSTR_PRIVATE_KEY detected. Use env var?",
+      envPrompt: "Обнаружен NOSTR_PRIVATE_KEY. Использовать env var?",
       keepPrompt: "Nostr private key already configured. Keep it?",
-      inputPrompt: "Nostr private key (nsec... or hex)",
+      inputPrompt: "Приватный ключ Nostr (nsec... или hex)",
       allowEnv: ({ accountId }) => accountId === DEFAULT_ACCOUNT_ID,
       inspect: ({ cfg, accountId }) => {
         const account = resolveNostrAccount({ cfg, accountId });
@@ -230,7 +230,7 @@ export const nostrSetupWizard: ChannelSetupWizard = {
       placeholder: DEFAULT_RELAYS.join(", "),
       required: false,
       applyEmptyValue: true,
-      helpTitle: "Nostr relays",
+      helpTitle: "Релеи Nostr",
       helpLines: ["Use ws:// or wss:// relay URLs.", "Leave blank to keep the default relay set."],
       currentValue: ({ cfg, accountId }) => {
         const account = resolveNostrAccount({ cfg, accountId });

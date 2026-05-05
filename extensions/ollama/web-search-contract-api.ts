@@ -7,7 +7,7 @@ export function createOllamaWebSearchProvider(): WebSearchProviderPlugin {
   return {
     id: "ollama",
     label: "Ollama Web Search",
-    hint: "Local Ollama host · requires ollama signin",
+    hint: "Локальный Ollama-хост · требуется вход в ollama",
     onboardingScopes: ["text-inference"],
     requiresCredential: false,
     envVars: [],

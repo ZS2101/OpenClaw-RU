@@ -1,6 +1,5 @@
 ---
-name: node-connect
-description: Diagnose OpenClaw node connection and pairing failures for Android, iOS, and macOS companion apps. Use when QR/setup code/manual connect fails, local Wi-Fi works but VPS/tailnet does not, or errors mention pairing required, unauthorized, bootstrap token invalid or expired, gateway.bind, gateway.remote.url, Tailscale, or plugins.entries.device-pair.config.publicUrl.
+name: node-connectdescription: "Диагностика сбоев подключения и сопряжения узлов OpenClaw для приложений-компаньонов на Android, iOS и macOS. Используйте, когда не работает QR/код настройки/ручное подключение, локальный Wi-Fi работает, а VPS/tailnet нет, или в ошибках упоминается pairing required, unauthorized, bootstrap token invalid or expired, gateway.bind, gateway.remote.url, Tailscale или plugins.entries.device-pair.config.publicUrl."
 ---
 
 # Node Connect

@@ -9,9 +9,9 @@ export function createXaiWebSearchProvider(): WebSearchProviderPlugin {
   return {
     id: "grok",
     label: "Grok (xAI)",
-    hint: "Requires xAI API key · xAI web-grounded responses",
+    hint: "Требуется API-ключ xAI · ответы с привязкой к вебу (xAI)",
     onboardingScopes: ["text-inference"],
-    credentialLabel: "xAI API key",
+    credentialLabel: "API-ключ xAI",
     envVars: ["XAI_API_KEY"],
     placeholder: "xai-...",
     signupUrl: "https://console.x.ai/",
@@ -21,7 +21,7 @@ export function createXaiWebSearchProvider(): WebSearchProviderPlugin {
     ...createWebSearchProviderContractFields({
       credentialPath,
       searchCredential: { type: "scoped", scopeId: "grok" },
-      configuredCredential: { pluginId: "xai" },
+      настроеноCredential: { pluginId: "xai" },
     }),
     createTool: () => null,
   };

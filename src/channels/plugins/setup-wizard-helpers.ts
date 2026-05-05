@@ -1116,10 +1116,10 @@ export async function promptSingleChannelSecretInput(params: {
     prompter: params.prompter as WizardPrompter,
     explicitMode: params.secretInputMode,
     copy: {
-      modeMessage: `How do you want to provide this ${params.credentialLabel}?`,
+      modeMessage: `Как вы хотите передать этот ${params.credentialLabel}?`,
       plaintextLabel: `Enter ${params.credentialLabel}`,
-      plaintextHint: "Stores the credential directly in OpenClaw config",
-      refLabel: "Use external secret provider",
+      plaintextHint: "Сохранить ключ напрямую в конфиге OpenClaw",
+      refLabel: "Использовать внешний секретный провайдер",
       refHint: "Stores a reference to env or configured external secret providers",
     },
   });

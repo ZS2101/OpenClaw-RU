@@ -1,9 +1,13 @@
 {
   "id": "xiaomi",
   "enabledByDefault": true,
-  "providers": ["xiaomi"],
+  "providers": [
+    "xiaomi"
+  ],
   "providerAuthEnvVars": {
-    "xiaomi": ["XIAOMI_API_KEY"]
+    "xiaomi": [
+      "XIAOMI_API_KEY"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -12,7 +16,7 @@
       "choiceId": "xiaomi-api-key",
       "choiceLabel": "Xiaomi API key",
       "groupId": "xiaomi",
-      "groupLabel": "Xiaomi",
+      "groupLabel": "\u00a5 Xiaomi",
       "groupHint": "API key",
       "optionKey": "xiaomiApiKey",
       "cliFlag": "--xiaomi-api-key",

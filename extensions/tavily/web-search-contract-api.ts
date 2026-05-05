@@ -11,7 +11,7 @@ export function createTavilyWebSearchProvider(): WebSearchProviderPlugin {
     label: "Tavily Search",
     hint: "Structured results with domain filters and AI answer summaries",
     onboardingScopes: ["text-inference"],
-    credentialLabel: "Tavily API key",
+    credentialLabel: "API-ключ Tavily",
     envVars: ["TAVILY_API_KEY"],
     placeholder: "tvly-...",
     signupUrl: "https://tavily.com/",

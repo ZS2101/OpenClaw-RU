@@ -24,7 +24,7 @@ export function createAuthChoiceAgentModelNoter(
     }
     await params.prompter.note(
       `Default model set to ${model} for agent "${params.agentId}".`,
-      "Model configured",
+      "Модель настроена",
     );
   };
 }

@@ -50,13 +50,13 @@ const promptBlueBubblesAllowFrom = createPromptParsedAllowFromForAccount({
   defaultAccountId: (cfg) => resolveDefaultBlueBubblesAccountId(cfg),
   noteTitle: "BlueBubbles allowlist",
   noteLines: [
-    "Allowlist BlueBubbles DMs by handle or chat target.",
+    "Добавьте в белый список ЛС BlueBubbles по хэндлу или цели чата.",
     "Examples:",
     "- +15555550123",
     "- user@example.com",
     "- chat_id:123",
     "- chat_guid:iMessage;-;+15555550123",
-    "Multiple entries: comma- or newline-separated.",
+    "Несколько значений: через запятую или с новой строки.",
     `Docs: ${formatDocsLink("/channels/bluebubbles", "bluebubbles")}`,
   ],
   message: "BlueBubbles allowFrom (handle or chat_id)",
@@ -152,10 +152,10 @@ export const blueBubblesSetupWizard: ChannelSetupWizard = {
   status: {
     ...createStandardChannelSetupStatus({
       channelLabel: "BlueBubbles",
-      configuredLabel: "configured",
-      unconfiguredLabel: "needs setup",
-      configuredHint: "configured",
-      unconfiguredHint: "iMessage via BlueBubbles app",
+      configuredLabel: "настроено",
+      unconfiguredLabel: "требуется настройка",
+      configuredHint: "настроено",
+      unconfiguredHint: "iMessage через приложение BlueBubbles",
       configuredScore: 1,
       unconfiguredScore: 0,
       includeStatusLine: true,
@@ -187,15 +187,15 @@ export const blueBubblesSetupWizard: ChannelSetupWizard = {
     {
       inputKey: "password",
       providerHint: channel,
-      credentialLabel: "server password",
-      helpTitle: "BlueBubbles password",
+      credentialLabel: "пароль сервера",
+      helpTitle: "Пароль BlueBubbles",
       helpLines: [
-        "Enter the BlueBubbles server password.",
-        "Find this in the BlueBubbles Server app under Settings.",
+        "Введите пароль сервера BlueBubbles.",
+        "Найдите это в приложении BlueBubbles Server в разделе Settings.",
       ],
       envPrompt: "",
       keepPrompt: "BlueBubbles password already set. Keep it?",
-      inputPrompt: "BlueBubbles password",
+      inputPrompt: "Пароль BlueBubbles",
       inspect: ({ cfg, accountId }) => {
         const existingPassword = resolveBlueBubblesAccount({ cfg, accountId }).config.password;
         return {
@@ -215,10 +215,10 @@ export const blueBubblesSetupWizard: ChannelSetupWizard = {
       inputKey: "httpUrl",
       message: "BlueBubbles server URL",
       placeholder: "http://192.168.1.100:1234",
-      helpTitle: "BlueBubbles server URL",
+      helpTitle: "URL сервера BlueBubbles",
       helpLines: [
-        "Enter the BlueBubbles server URL (e.g., http://192.168.1.100:1234).",
-        "Find this in the BlueBubbles Server app under Connection.",
+        "Введите URL сервера BlueBubbles (например, http://192.168.1.100:1234).",
+        "Найдите это в приложении BlueBubbles Server в разделе Connection.",
         `Docs: ${formatDocsLink("/channels/bluebubbles", "bluebubbles")}`,
       ],
       currentValue: ({ cfg, accountId }) =>
@@ -266,13 +266,13 @@ export const blueBubblesSetupWizard: ChannelSetupWizard = {
   allowFrom: createAllowFromSection({
     helpTitle: "BlueBubbles allowlist",
     helpLines: [
-      "Allowlist BlueBubbles DMs by handle or chat target.",
+      "Добавьте в белый список ЛС BlueBubbles по хэндлу или цели чата.",
       "Examples:",
       "- +15555550123",
       "- user@example.com",
       "- chat_id:123",
       "- chat_guid:iMessage;-;+15555550123",
-      "Multiple entries: comma- or newline-separated.",
+      "Несколько значений: через запятую или с новой строки.",
       `Docs: ${formatDocsLink("/channels/bluebubbles", "bluebubbles")}`,
     ],
     message: "BlueBubbles allowFrom (handle or chat_id)",

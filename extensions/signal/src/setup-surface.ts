@@ -23,10 +23,10 @@ export const signalSetupWizard: ChannelSetupWizard = {
   status: createDetectedBinaryStatus({
     channelLabel: "Signal",
     binaryLabel: "signal-cli",
-    configuredLabel: "configured",
-    unconfiguredLabel: "needs setup",
-    configuredHint: "signal-cli found",
-    unconfiguredHint: "signal-cli missing",
+    configuredLabel: "настроено",
+    unconfiguredLabel: "требуется настройка",
+    configuredHint: "signal-cli найден",
+    unconfiguredHint: "signal-cli не найден",
     configuredScore: 1,
     unconfiguredScore: 0,
     resolveConfigured: ({ cfg, accountId }) =>

@@ -26,10 +26,10 @@ export const nextcloudTalkSetupWizard: ChannelSetupWizard = {
   stepOrder: "text-first",
   status: createStandardChannelSetupStatus({
     channelLabel: "Nextcloud Talk",
-    configuredLabel: "configured",
-    unconfiguredLabel: "needs setup",
-    configuredHint: "configured",
-    unconfiguredHint: "self-hosted chat",
+    configuredLabel: "настроено",
+    unconfiguredLabel: "требуется настройка",
+    configuredHint: "настроено",
+    unconfiguredHint: "self-hosted чат",
     configuredScore: 1,
     unconfiguredScore: 5,
     resolveConfigured: ({ cfg, accountId }) => {
@@ -77,11 +77,11 @@ export const nextcloudTalkSetupWizard: ChannelSetupWizard = {
     {
       inputKey: "token",
       providerHint: channel,
-      credentialLabel: "bot secret",
+      credentialLabel: "секрет бота",
       preferredEnvVar: "NEXTCLOUD_TALK_BOT_SECRET",
-      envPrompt: "NEXTCLOUD_TALK_BOT_SECRET detected. Use env var?",
+      envPrompt: "Обнаружен NEXTCLOUD_TALK_BOT_SECRET. Использовать env var?",
       keepPrompt: "Nextcloud Talk bot secret already configured. Keep it?",
-      inputPrompt: "Enter Nextcloud Talk bot secret",
+      inputPrompt: "Введите секрет бота Nextcloud Talk",
       allowEnv: ({ accountId }) => accountId === DEFAULT_ACCOUNT_ID,
       inspect: ({ cfg, accountId }) => {
         const resolvedAccount = resolveNextcloudTalkAccount({ cfg: cfg as CoreConfig, accountId });
@@ -127,11 +127,11 @@ export const nextcloudTalkSetupWizard: ChannelSetupWizard = {
     {
       inputKey: "password",
       providerHint: "nextcloud-talk-api",
-      credentialLabel: "API password",
+      credentialLabel: "API-пароль",
       preferredEnvVar: "NEXTCLOUD_TALK_API_PASSWORD",
       envPrompt: "",
       keepPrompt: "Nextcloud Talk API password already configured. Keep it?",
-      inputPrompt: "Enter Nextcloud Talk API password",
+      inputPrompt: "Введите API-пароль Nextcloud Talk",
       inspect: ({ cfg, accountId }) => {
         const resolvedAccount = resolveNextcloudTalkAccount({ cfg: cfg as CoreConfig, accountId });
         const apiUser = resolvedAccount.config.apiUser?.trim();

@@ -162,7 +162,7 @@ describe("promptCustomApiConfig", () => {
 
     expect(prompter.text).toHaveBeenCalledWith(
       expect.objectContaining({
-        message: "API Base URL",
+        message: "Базовый URL API",
         initialValue: OLLAMA_DEFAULT_BASE_URL_FOR_TEST,
       }),
     );
@@ -296,8 +296,8 @@ describe("promptCustomApiConfig", () => {
     await runPromptCustomApi(prompter);
 
     expect(prompter.note).toHaveBeenCalledWith(
-      expect.stringContaining("did not respond"),
-      "Endpoint detection",
+      expect.stringContaining("не ответил"),
+      "Распознавание эндпоинта",
     );
   });
 

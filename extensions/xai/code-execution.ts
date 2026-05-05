@@ -80,7 +80,7 @@ export function createCodeExecutionTool(options?: {
   }
 
   return {
-    label: "Code Execution",
+    label: "Выполнение кода (Code Execution)",
     name: "code_execution",
     description:
       "Run sandboxed Python analysis with xAI. Use for calculations, tabulation, summaries, and chart-style analysis without local machine access.",

@@ -447,7 +447,7 @@ function missingExaKeyPayload() {
   return {
     error: "missing_exa_api_key",
     message:
-      "web_search (exa) needs an Exa API key. Set EXA_API_KEY in the Gateway environment, or configure tools.web.search.exa.apiKey.",
+      "web_search (exa) needs an Exa API-ключ. Set EXA_API_KEY in the Gateway environment, or configure tools.web.search.exa.apiKey.",
     docs: "https://docs.openclaw.ai/tools/web",
   };
 }
@@ -594,9 +594,9 @@ export function createExaWebSearchProvider(): WebSearchProviderPlugin {
   return {
     id: "exa",
     label: "Exa Search",
-    hint: "Neural + keyword search with date filters and content extraction",
+    hint: "Нейро-поиск и поиск по ключевым словам с фильтрами по дате и извлечением контента",
     onboardingScopes: ["text-inference"],
-    credentialLabel: "Exa API key",
+    credentialLabel: "API-ключ Exa",
     envVars: ["EXA_API_KEY"],
     placeholder: "exa-...",
     signupUrl: "https://exa.ai/",

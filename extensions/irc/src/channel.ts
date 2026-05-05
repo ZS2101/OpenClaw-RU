@@ -50,10 +50,10 @@ import type { CoreConfig, IrcProbe } from "./types.js";
 const meta = {
   id: "irc",
   label: "IRC",
-  selectionLabel: "IRC (Server + Nick)",
+  selectionLabel: "IRC (Сервер + Ник)",
   docsPath: "/channels/irc",
   docsLabel: "irc",
-  blurb: "classic IRC networks; host, nick, channels.",
+  blurb: "классические сети IRC; хост, ник, каналы.",
   order: 80,
   detailLabel: "IRC",
   systemImage: "number",

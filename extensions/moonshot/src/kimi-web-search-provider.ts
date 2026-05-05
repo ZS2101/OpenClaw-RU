@@ -299,7 +299,7 @@ function createKimiToolDefinition(
         return {
           error: "missing_kimi_api_key",
           message:
-            "web_search (kimi) needs a Moonshot API key. Set KIMI_API_KEY or MOONSHOT_API_KEY in the Gateway environment, or configure tools.web.search.kimi.apiKey.",
+            "web_search (kimi) needs a Moonshot API-ключ. Set KIMI_API_KEY or MOONSHOT_API_KEY in the Gateway environment, or configure tools.web.search.kimi.apiKey.",
           docs: "https://docs.openclaw.ai/tools/web",
         };
       }
@@ -373,12 +373,12 @@ async function runKimiSearchProviderSetup(
   regionOptions.push(
     {
       value: MOONSHOT_BASE_URL,
-      label: "Moonshot API key (.ai)",
+      label: "Moonshot API-ключ (.ai)",
       hint: "api.moonshot.ai",
     },
     {
       value: MOONSHOT_CN_BASE_URL,
-      label: "Moonshot API key (.cn)",
+      label: "Moonshot API-ключ (.cn)",
       hint: "api.moonshot.cn",
     },
   );
@@ -438,9 +438,9 @@ export function createKimiWebSearchProvider(): WebSearchProviderPlugin {
   return {
     id: "kimi",
     label: "Kimi (Moonshot)",
-    hint: "Requires Moonshot / Kimi API key · Moonshot web search",
+    hint: "Requires Moonshot / Kimi API-ключ · Moonshot web search",
     onboardingScopes: ["text-inference"],
-    credentialLabel: "Moonshot / Kimi API key",
+    credentialLabel: "API-ключ Moonshot / Kimi",
     envVars: ["KIMI_API_KEY", "MOONSHOT_API_KEY"],
     placeholder: "sk-...",
     signupUrl: "https://platform.moonshot.cn/",

@@ -19,10 +19,10 @@ export const mattermostSetupWizard: ChannelSetupWizard = {
   channel,
   status: createStandardChannelSetupStatus({
     channelLabel: "Mattermost",
-    configuredLabel: "configured",
-    unconfiguredLabel: "needs token + url",
-    configuredHint: "configured",
-    unconfiguredHint: "needs setup",
+    configuredLabel: "настроено",
+    unconfiguredLabel: "нужен токен + url",
+    configuredHint: "настроено",
+    unconfiguredHint: "требуется настройка",
     configuredScore: 2,
     unconfiguredScore: 1,
     resolveConfigured: ({ cfg, accountId }) =>
@@ -71,11 +71,11 @@ export const mattermostSetupWizard: ChannelSetupWizard = {
     {
       inputKey: "botToken",
       providerHint: channel,
-      credentialLabel: "bot token",
+      credentialLabel: "токен бота",
       preferredEnvVar: "MATTERMOST_BOT_TOKEN",
-      envPrompt: "MATTERMOST_BOT_TOKEN + MATTERMOST_URL detected. Use env vars?",
+      envPrompt: "Обнаружены MATTERMOST_BOT_TOKEN + MATTERMOST_URL. Использовать env vars?",
       keepPrompt: "Mattermost bot token already configured. Keep it?",
-      inputPrompt: "Enter Mattermost bot token",
+      inputPrompt: "Введите токен бота Mattermost",
       inspect: ({ cfg, accountId }) => {
         const resolvedAccount = resolveMattermostAccountWithSecrets(cfg, accountId);
         return {

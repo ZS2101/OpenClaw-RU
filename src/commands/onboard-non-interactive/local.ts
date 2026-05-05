@@ -116,7 +116,7 @@ export async function runNonInteractiveLocalSetup(params: {
   if (!opts.authChoice && inferredAuthChoice.matches.length > 1) {
     runtime.error(
       [
-        "Multiple API key flags were provided for non-interactive setup.",
+        "Multiple API-ключ flags were provided for non-interactive setup.",
         "Use a single provider flag or pass --auth-choice explicitly.",
         `Flags: ${inferredAuthChoice.matches.map((match) => match.label).join(", ")}`,
       ].join("\n"),
@@ -211,7 +211,7 @@ export async function runNonInteractiveLocalSetup(params: {
         hints:
           daemonInstall.skippedReason === "systemd-user-unavailable"
             ? [
-                "Fix: rerun without `--install-daemon` for one-shot setup, or enable a working user-systemd session and retry.",
+                "Fix: rerun without `--install-daemon` for one-shot настройка, or enable a working user-systemd session and retry.",
                 "If your auth profile uses env-backed refs, keep those env vars set in the shell that runs `openclaw gateway run` or `openclaw agent --local`.",
               ]
             : [`Run \`${formatCliCommand("openclaw gateway status --deep")}\` for more detail.`],
@@ -261,7 +261,7 @@ export async function runNonInteractiveLocalSetup(params: {
         diagnostics,
         hints: !opts.installDaemon
           ? [
-              "Non-interactive local setup only waits for an already-running gateway unless you pass --install-daemon.",
+              "Non-interactive local настройка only waits for an already-running gateway unless you pass --install-daemon.",
               `Fix: start \`${formatCliCommand("openclaw gateway run")}\`, re-run with \`--install-daemon\`, or use \`--skip-health\`.`,
               process.platform === "win32"
                 ? "Native Windows managed gateway install tries Scheduled Tasks first and falls back to a per-user Startup-folder login item when task creation is denied."
@@ -304,7 +304,7 @@ export async function runNonInteractiveLocalSetup(params: {
 
   if (!opts.json) {
     runtime.log(
-      `Tip: run \`${formatCliCommand("openclaw configure --section web")}\` to store your Brave API key for web_search. Docs: https://docs.openclaw.ai/tools/web`,
+      `Tip: run \`${formatCliCommand("openclaw configure --section web")}\` to store your Brave API-ключ for web_search. Docs: https://docs.openclaw.ai/tools/web`,
     );
   }
 }

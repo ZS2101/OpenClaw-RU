@@ -102,6 +102,7 @@ export function resolveProviderSetupFlowContributions(params?: {
             id: option.groupId,
             label: option.groupLabel,
             ...(option.groupHint ? { hint: option.groupHint } : {}),
+            ...(option.groupSortKey !== undefined ? { sortKey: option.groupSortKey } : {}),
           },
           ...(docsByProvider.get(option.groupId)
             ? { docs: { path: docsByProvider.get(option.groupId)! } }

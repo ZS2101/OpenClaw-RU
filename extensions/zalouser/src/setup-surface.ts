@@ -269,10 +269,10 @@ async function promptZalouserQuickstartDmPolicy(params: {
   const policy = (await prompter.select({
     message: "Zalo Personal DM policy",
     options: [
-      { value: "pairing", label: "Pairing (recommended)" },
-      { value: "allowlist", label: "Allowlist (specific users only)" },
-      { value: "open", label: "Open (public inbound DMs)" },
-      { value: "disabled", label: "Disabled (ignore DMs)" },
+      { value: "pairing", label: "Сопряжение (рекомендуется)" },
+      { value: "allowlist", label: "Белый список (только определенные пользователи)" },
+      { value: "open", label: "Открытый (публичные входящие ЛС)" },
+      { value: "disabled", label: "Отключено (игнорировать ЛС)" },
     ],
     initialValue: existingPolicy,
   })) as DmPolicy;
@@ -292,10 +292,10 @@ export { zalouserSetupAdapter } from "./setup-core.js";
 export const zalouserSetupWizard: ChannelSetupWizard = {
   channel,
   status: {
-    configuredLabel: "logged in",
-    unconfiguredLabel: "needs QR login",
-    configuredHint: "recommended · logged in",
-    unconfiguredHint: "recommended · QR login",
+    configuredLabel: "выполнен вход",
+    unconfiguredLabel: "нужен вход по QR",
+    configuredHint: "рекомендуется · выполнен вход",
+    unconfiguredHint: "рекомендуется · вход по QR",
     configuredScore: 1,
     unconfiguredScore: 15,
     resolveConfigured: async ({ cfg, accountId }) => {
@@ -403,7 +403,7 @@ export const zalouserSetupWizard: ChannelSetupWizard = {
   },
   credentials: [],
   groupAccess: {
-    label: "Zalo groups",
+    label: "Группы Zalo",
     placeholder: ZALOUSER_GROUPS_PLACEHOLDER,
     currentPolicy: ({ cfg, accountId }) =>
       resolveZalouserAccountSync({ cfg, accountId }).config.groupPolicy ?? "allowlist",

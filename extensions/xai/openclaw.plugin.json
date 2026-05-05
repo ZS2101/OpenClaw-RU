@@ -1,9 +1,13 @@
 {
   "id": "xai",
   "enabledByDefault": true,
-  "providers": ["xai"],
+  "providers": [
+    "xai"
+  ],
   "providerAuthEnvVars": {
-    "xai": ["XAI_API_KEY"]
+    "xai": [
+      "XAI_API_KEY"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -12,7 +16,7 @@
       "choiceId": "xai-api-key",
       "choiceLabel": "xAI API key",
       "groupId": "xai",
-      "groupLabel": "xAI (Grok)",
+      "groupLabel": "$ xAI (Grok)",
       "groupHint": "API key",
       "optionKey": "xaiApiKey",
       "cliFlag": "--xai-api-key",
@@ -76,9 +80,16 @@
     }
   },
   "contracts": {
-    "webSearchProviders": ["grok"],
-    "videoGenerationProviders": ["xai"],
-    "tools": ["code_execution", "x_search"]
+    "webSearchProviders": [
+      "grok"
+    ],
+    "videoGenerationProviders": [
+      "xai"
+    ],
+    "tools": [
+      "code_execution",
+      "x_search"
+    ]
   },
   "configSchema": {
     "type": "object",
@@ -89,7 +100,10 @@
         "additionalProperties": false,
         "properties": {
           "apiKey": {
-            "type": ["string", "object"]
+            "type": [
+              "string",
+              "object"
+            ]
           },
           "model": {
             "type": "string"

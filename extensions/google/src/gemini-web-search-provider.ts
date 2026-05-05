@@ -194,7 +194,7 @@ function createGeminiToolDefinition(
         return {
           error: "missing_gemini_api_key",
           message:
-            "web_search (gemini) needs an API key. Set GEMINI_API_KEY in the Gateway environment, or configure tools.web.search.gemini.apiKey.",
+            "web_search (gemini) needs an API-ключ. Set GEMINI_API_KEY in the Gateway environment, or configure tools.web.search.gemini.apiKey.",
           docs: "https://docs.openclaw.ai/tools/web",
         };
       }
@@ -247,9 +247,9 @@ export function createGeminiWebSearchProvider(): WebSearchProviderPlugin {
   return {
     id: "gemini",
     label: "Gemini (Google Search)",
-    hint: "Requires Google Gemini API key · Google Search grounding",
+    hint: "Требуется API-ключ Google Gemini · Google Search grounding",
     onboardingScopes: ["text-inference"],
-    credentialLabel: "Google Gemini API key",
+    credentialLabel: "API-ключ Google Gemini",
     envVars: ["GEMINI_API_KEY"],
     placeholder: "AIza...",
     signupUrl: "https://aistudio.google.com/apikey",

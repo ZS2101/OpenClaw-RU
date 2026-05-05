@@ -27,10 +27,10 @@
     "channel": {
       "id": "mattermost",
       "label": "Mattermost",
-      "selectionLabel": "Mattermost (plugin)",
+      "selectionLabel": "Mattermost (плагин)",
       "docsPath": "/channels/mattermost",
       "docsLabel": "mattermost",
-      "blurb": "self-hosted Slack-style chat; install the plugin to enable.",
+      "blurb": "self-hosted чат в стиле Slack; установите плагин для активации.",
       "order": 65
     },
     "install": {

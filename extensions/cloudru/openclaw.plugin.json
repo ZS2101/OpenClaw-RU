@@ -1,0 +1,293 @@
+{
+  "id": "cloudru",
+  "activation": {
+    "onStartup": false
+  },
+  "enabledByDefault": true,
+  "providerDiscoveryEntry": "./provider-discovery.ts",
+  "providers": [
+    "cloudru"
+  ],
+  "providerEndpoints": [
+    {
+      "endpointClass": "cloudru-native",
+      "hosts": [
+        "foundation-models.api.cloud.ru"
+      ]
+    }
+  ],
+  "providerRequest": {
+    "providers": {
+      "cloudru": {
+        "family": "cloudru"
+      }
+    }
+  },
+  "modelCatalog": {
+    "providers": {
+      "cloudru": {
+        "baseUrl": "https://foundation-models.api.cloud.ru/v1",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "GigaChat-2-Max",
+            "name": "GigaChat 2 Max (Cloud.ru)",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 131072,
+            "maxTokens": 32768,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "GigaChat3-10B-A1.8B",
+            "name": "GigaChat 3 10B (Cloud.ru)",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 262144,
+            "maxTokens": 32768,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "MiniMax-M2",
+            "name": "MiniMax M2 (Cloud.ru)",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 196608,
+            "maxTokens": 32768,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "GLM-4.7-Flash",
+            "name": "GLM 4.7 Flash (Cloud.ru)",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 202752,
+            "maxTokens": 16384,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "GLM-4.7",
+            "name": "GLM 4.7 (Cloud.ru)",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 202752,
+            "maxTokens": 16384,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "GLM-4.6",
+            "name": "GLM 4.6 (Cloud.ru)",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 202752,
+            "maxTokens": 16384,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "gpt-oss-120b",
+            "name": "GPT-OSS 120B (Cloud.ru)",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 131072,
+            "maxTokens": 16384,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "Qwen3-Coder-Next",
+            "name": "Qwen 3 Coder Next (Cloud.ru)",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 262144,
+            "maxTokens": 32768,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "Qwen3-Coder-480B-A35B-Instruct",
+            "name": "Qwen 3 Coder 480B (Cloud.ru)",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 262144,
+            "maxTokens": 32768,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "Qwen3-235B-A22B-Instruct-2507",
+            "name": "Qwen 3 235B (Cloud.ru)",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 262144,
+            "maxTokens": 32768,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "Qwen3-Next-80B-A3B-Instruct",
+            "name": "Qwen 3 Next 80B (Cloud.ru)",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 262144,
+            "maxTokens": 32768,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "T-lite-it-2.1",
+            "name": "T-lite IT 2.1 (Cloud.ru)",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 40960,
+            "maxTokens": 8192,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "T-pro-it-2.1",
+            "name": "T-pro IT 2.1 (Cloud.ru)",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 40960,
+            "maxTokens": 8192,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "T-pro-it-2.0",
+            "name": "T-pro IT 2.0 (Cloud.ru)",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 40960,
+            "maxTokens": 8192,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "T-lite-it-1.0",
+            "name": "T-lite IT 1.0 (Cloud.ru)",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 32768,
+            "maxTokens": 4096,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "T-pro-it-1.0",
+            "name": "T-pro IT 1.0 (Cloud.ru)",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 32768,
+            "maxTokens": 4096,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          }
+        ]
+      }
+    }
+  },
+  "providerAuthChoices": [
+    {
+      "provider": "cloudru",
+      "method": "api-key",
+      "choiceId": "cloudru-api-key",
+      "choiceLabel": "Cloud.ru API Key",
+      "assistantPriority": 0,
+      "groupId": "cloudru",
+      "groupLabel": "₽ Cloud.ru (Evolution)",
+      "groupHint": "Russian provider"
+    }
+  ],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}

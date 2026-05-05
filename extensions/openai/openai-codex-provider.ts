@@ -292,7 +292,7 @@ function buildOpenAICodexAuthDoctorHint(ctx: { profileId?: string }) {
 export function buildOpenAICodexProviderPlugin(): ProviderPlugin {
   return {
     id: PROVIDER_ID,
-    label: "OpenAI Codex",
+    label: "$ OpenAI Codex",
     docsPath: "/providers/models",
     auth: [
       {
@@ -307,7 +307,9 @@ export function buildOpenAICodexProviderPlugin(): ProviderPlugin {
       setup: {
         choiceId: "openai-codex",
         choiceLabel: "OpenAI Codex (ChatGPT OAuth)",
-        choiceHint: "Browser sign-in",
+        choiceHint: "Вход через браузер",
+        groupLabel: "$ OpenAI Codex",
+        groupSortKey: 3,
         methodId: "oauth",
       },
     },

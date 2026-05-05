@@ -1,0 +1,15 @@
+{
+  "id": "vk",
+  "activation": {
+    "onStartup": false
+  },
+  "channels": ["vk"],
+  "channelEnvVars": {
+    "vk": ["VK_BOT_TOKEN"]
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}

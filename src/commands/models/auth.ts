@@ -116,7 +116,7 @@ async function resolveModelsAuthContext(params?: {
   const providers = resolvePluginProviders({
     config,
     workspaceDir,
-    mode: "setup",
+    mode: "настройка",
     bundledProviderAllowlistCompat: true,
     bundledProviderVitestCompat: true,
     ...(params?.requestedProvider?.trim()
@@ -208,9 +208,9 @@ async function pickProviderTokenMethod(params: {
   if (tokenMethods.length === 0) {
     return null;
   }
-  const setupTokenMethod = tokenMethods.find((method) => method.id === "setup-token");
-  if (setupTokenMethod) {
-    return setupTokenMethod;
+  const настройкаTokenMethod = tokenMethods.find((method) => method.id === "настройка-token");
+  if (настройкаTokenMethod) {
+    return настройкаTokenMethod;
   }
   if (tokenMethods.length === 1) {
     return tokenMethods[0] ?? null;
@@ -321,7 +321,7 @@ export async function modelsAuthSetupTokenCommand(
   runtime: RuntimeEnv,
 ) {
   if (!process.stdin.isTTY) {
-    throw new Error("setup-token requires an interactive TTY.");
+    throw new Error("настройка-token requires an interactive TTY.");
   }
 
   const { config, agentDir, workspaceDir, providers } = await resolveModelsAuthContext({
@@ -425,7 +425,7 @@ export async function modelsAuthPasteTokenCommand(
   logConfigUpdated(runtime);
   runtime.log(`Auth profile: ${profileId} (${provider}/token)`);
   if (provider === "anthropic") {
-    runtime.log("Anthropic setup-token auth is supported in OpenClaw.");
+    runtime.log("Anthropic настройка-token auth is supported in OpenClaw.");
     runtime.log("OpenClaw prefers Claude CLI reuse when it is available on the host.");
     runtime.log("Anthropic staff told us this OpenClaw path is allowed again.");
   }
@@ -574,7 +574,7 @@ function maybeLogOpenAICodexNativeSearchTip(runtime: RuntimeEnv, providerId: str
     return;
   }
   runtime.log(
-    "Tip: Codex-capable models can use native Codex web search. Enable it with openclaw configure --section web (recommended mode: cached). Docs: https://docs.openclaw.ai/tools/web",
+    "Совет: модели с поддержкой Codex могут использовать нативный веб-поиск Codex. Включите через openclaw configure --section web (рекомендуемый режим: cached). Docs: https://docs.openclaw.ai/tools/web",
   );
 }
 export async function modelsAuthLoginCommand(opts: LoginOptions, runtime: RuntimeEnv) {

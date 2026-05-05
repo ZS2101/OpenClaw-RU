@@ -94,7 +94,7 @@ export const nostrPlugin: ChannelPlugin<ResolvedNostrAccount> = createChatChanne
       selectionLabel: "Nostr",
       docsPath: "/channels/nostr",
       docsLabel: "nostr",
-      blurb: "Decentralized DMs via Nostr relays (NIP-04)",
+      blurb: "Децентрализованные ЛС через релеи Nostr (NIP-04)",
       order: 100,
     },
     capabilities: {

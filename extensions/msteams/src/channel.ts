@@ -61,7 +61,7 @@ const meta = {
   selectionLabel: "Microsoft Teams (Bot Framework)",
   docsPath: "/channels/msteams",
   docsLabel: "msteams",
-  blurb: "Teams SDK; enterprise support.",
+  blurb: "Teams SDK; корпоративная поддержка.",
   aliases: ["teams"],
   order: 60,
 } as const;

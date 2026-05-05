@@ -1,6 +1,5 @@
 ---
-name: songsee
-description: Generate spectrograms and feature-panel visualizations from audio with the songsee CLI.
+name: songseedescription: "Генерация спектрограмм и визуализаций панелей характеристик из аудио с помощью songsee CLI."
 homepage: https://github.com/steipete/songsee
 metadata:
   {

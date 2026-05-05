@@ -59,7 +59,7 @@ class WizardSessionPrompter implements WizardPrompter {
   async outro(message: string): Promise<void> {
     await this.prompt({
       type: "note",
-      title: "Done",
+      title: "Готово",
       message,
       executor: "client",
     });

@@ -1,9 +1,13 @@
 {
   "id": "cloudflare-ai-gateway",
   "enabledByDefault": true,
-  "providers": ["cloudflare-ai-gateway"],
+  "providers": [
+    "cloudflare-ai-gateway"
+  ],
   "providerAuthEnvVars": {
-    "cloudflare-ai-gateway": ["CLOUDFLARE_AI_GATEWAY_API_KEY"]
+    "cloudflare-ai-gateway": [
+      "CLOUDFLARE_AI_GATEWAY_API_KEY"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -13,7 +17,7 @@
       "choiceLabel": "Cloudflare AI Gateway",
       "choiceHint": "Account ID + Gateway ID + API key",
       "groupId": "cloudflare-ai-gateway",
-      "groupLabel": "Cloudflare AI Gateway",
+      "groupLabel": "$ Cloudflare AI Gateway",
       "groupHint": "Account ID + Gateway ID + API key",
       "optionKey": "cloudflareAiGatewayApiKey",
       "cliFlag": "--cloudflare-ai-gateway-api-key",

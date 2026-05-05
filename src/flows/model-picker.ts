@@ -120,10 +120,10 @@ function normalizeModelKeys(values: string[]): string[] {
 function resolveModelRouteHint(provider: string): string | undefined {
   const normalized = normalizeProviderId(provider);
   if (normalized === "openai") {
-    return "API key route";
+    return "Авторизация по API-ключу";
   }
   if (normalized === "openai-codex") {
-    return "ChatGPT OAuth route";
+    return "Авторизация через ChatGPT OAuth";
   }
   return undefined;
 }
@@ -219,7 +219,7 @@ async function promptManualModel(params: {
   initialValue?: string;
 }): Promise<PromptDefaultModelResult> {
   const modelInput = await params.prompter.text({
-    message: params.allowBlank ? "Default model (blank to keep)" : "Default model",
+    message: params.allowBlank ? "Модель по умолчанию (пусто — не менять)" : "Модель по умолчанию",
     initialValue: params.initialValue,
     placeholder: "provider/model",
     validate: params.allowBlank
@@ -282,8 +282,8 @@ async function maybeFilterModelsByProvider(params: {
     : undefined;
   if (shouldPromptProvider) {
     const selection = await params.prompter.select({
-      message: "Filter models by provider",
-      options: [{ value: "*", label: "All providers" }, ...buildModelProviderFilterOptions(next)],
+      message: "Фильтр моделей по провайдеру",
+      options: [{ value: "*", label: "Все провайдеры" }, ...buildModelProviderFilterOptions(next)],
     });
     if (selection !== "*") {
       next = next.filter((entry) => entry.provider === selection);
@@ -358,8 +358,8 @@ async function maybeHandleProviderPluginSelection(params: {
   }
   if (!params.agentDir || !params.runtime) {
     await params.prompter.note(
-      "Provider setup requires agent and runtime context.",
-      "Provider setup unavailable",
+      "Для настройки провайдера требуется контекст агента и среды выполнения.",
+      "Настройка провайдера недоступна",
     );
     return {};
   }
@@ -483,14 +483,14 @@ export async function promptDefaultModel(
     options.push({
       value: KEEP_VALUE,
       label: configuredRaw
-        ? `Keep current (${configuredRaw})`
-        : `Keep current (default: ${resolvedKey})`,
+        ? `Оставить текущую (${configuredRaw})`
+        : `Оставить текущую (по умолчанию: ${resolvedKey})`,
       hint:
         configuredRaw && configuredRaw !== resolvedKey ? `resolves to ${resolvedKey}` : undefined,
     });
   }
   if (includeManual) {
-    options.push({ value: MANUAL_VALUE, label: "Enter model manually" });
+    options.push({ value: MANUAL_VALUE, label: "Ввести модель вручную" });
   }
   if (includeProviderPluginSetups && params.agentDir) {
     options.push(
@@ -528,7 +528,7 @@ export async function promptDefaultModel(
   }
 
   const selection = await params.prompter.select({
-    message: params.message ?? "Default model",
+    message: params.message ?? "Модель по умолчанию",
     options,
     initialValue,
   });
@@ -664,7 +664,7 @@ export async function promptModelAllowlist(params: {
   }
 
   const selection = await params.prompter.multiselect({
-    message: params.message ?? "Models in /model picker (multi-select)",
+    message: params.message ?? "Модели в меню /model (множественный выбор)",
     options,
     initialValues: initialKeys.length > 0 ? initialKeys : undefined,
     searchable: true,
@@ -677,7 +677,7 @@ export async function promptModelAllowlist(params: {
     return { models: [] };
   }
   const confirmClear = await params.prompter.confirm({
-    message: "Clear the model allowlist? (shows all models)",
+    message: "Очистить белый список моделей? (покажет все)",
     initialValue: false,
   });
   if (!confirmClear) {

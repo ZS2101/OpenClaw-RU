@@ -87,39 +87,39 @@ async function requireRiskAcknowledgement(params: {
 
   await params.prompter.note(
     [
-      "Security warning — please read.",
+      "Предупреждение о безопасности — пожалуйста, прочтите.",
       "",
-      "OpenClaw is a hobby project and still in beta. Expect sharp edges.",
-      "By default, OpenClaw is a personal agent: one trusted operator boundary.",
-      "This bot can read files and run actions if tools are enabled.",
-      "A bad prompt can trick it into doing unsafe things.",
+      "OpenClaw — это хобби-проект, и он всё еще в бете. Ожидайте шероховатостей.",
+      "По умолчанию OpenClaw — это личный агент, рассчитанный только на одного доверенного пользователя.",
+      "Этот бот может читать файлы и выполнять действия, если включены инструменты.",
+      "Плохой промпт может обманом заставить его выполнить вредоносные вам действия.",
       "",
-      "OpenClaw is not a hostile multi-tenant boundary by default.",
-      "If multiple users can message one tool-enabled agent, they share that delegated tool authority.",
+      "По умолчанию OpenClaw не рассчитан на враждебную multi-tenant среду.",
+      "Если несколько пользователей могут писать агенту с включенными инструментами, они разделяют между собой делегированные ему права.",
       "",
-      "If you’re not comfortable with security hardening and access control, don’t run OpenClaw.",
-      "Ask someone experienced to help before enabling tools or exposing it to the internet.",
+      "Если вы не уверены в своих навыках усиления безопасности и контроля доступа, не запускайте OpenClaw.",
+      "Попросите помощи у кого-то опытного, прежде чем включать инструменты или давать боту доступ в интернет.",
       "",
-      "Recommended baseline:",
-      "- Pairing/allowlists + mention gating.",
-      "- Multi-user/shared inbox: split trust boundaries (separate gateway/credentials, ideally separate OS users/hosts).",
-      "- Sandbox + least-privilege tools.",
-      "- Shared inboxes: isolate DM sessions (`session.dmScope: per-channel-peer`) and keep tool access minimal.",
-      "- Keep secrets out of the agent’s reachable filesystem.",
-      "- Use the strongest available model for any bot with tools or untrusted inboxes.",
+      "Рекомендуемый минимум:",
+      "- Сопряжение/белые списки + ограничение по упоминаниям (mention gating).",
+      "- Многопользовательские/общие инбоксы: разделяйте границы доверия (отдельные шлюзы/учетные данные, в идеале — отдельные пользователи ОС/хосты).",
+      "- Sandbox + инструменты с минимальными привилегиями.",
+      "- Общие инбоксы: изолируйте DM-сессии (`session.dmScope: per-channel-peer`) и держите доступ к инструментам на минимуме.",
+      "- Храните секреты вне доступной агенту файловой системы.",
+      "- Используйте самую сильную доступную модель для любого бота с инструментами или недоверенными инбоксами.",
       "",
-      "Run regularly:",
+      "Запускайте регулярно:",
       "openclaw security audit --deep",
       "openclaw security audit --fix",
       "",
-      "Must read: https://docs.openclaw.ai/gateway/security",
+      "Обязательно к прочтению: https://docs.openclaw.ai/gateway/security",
     ].join("\n"),
-    "Security",
+    "Безопасность",
   );
 
   const ok = await params.prompter.confirm({
     message:
-      "I understand this is personal-by-default and shared/multi-user use requires lock-down. Continue?",
+      "Я понимаю, что по умолчанию это личный агент, а многопользовательский режим требует серьезной настройки безопасности. Продолжить?",
     initialValue: false,
   });
   if (!ok) {
@@ -134,7 +134,7 @@ export async function runSetupWizard(
 ) {
   const onboardHelpers = await import("../commands/onboard-helpers.js");
   onboardHelpers.printWizardHeader(runtime);
-  await prompter.intro("OpenClaw setup");
+  await prompter.intro("Настройка OpenClaw");
   await requireRiskAcknowledgement({ opts, prompter });
 
   const snapshot = await readConfigFileSnapshot();
@@ -145,15 +145,15 @@ export async function runSetupWizard(
     : {};
 
   if (snapshot.exists && !snapshot.valid) {
-    await prompter.note(onboardHelpers.summarizeExistingConfig(baseConfig), "Invalid config");
+    await prompter.note(onboardHelpers.summarizeExistingConfig(baseConfig), "Неверный конфиг");
     if (snapshot.issues.length > 0) {
       await prompter.note(
         [
           ...snapshot.issues.map((iss) => `- ${iss.path}: ${iss.message}`),
           "",
-          "Docs: https://docs.openclaw.ai/gateway/configuration",
+          "Документация: https://docs.openclaw.ai/gateway/configuration",
         ].join("\n"),
-        "Config issues",
+        "Проблемы с конфигом",
       );
     }
     await prompter.outro(
@@ -180,12 +180,12 @@ export async function runSetupWizard(
         `Review: ${formatCliCommand("openclaw doctor")}`,
         `Inspect: ${formatCliCommand("openclaw plugins inspect --all")}`,
       ].join("\n"),
-      "Plugin compatibility",
+      "Совместимость плагинов",
     );
   }
 
-  const quickstartHint = `Configure details later via ${formatCliCommand("openclaw configure")}.`;
-  const manualHint = "Configure port, network, Tailscale, and auth options.";
+  const quickstartHint = `Настроить позже через ${formatCliCommand("openclaw configure")}.`;
+  const manualHint = "Настройте порт, сеть, Tailscale и параметры авторизации.";
   const explicitFlowRaw = opts.flow?.trim();
   const normalizedExplicitFlow = explicitFlowRaw === "manual" ? "advanced" : explicitFlowRaw;
   if (
@@ -193,7 +193,7 @@ export async function runSetupWizard(
     normalizedExplicitFlow !== "quickstart" &&
     normalizedExplicitFlow !== "advanced"
   ) {
-    runtime.error("Invalid --flow (use quickstart, manual, or advanced).");
+    runtime.error("Недопустимый параметр --flow (используйте quickstart, manual или advanced).");
     runtime.exit(1);
     return;
   }
@@ -204,18 +204,18 @@ export async function runSetupWizard(
   let flow: WizardFlow =
     explicitFlow ??
     (await prompter.select({
-      message: "Setup mode",
+      message: "Режим настройки",
       options: [
-        { value: "quickstart", label: "QuickStart", hint: quickstartHint },
-        { value: "advanced", label: "Manual", hint: manualHint },
+        { value: "quickstart", label: "Быстрый старт", hint: quickstartHint },
+        { value: "advanced", label: "Ручная настройка", hint: manualHint },
       ],
       initialValue: "quickstart",
     }));
 
   if (opts.mode === "remote" && flow === "quickstart") {
     await prompter.note(
-      "QuickStart only supports local gateways. Switching to Manual mode.",
-      "QuickStart",
+      "«Быстрый старт» поддерживает только локальные шлюзы. Переключаемся в ручной режим настройки.",
+      "Быстрый старт",
     );
     flow = "advanced";
   }
@@ -223,15 +223,15 @@ export async function runSetupWizard(
   if (snapshot.exists) {
     await prompter.note(
       onboardHelpers.summarizeExistingConfig(baseConfig),
-      "Existing config detected",
+      "Обнаружен существующий конфиг",
     );
 
     const action = await prompter.select({
-      message: "Config handling",
+      message: "Управление конфигом",
       options: [
-        { value: "keep", label: "Use existing values" },
-        { value: "modify", label: "Update values" },
-        { value: "reset", label: "Reset" },
+        { value: "keep", label: "Использовать текущие значения" },
+        { value: "modify", label: "Обновить значения" },
+        { value: "reset", label: "Сбросить" },
       ],
     });
 
@@ -239,16 +239,16 @@ export async function runSetupWizard(
       const workspaceDefault =
         baseConfig.agents?.defaults?.workspace ?? onboardHelpers.DEFAULT_WORKSPACE;
       const resetScope = (await prompter.select({
-        message: "Reset scope",
+        message: "Область сброса",
         options: [
-          { value: "config", label: "Config only" },
+          { value: "config", label: "Только конфиг" },
           {
             value: "config+creds+sessions",
-            label: "Config + creds + sessions",
+            label: "Конфиг + учетные данные + сессии",
           },
           {
             value: "full",
-            label: "Full reset (config + creds + sessions + workspace)",
+            label: "Полный сброс (конфиг + учетные данные + сессии + воркспейс)",
           },
         ],
       })) as ResetScope;
@@ -314,25 +314,25 @@ export async function runSetupWizard(
         return "Loopback (127.0.0.1)";
       }
       if (value === "lan") {
-        return "LAN";
+        return "LAN (Локальная сеть)";
       }
       if (value === "custom") {
-        return "Custom IP";
+        return "Свой IP";
       }
       if (value === "tailnet") {
-        return "Tailnet (Tailscale IP)";
+        return "Tailnet (IP-адрес Tailscale)";
       }
-      return "Auto";
+      return "Авто";
     };
     const formatAuth = (value: GatewayAuthChoice) => {
       if (value === "token") {
-        return "Token (default)";
+        return "Токен (по умолчанию)";
       }
-      return "Password";
+      return "Пароль";
     };
     const formatTailscale = (value: "off" | "serve" | "funnel") => {
       if (value === "off") {
-        return "Off";
+        return "Выкл";
       }
       if (value === "serve") {
         return "Serve";
@@ -341,24 +341,24 @@ export async function runSetupWizard(
     };
     const quickstartLines = quickstartGateway.hasExisting
       ? [
-          "Keeping your current gateway settings:",
-          `Gateway port: ${quickstartGateway.port}`,
-          `Gateway bind: ${formatBind(quickstartGateway.bind)}`,
+          "Оставляем текущие настройки шлюза:",
+          `Порт шлюза: ${quickstartGateway.port}`,
+          `Привязка (bind) шлюза: ${formatBind(quickstartGateway.bind)}`,
           ...(quickstartGateway.bind === "custom" && quickstartGateway.customBindHost
-            ? [`Gateway custom IP: ${quickstartGateway.customBindHost}`]
+            ? [`Пользовательский IP шлюза: ${quickstartGateway.customBindHost}`]
             : []),
-          `Gateway auth: ${formatAuth(quickstartGateway.authMode)}`,
-          `Tailscale exposure: ${formatTailscale(quickstartGateway.tailscaleMode)}`,
-          "Direct to chat channels.",
+          `Авторизация шлюза: ${formatAuth(quickstartGateway.authMode)}`,
+          `Доступ через Tailscale: ${formatTailscale(quickstartGateway.tailscaleMode)}`,
+          "Напрямую в чат-каналы.",
         ]
       : [
-          `Gateway port: ${quickstartGateway.port}`,
-          "Gateway bind: Loopback (127.0.0.1)",
-          "Gateway auth: Token (default)",
-          "Tailscale exposure: Off",
-          "Direct to chat channels.",
+          `Порт шлюза: ${quickstartGateway.port}`,
+          "Привязка шлюза: Loopback (127.0.0.1)",
+          "Авторизация шлюза: Токен (по умолчанию)",
+          "Доступ через Tailscale: Выкл",
+          "Напрямую в чат-каналы.",
         ];
-    await prompter.note(quickstartLines.join("\n"), "QuickStart");
+    await prompter.note(quickstartLines.join("\n"), "Быстрый старт");
   }
 
   const localPort = resolveGatewayPort(baseConfig);
@@ -377,10 +377,10 @@ export async function runSetupWizard(
   } catch (error) {
     await prompter.note(
       [
-        "Could not resolve gateway.auth.token SecretRef for setup probe.",
+        "Не удалось разрешить SecretRef для gateway.auth.token при проверке настройки.",
         formatErrorMessage(error),
       ].join("\n"),
-      "Gateway auth",
+      "Авторизация шлюза",
     );
   }
   let localGatewayPassword = process.env.OPENCLAW_GATEWAY_PASSWORD;
@@ -397,10 +397,10 @@ export async function runSetupWizard(
   } catch (error) {
     await prompter.note(
       [
-        "Could not resolve gateway.auth.password SecretRef for setup probe.",
+        "Не удалось разрешить SecretRef для gateway.auth.password при проверке настройки.",
         formatErrorMessage(error),
       ].join("\n"),
-      "Gateway auth",
+      "Авторизация шлюза",
     );
   }
 
@@ -424,10 +424,10 @@ export async function runSetupWizard(
   } catch (error) {
     await prompter.note(
       [
-        "Could not resolve gateway.remote.token SecretRef for setup probe.",
+        "Не удалось разрешить SecretRef для gateway.remote.token при проверке настройки.",
         formatErrorMessage(error),
       ].join("\n"),
-      "Gateway auth",
+      "Авторизация шлюза",
     );
   }
   const remoteProbe = remoteUrl
@@ -442,20 +442,20 @@ export async function runSetupWizard(
     (flow === "quickstart"
       ? "local"
       : ((await prompter.select({
-          message: "What do you want to set up?",
+          message: "Что вы хотите настроить?",
           options: [
             {
               value: "local",
-              label: "Local gateway (this machine)",
+              label: "Локальный шлюз (эта машина)",
               hint: localProbe.ok
                 ? `Gateway reachable (${localUrl})`
                 : `No gateway detected (${localUrl})`,
             },
             {
               value: "remote",
-              label: "Remote gateway (info-only)",
+              label: "Удаленный шлюз (только инфо)",
               hint: !remoteUrl
-                ? "No remote URL configured yet"
+                ? "Удаленный URL еще не настроен"
                 : remoteProbe?.ok
                   ? `Gateway reachable (${remoteUrl})`
                   : `Configured but unreachable (${remoteUrl})`,
@@ -472,7 +472,7 @@ export async function runSetupWizard(
     nextConfig = onboardHelpers.applyWizardMetadata(nextConfig, { command: "onboard", mode });
     await writeConfigFile(nextConfig);
     logConfigUpdated(runtime);
-    await prompter.outro("Remote gateway configured.");
+    await prompter.outro("Удаленный шлюз настроен.");
     return;
   }
 
@@ -481,7 +481,7 @@ export async function runSetupWizard(
     (flow === "quickstart"
       ? (baseConfig.agents?.defaults?.workspace ?? onboardHelpers.DEFAULT_WORKSPACE)
       : await prompter.text({
-          message: "Workspace directory",
+          message: "Директория воркспейса",
           initialValue: baseConfig.agents?.defaults?.workspace ?? onboardHelpers.DEFAULT_WORKSPACE,
         }));
 
@@ -608,7 +608,7 @@ export async function runSetupWizard(
   const settings = gateway.settings;
 
   if (opts.skipChannels ?? opts.skipProviders) {
-    await prompter.note("Skipping channel setup.", "Channels");
+    await prompter.note("Пропуск настройки каналов.", "Каналы");
   } else {
     const { listChannelPlugins } = await import("../channels/plugins/index.js");
     const { setupChannels } = await import("../commands/onboard-channels.js");
@@ -636,7 +636,7 @@ export async function runSetupWizard(
   });
 
   if (opts.skipSearch) {
-    await prompter.note("Skipping search setup.", "Search");
+    await prompter.note("Пропуск настройки поиска.", "Поиск");
   } else {
     const { setupSearch } = await import("../commands/onboard-search.js");
     nextConfig = await setupSearch(nextConfig, runtime, prompter, {
@@ -646,7 +646,7 @@ export async function runSetupWizard(
   }
 
   if (opts.skipSkills) {
-    await prompter.note("Skipping skills setup.", "Skills");
+    await prompter.note("Пропуск настройки навыков.", "Навыки");
   } else {
     const { setupSkills } = await import("../commands/onboard-skills.js");
     nextConfig = await setupSkills(nextConfig, workspaceDir, runtime, prompter);

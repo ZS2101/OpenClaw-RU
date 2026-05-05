@@ -29,7 +29,7 @@ export type SearchProviderSetupOption = FlowOption & {
 
 export type SearchProviderSetupContribution = FlowContribution & {
   kind: "search";
-  surface: "setup";
+  surface: "настройка";
   provider: PluginWebSearchProviderEntry;
   option: SearchProviderSetupOption;
   source: "runtime";
@@ -39,9 +39,9 @@ function resolveSearchProviderCredentialLabel(
   entry: Pick<PluginWebSearchProviderEntry, "label" | "credentialLabel" | "requiresCredential">,
 ): string {
   if (entry.requiresCredential === false) {
-    return `${entry.label} setup`;
+    return `${entry.label} настройка`;
   }
-  return normalizeOptionalString(entry.credentialLabel) || `${entry.label} API key`;
+  return normalizeOptionalString(entry.credentialLabel) || `${entry.label} API-ключ`;
 }
 
 export function listSearchProviderOptions(
@@ -69,9 +69,9 @@ function buildSearchProviderSetupContribution(params: {
   source: "runtime";
 }): SearchProviderSetupContribution {
   return {
-    id: `search:setup:${params.provider.id}`,
+    id: `search:настройка:${params.provider.id}`,
     kind: "search",
-    surface: "setup",
+    surface: "настройка",
     provider: params.provider,
     option: {
       value: params.provider.id,
@@ -90,7 +90,7 @@ export function resolveSearchProviderSetupContributions(
     resolvePluginWebSearchProviders({
       config,
       env: process.env,
-      mode: "setup",
+      mode: "настройка",
     }),
   );
   return sortFlowContributionsByLabel(
@@ -338,22 +338,22 @@ export async function runSearchSetupFlow(
   if (providerOptions.length === 0) {
     await prompter.note(
       [
-        "No web search providers are currently available under this plugin policy.",
-        "Enable plugins or remove deny rules, then run setup again.",
+        "Нет доступных провайдеров поиска при текущей политике плагинов.",
+        "Включите плагины или уберите deny-правила и запустите настройку заново.",
         "Docs: https://docs.openclaw.ai/tools/web",
       ].join("\n"),
-      "Web search",
+      "Поиск в интернете",
     );
     return config;
   }
 
   await prompter.note(
     [
-      "Web search lets your agent look things up online.",
-      "Choose a provider. Some providers need an API key, and some work key-free.",
+      "Поиск в интернете lets your agent look things up online.",
+      "Выберите провайдера. Некоторым нужен API-ключ, некоторые работают без ключа.",
       "Docs: https://docs.openclaw.ai/tools/web",
     ].join("\n"),
-    "Web search",
+    "Поиск в интернете",
   );
 
   const existingProvider = config.tools?.web?.search?.provider;
@@ -361,9 +361,9 @@ export async function runSearchSetupFlow(
   const options = providerOptions.map((entry) => {
     const hint =
       entry.requiresCredential === false
-        ? `${entry.hint} · key-free`
+        ? `${entry.hint} · без ключа`
         : providerIsReady(config, entry)
-          ? `${entry.hint} · configured`
+          ? `${entry.hint} · настроено`
           : entry.hint;
     return { value: entry.id, label: entry.label, hint };
   });
@@ -380,13 +380,13 @@ export async function runSearchSetupFlow(
   })();
 
   const choice = await prompter.select({
-    message: "Search provider",
+    message: "Поисковый провайдер",
     options: [
       ...options,
       {
         value: "__skip__" as const,
-        label: "Skip for now",
-        hint: "Configure later with openclaw configure --section web",
+        label: "Пока пропустить",
+        hint: "Настроить позже через openclaw configure --section web",
       },
     ],
     initialValue: defaultProvider,
@@ -424,11 +424,11 @@ export async function runSearchSetupFlow(
   if (!needsCredential) {
     await prompter.note(
       [
-        `${entry.label} works without an API key.`,
-        "OpenClaw will enable the plugin and use it as your web_search provider.",
+        `${entry.label} работает без API-ключа.`,
+        "OpenClaw включит плагин и будет использовать его как провайдера web_search.",
         `Docs: ${entry.docsUrl ?? "https://docs.openclaw.ai/tools/web"}`,
       ].join("\n"),
-      "Web search",
+      "Поиск в интернете",
     );
     return await finalizeSearchProviderSetup({
       originalConfig: config,
@@ -455,12 +455,12 @@ export async function runSearchSetupFlow(
     const ref = buildSearchEnvRef(config, choice);
     await prompter.note(
       [
-        "Secret references enabled — OpenClaw will store a reference instead of the API key.",
-        `Env var: ${ref.id}${envAvailable ? " (detected)" : ""}.`,
+        "Режим секретных ссылок включён — OpenClaw сохранит ссылку вместо API-ключа.",
+        `Env var: ${ref.id}${envAvailable ? " (обнаружена)" : ""}.`,
         ...(envAvailable ? [] : [`Set ${ref.id} in the Gateway environment.`]),
         "Docs: https://docs.openclaw.ai/tools/web",
       ].join("\n"),
-      "Web search",
+      "Поиск в интернете",
     );
     return await finalizeSearchProviderSetup({
       originalConfig: config,
@@ -474,11 +474,11 @@ export async function runSearchSetupFlow(
 
   const keyInput = await prompter.text({
     message: keyConfigured
-      ? `${credentialLabel} (leave blank to keep current)`
+      ? `${credentialLabel} (пусто — оставить текущий)`
       : envAvailable
-        ? `${credentialLabel} (leave blank to use env var)`
+        ? `${credentialLabel} (пусто — использовать env var)`
         : credentialLabel,
-    placeholder: keyConfigured ? "Leave blank to keep current" : entry.placeholder,
+    placeholder: keyConfigured ? "Оставьте пустым, чтобы сохранить текущий" : entry.placeholder,
   });
 
   const key = normalizeOptionalString(keyInput) ?? "";
@@ -519,10 +519,10 @@ export async function runSearchSetupFlow(
   await prompter.note(
     [
       `No ${credentialLabel} stored — web_search won't work until a key is available.`,
-      `Get your key at: ${entry.signupUrl}`,
+      `Получите ключ на: ${entry.signupUrl}`,
       "Docs: https://docs.openclaw.ai/tools/web",
     ].join("\n"),
-    "Web search",
+    "Поиск в интернете",
   );
 
   const search: SearchConfig = {

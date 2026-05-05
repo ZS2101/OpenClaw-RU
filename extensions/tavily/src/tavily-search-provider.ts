@@ -27,9 +27,9 @@ export function createTavilyWebSearchProvider(): WebSearchProviderPlugin {
   return {
     id: "tavily",
     label: "Tavily Search",
-    hint: "Structured results with domain filters and AI answer summaries",
+    hint: "Структурированные результаты с доменными фильтрами и AI-саммари",
     onboardingScopes: ["text-inference"],
-    credentialLabel: "Tavily API key",
+    credentialLabel: "API-ключ Tavily",
     envVars: ["TAVILY_API_KEY"],
     placeholder: "tvly-...",
     signupUrl: "https://tavily.com/",

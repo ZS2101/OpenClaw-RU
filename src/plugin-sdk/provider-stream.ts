@@ -185,3 +185,8 @@ export {
   getOpenRouterModelCapabilities,
   loadOpenRouterModelCapabilities,
 } from "../agents/pi-embedded-runner/openrouter-model-capabilities.js";
+export {
+  setCometAPIApiKey,
+  getCometAPIModelCapabilities,
+  loadCometAPIModelCapabilities,
+} from "../agents/pi-embedded-runner/cometapi-model-capabilities.js";

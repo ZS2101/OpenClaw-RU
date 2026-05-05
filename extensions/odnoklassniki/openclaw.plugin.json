@@ -1,0 +1,15 @@
+{
+  "id": "odnoklassniki",
+  "activation": {
+    "onStartup": false
+  },
+  "channels": ["odnoklassniki"],
+  "channelEnvVars": {
+    "odnoklassniki": ["OK_BOT_TOKEN"]
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}

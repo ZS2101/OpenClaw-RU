@@ -223,7 +223,7 @@ async function resolveMSTeamsGroupAllowlist(params: {
 }
 
 const msteamsGroupAccess: NonNullable<ChannelSetupWizard["groupAccess"]> = {
-  label: "MS Teams channels",
+  label: "Каналы MS Teams",
   placeholder: "Team Name/Channel Name, teamId/conversationId",
   currentPolicy: ({ cfg }) => cfg.channels?.msteams?.groupPolicy ?? "allowlist",
   currentEntries: ({ cfg }) => listMSTeamsGroupEntries(cfg),

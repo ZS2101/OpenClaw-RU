@@ -14,7 +14,7 @@ const SLACK_CHANNEL_META = {
   selectionLabel: "Slack",
   docsPath: "/channels/slack",
   docsLabel: "slack",
-  blurb: "supports bot + app tokens, channels, threads, and interactive replies.",
+  blurb: "поддерживает токены бота и приложения, каналы, треды и интерактивные ответы.",
   systemImage: "number.square",
   markdownCapable: true,
 } as const;

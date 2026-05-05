@@ -1,0 +1,15 @@
+{
+  "id": "yandex",
+  "activation": {
+    "onStartup": false
+  },
+  "channels": ["yandex"],
+  "channelEnvVars": {
+    "yandex": ["YANDEX_BOT_TOKEN"]
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}

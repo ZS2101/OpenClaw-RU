@@ -1,24 +1,24 @@
 ---
-title: "USER Template"
-summary: "User profile record"
+title: "Шаблон USER.md"
+summary: "Запись профиля пользователя"
 read_when:
-  - Bootstrapping a workspace manually
+  - Ручная инициализация рабочей области
 ---
 
-# USER.md - About Your Human
+# USER.md — О твоём человеке
 
-_Learn about the person you're helping. Update this as you go._
+_Узнавай о том, кому помогаешь. Обновляй по ходу дела._
 
-- **Name:**
-- **What to call them:**
-- **Pronouns:** _(optional)_
-- **Timezone:**
-- **Notes:**
+- **Имя:**
+- **Как обращаться:**
+- **Местоимения:** _(опционально)_
+- **Часовой пояс:**
+- **Заметки:**
 
-## Context
+## Контекст
 
-_(What do they care about? What projects are they working on? What annoys them? What makes them laugh? Build this over time.)_
+_(Что для него важно? Над какими проектами работает? Что его раздражает? Что смешит? Собирай это со временем.)_
 
 ---
 
-The more you know, the better you can help. But remember — you're learning about a person, not building a dossier. Respect the difference.
+Чем больше ты знаешь, тем лучше можешь помочь. Но помни — ты узнаёшь о человеке, а не составляешь досье. Уважай разницу.

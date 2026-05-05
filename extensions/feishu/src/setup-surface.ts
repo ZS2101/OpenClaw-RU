@@ -338,8 +338,8 @@ async function runNewAppFlow(params: {
     const domain = (await prompter.select({
       message: "Which Feishu domain?",
       options: [
-        { value: "feishu", label: "Feishu (feishu.cn) - China" },
-        { value: "lark", label: "Lark (larksuite.com) - International" },
+        { value: "feishu", label: "Feishu (feishu.cn) - Китай" },
+        { value: "lark", label: "Lark (larksuite.com) - Международный" },
       ],
       initialValue: currentDomain,
     })) as FeishuDomain;
@@ -361,7 +361,7 @@ async function runNewAppFlow(params: {
       hasConfigToken: false,
       envPrompt: "",
       keepPrompt: "Feishu App Secret already configured. Keep it?",
-      inputPrompt: "Enter Feishu App Secret",
+      inputPrompt: "Введите Feishu App Secret",
       preferredEnvVar: "FEISHU_APP_SECRET",
     });
     if (appSecretResult.action === "set") {
@@ -383,9 +383,9 @@ async function runNewAppFlow(params: {
   const groupPolicy = (await prompter.select({
     message: "Group chat policy",
     options: [
-      { value: "allowlist", label: "Allowlist - only respond in specific groups" },
-      { value: "open", label: "Open - respond in all groups (requires mention)" },
-      { value: "disabled", label: "Disabled - don't respond in groups" },
+      { value: "allowlist", label: "Белый список (Allowlist) - отвечать только в определенных группах" },
+      { value: "open", label: "Открытый (Open) - отвечать во всех группах (требует упоминания)" },
+      { value: "disabled", label: "Отключено — не отвечать в группах" },
     ],
     initialValue: "allowlist",
   })) as "allowlist" | "open" | "disabled";
@@ -515,10 +515,10 @@ export const feishuSetupWizard: ChannelSetupWizard = {
     defaultAccountId,
   resolveShouldPromptAccountIds: () => false,
   status: {
-    configuredLabel: "configured",
-    unconfiguredLabel: "needs app credentials",
-    configuredHint: "configured",
-    unconfiguredHint: "needs app creds",
+    configuredLabel: "настроено",
+    unconfiguredLabel: "нужны креды приложения",
+    configuredHint: "настроено",
+    unconfiguredHint: "нужны креды приложения",
     configuredScore: 2,
     unconfiguredScore: 0,
     resolveConfigured: ({ cfg }) => isFeishuConfigured(cfg),

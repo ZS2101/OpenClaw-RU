@@ -225,8 +225,8 @@ describe("normalizeGatewayTokenInput", () => {
 
 describe("validateGatewayPasswordInput", () => {
   it("requires a non-empty password", () => {
-    expect(validateGatewayPasswordInput("")).toBe("Required");
-    expect(validateGatewayPasswordInput("   ")).toBe("Required");
+    expect(validateGatewayPasswordInput("")).toBe("Обязательно");
+    expect(validateGatewayPasswordInput("   ")).toBe("Обязательно");
   });
 
   it("rejects literal string coercion artifacts", () => {

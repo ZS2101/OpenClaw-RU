@@ -181,6 +181,6 @@ describe("maybeInstallDaemon", () => {
 
     expect(serviceRestart).toHaveBeenCalledTimes(1);
     expect(serviceInstall).not.toHaveBeenCalled();
-    expect(progressSetLabel).toHaveBeenLastCalledWith("Gateway service restart scheduled.");
+    expect(progressSetLabel).toHaveBeenLastCalledWith("Перезапуск службы Gateway запланирован.");
   });
 });

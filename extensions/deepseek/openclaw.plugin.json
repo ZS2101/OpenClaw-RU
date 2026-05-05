@@ -1,9 +1,13 @@
 {
   "id": "deepseek",
   "enabledByDefault": true,
-  "providers": ["deepseek"],
+  "providers": [
+    "deepseek"
+  ],
   "providerAuthEnvVars": {
-    "deepseek": ["DEEPSEEK_API_KEY"]
+    "deepseek": [
+      "DEEPSEEK_API_KEY"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -12,7 +16,7 @@
       "choiceId": "deepseek-api-key",
       "choiceLabel": "DeepSeek API key",
       "groupId": "deepseek",
-      "groupLabel": "DeepSeek",
+      "groupLabel": "\u00a5 DeepSeek",
       "groupHint": "API key",
       "optionKey": "deepseekApiKey",
       "cliFlag": "--deepseek-api-key",

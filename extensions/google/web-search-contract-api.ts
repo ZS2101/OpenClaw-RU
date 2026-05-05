@@ -11,7 +11,7 @@ export function createGeminiWebSearchProvider(): WebSearchProviderPlugin {
     label: "Gemini (Google Search)",
     hint: "Requires Google Gemini API key · Google Search grounding",
     onboardingScopes: ["text-inference"],
-    credentialLabel: "Google Gemini API key",
+    credentialLabel: "API-ключ Google Gemini",
     envVars: ["GEMINI_API_KEY"],
     placeholder: "AIza...",
     signupUrl: "https://aistudio.google.com/apikey",

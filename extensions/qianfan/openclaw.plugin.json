@@ -1,9 +1,13 @@
 {
   "id": "qianfan",
   "enabledByDefault": true,
-  "providers": ["qianfan"],
+  "providers": [
+    "qianfan"
+  ],
   "providerAuthEnvVars": {
-    "qianfan": ["QIANFAN_API_KEY"]
+    "qianfan": [
+      "QIANFAN_API_KEY"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -12,7 +16,7 @@
       "choiceId": "qianfan-api-key",
       "choiceLabel": "Qianfan API key",
       "groupId": "qianfan",
-      "groupLabel": "Qianfan",
+      "groupLabel": "\u00a5 Qianfan",
       "groupHint": "API key",
       "optionKey": "qianfanApiKey",
       "cliFlag": "--qianfan-api-key",

@@ -21,9 +21,9 @@
     "channel": {
       "id": "twitch",
       "label": "Twitch",
-      "selectionLabel": "Twitch (Chat)",
+      "selectionLabel": "Twitch (Чат)",
       "docsPath": "/channels/twitch",
-      "blurb": "Twitch chat integration",
+      "blurb": "Интеграция с чатом Twitch",
       "aliases": [
         "twitch-chat"
       ]

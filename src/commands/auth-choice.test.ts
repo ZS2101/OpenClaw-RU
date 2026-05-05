@@ -1464,11 +1464,11 @@ describe("applyAuthChoice", () => {
     });
     expect(note).toHaveBeenCalledWith(
       expect.stringContaining("Could not validate provider reference"),
-      "Reference check failed",
+      "Проверка ссылки не удалась",
     );
     expect(note).toHaveBeenCalledWith(
       expect.stringContaining("Validated environment variable OPENAI_API_KEY."),
-      "Reference validated",
+      "Ссылка проверена",
     );
     expect(await readAuthProfile("openai:default")).toMatchObject({
       keyRef: { source: "env", provider: "default", id: "OPENAI_API_KEY" },

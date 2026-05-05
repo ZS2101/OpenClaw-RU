@@ -1,0 +1,7 @@
+{
+  "id": "tamtam",
+  "activation": { "onStartup": false },
+  "channels": ["tamtam"],
+  "channelEnvVars": { "tamtam": ["TAMTAM_BOT_TOKEN"] },
+  "configSchema": { "type": "object", "additionalProperties": false, "properties": {} }
+}

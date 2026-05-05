@@ -54,7 +54,7 @@ const finalizeSetupWizard = vi.hoisted(() =>
     }
 
     const hatch = await options.prompter.select({
-      message: "How do you want to hatch your bot?",
+      message: "Как вы хотите запустить бота?",
       options: [],
     });
     if (hatch !== "tui") {
@@ -316,10 +316,10 @@ describe("runSetupWizard", () => {
       if (message === "Select setup mode") {
         return "quickstart";
       }
-      if (message === "Select channel (QuickStart)") {
+      if (message === "Выберите канал (Быстрый старт)") {
         return "__skip__";
       }
-      if (message === "How do you want to hatch your bot?") {
+      if (message === "Как вы хотите запустить бота?") {
         return "skip";
       }
       return "skip";
@@ -440,7 +440,7 @@ describe("runSetupWizard", () => {
     }
 
     const select = vi.fn(async (opts: WizardSelectParams<unknown>) => {
-      if (opts.message === "How do you want to hatch your bot?") {
+      if (opts.message === "Как вы хотите запустить бота?") {
         return "tui";
       }
       return "quickstart";
@@ -625,7 +625,7 @@ describe("runSetupWizard", () => {
     );
 
     const calls = getWizardNoteCalls(note);
-    expect(calls.some((call) => call?.[1] === "Plugin compatibility")).toBe(true);
+    expect(calls.some((call) => call?.[1] === "Совместимость плагинов")).toBe(true);
     expect(
       calls.some((call) => {
         const body = call?.[0];
@@ -768,9 +768,9 @@ describe("runSetupWizard", () => {
     expect(
       calls.some(
         (call) =>
-          call?.[1] === "QuickStart" &&
+          call?.[1] === "Быстрый старт" &&
           typeof call?.[0] === "string" &&
-          call[0].includes("Gateway port: 18791"),
+          call[0].includes("Порт шлюза: 18791"),
       ),
     ).toBe(true);
   });

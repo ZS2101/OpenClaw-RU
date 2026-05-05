@@ -17,11 +17,11 @@
     "channel": {
       "id": "irc",
       "label": "IRC",
-      "selectionLabel": "IRC (Server + Nick)",
+      "selectionLabel": "IRC (Сервер + Ник)",
       "detailLabel": "IRC",
       "docsPath": "/channels/irc",
       "docsLabel": "irc",
-      "blurb": "classic IRC networks with DM/channel routing and pairing controls.",
+      "blurb": "классические сети IRC с маршрутизацией ЛС/каналов и управлением сопряжениями.",
       "aliases": [
         "internet-relay-chat"
       ],

@@ -1,9 +1,13 @@
 {
   "id": "vercel-ai-gateway",
   "enabledByDefault": true,
-  "providers": ["vercel-ai-gateway"],
+  "providers": [
+    "vercel-ai-gateway"
+  ],
   "providerAuthEnvVars": {
-    "vercel-ai-gateway": ["AI_GATEWAY_API_KEY"]
+    "vercel-ai-gateway": [
+      "AI_GATEWAY_API_KEY"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -12,7 +16,7 @@
       "choiceId": "ai-gateway-api-key",
       "choiceLabel": "Vercel AI Gateway API key",
       "groupId": "ai-gateway",
-      "groupLabel": "Vercel AI Gateway",
+      "groupLabel": "$ Vercel AI Gateway",
       "groupHint": "API key",
       "optionKey": "aiGatewayApiKey",
       "cliFlag": "--ai-gateway-api-key",

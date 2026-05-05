@@ -30,7 +30,7 @@ function ensureWsUrl(value: string): string {
 function validateGatewayWebSocketUrl(value: string): string | undefined {
   const trimmed = value.trim();
   if (!trimmed.startsWith("ws://") && !trimmed.startsWith("wss://")) {
-    return "URL must start with ws:// or wss://";
+    return "URL должен начинаться с ws:// или wss://";
   }
   if (
     !isSecureWebSocketUrl(trimmed, {
@@ -38,8 +38,8 @@ function validateGatewayWebSocketUrl(value: string): string | undefined {
     })
   ) {
     return (
-      "Use wss:// for remote hosts, or ws://127.0.0.1/localhost via SSH tunnel. " +
-      "Break-glass: OPENCLAW_ALLOW_INSECURE_PRIVATE_WS=1 for trusted private networks."
+      "Используйте wss:// для удалённых хостов, или ws://127.0.0.1/localhost через SSH-туннель. " +
+      "Экстренный обход (Break-glass): OPENCLAW_ALLOW_INSECURE_PRIVATE_WS=1 для доверенных частных сетей."
     );
   }
   return undefined;
@@ -58,7 +58,7 @@ export async function promptRemoteGatewayConfig(
   const hasBonjourTool = (await detectBinary("dns-sd")) || (await detectBinary("avahi-browse"));
   const wantsDiscover = hasBonjourTool
     ? await prompter.confirm({
-        message: "Discover gateway on LAN (Bonjour)?",
+        message: "Искать шлюз в LAN (через Bonjour)?",
         initialValue: true,
       })
     : false;
@@ -66,10 +66,10 @@ export async function promptRemoteGatewayConfig(
   if (!hasBonjourTool) {
     await prompter.note(
       [
-        "Bonjour discovery requires dns-sd (macOS) or avahi-browse (Linux).",
-        "Docs: https://docs.openclaw.ai/gateway/discovery",
+        "Для поиска через Bonjour требуется dns-sd (macOS) или avahi-browse (Linux).",
+        "Документация: https://docs.openclaw.ai/gateway/discovery",
       ].join("\n"),
-      "Discovery",
+      "Discovery (Поиск устройств)",
     );
   }
 
@@ -77,19 +77,19 @@ export async function promptRemoteGatewayConfig(
     const wideAreaDomain = resolveWideAreaDiscoveryDomain({
       configDomain: cfg.discovery?.wideArea?.domain,
     });
-    const spin = prompter.progress("Searching for gateways…");
+    const spin = prompter.progress("Поиск шлюзов...");
     const beacons = await discoverGatewayBeacons({ timeoutMs: 2000, wideAreaDomain });
-    spin.stop(beacons.length > 0 ? `Found ${beacons.length} gateway(s)` : "No gateways found");
+    spin.stop(beacons.length > 0 ? `Found ${beacons.length} gateway(s)` : "Шлюзы не найдены");
 
     if (beacons.length > 0) {
       const selection = await prompter.select({
-        message: "Select gateway",
+        message: "Выбрать шлюз",
         options: [
           ...beacons.map((beacon, index) => ({
             value: String(index),
             label: buildLabel(beacon),
           })),
-          { value: "manual", label: "Enter URL manually" },
+          { value: "manual", label: "Ввести URL вручную" },
         ],
       });
       if (selection !== "manual") {
@@ -104,13 +104,13 @@ export async function promptRemoteGatewayConfig(
     if (target.endpoint) {
       const { host, port } = target.endpoint;
       const mode = await prompter.select({
-        message: "Connection method",
+        message: "Способ подключения",
         options: [
           {
             value: "direct",
             label: `Direct gateway WS (${host}:${port})`,
           },
-          { value: "ssh", label: "SSH tunnel (loopback)" },
+          { value: "ssh", label: "SSH-туннель (loopback)" },
         ],
       });
       if (mode === "direct") {
@@ -125,12 +125,12 @@ export async function promptRemoteGatewayConfig(
           trustedDiscoveryUrl = suggestedUrl;
           await prompter.note(
             [
-              "Direct remote access defaults to TLS.",
+              "Прямой удаленный доступ по умолчанию использует TLS.",
               `Using: ${suggestedUrl}`,
               ...(fingerprint ? [`TLS pin: ${fingerprint}`] : []),
-              "If your gateway is loopback-only, choose SSH tunnel and keep ws://127.0.0.1:18789.",
+              "Если ваш шлюз работает только через loopback, выберите SSH-туннель и оставьте ws://127.0.0.1:18789.",
             ].join("\n"),
-            "Direct remote",
+            "Прямое удаленное подключение",
           );
         } else {
           // Clear the discovered endpoint so the manual prompt falls back to a safe default.
@@ -140,18 +140,18 @@ export async function promptRemoteGatewayConfig(
         suggestedUrl = DEFAULT_GATEWAY_URL;
         await prompter.note(
           [
-            "Start a tunnel before using the CLI:",
+            "Запустите туннель перед использованием CLI:",
             `ssh -N -L 18789:127.0.0.1:18789 <user>@${host}${target.sshPort ? ` -p ${target.sshPort}` : ""}`,
-            "Docs: https://docs.openclaw.ai/gateway/remote",
+            "Документация: https://docs.openclaw.ai/gateway/remote",
           ].join("\n"),
-          "SSH tunnel",
+          "SSH-туннель",
         );
       }
     }
   }
 
   const urlInput = await prompter.text({
-    message: "Gateway WebSocket URL",
+    message: "WebSocket URL шлюза",
     initialValue: suggestedUrl,
     validate: (value) => validateGatewayWebSocketUrl(value),
   });
@@ -160,11 +160,11 @@ export async function promptRemoteGatewayConfig(
     discoveryTlsFingerprint && url === trustedDiscoveryUrl ? discoveryTlsFingerprint : undefined;
 
   const authChoice = await prompter.select({
-    message: "Gateway auth",
+    message: "Авторизация шлюза",
     options: [
-      { value: "token", label: "Token (recommended)" },
-      { value: "password", label: "Password" },
-      { value: "off", label: "No auth" },
+      { value: "token", label: "Токен (рекомендуется)" },
+      { value: "password", label: "Пароль" },
+      { value: "off", label: "Без авторизации" },
     ],
   });
 
@@ -175,9 +175,9 @@ export async function promptRemoteGatewayConfig(
       prompter,
       explicitMode: options?.secretInputMode,
       copy: {
-        modeMessage: "How do you want to provide this gateway token?",
-        plaintextLabel: "Enter token now",
-        plaintextHint: "Stores the token directly in OpenClaw config",
+        modeMessage: "Как вы хотите указать этот токен шлюза?",
+        plaintextLabel: "Ввести токен сейчас",
+        plaintextHint: "Сохраняет токен прямо в конфиге OpenClaw",
       },
     });
     if (selectedMode === "ref") {
@@ -187,7 +187,7 @@ export async function promptRemoteGatewayConfig(
         prompter,
         preferredEnvVar: "OPENCLAW_GATEWAY_TOKEN",
         copy: {
-          sourceMessage: "Where is this gateway token stored?",
+          sourceMessage: "Где хранится этот токен шлюза?",
           envVarPlaceholder: "OPENCLAW_GATEWAY_TOKEN",
         },
       });
@@ -195,9 +195,9 @@ export async function promptRemoteGatewayConfig(
     } else {
       token = (
         await prompter.text({
-          message: "Gateway token",
+          message: "Токен шлюза",
           initialValue: typeof token === "string" ? token : undefined,
-          validate: (value) => (value?.trim() ? undefined : "Required"),
+          validate: (value) => (value?.trim() ? undefined : "Обязательно"),
         })
       ).trim();
     }
@@ -207,9 +207,9 @@ export async function promptRemoteGatewayConfig(
       prompter,
       explicitMode: options?.secretInputMode,
       copy: {
-        modeMessage: "How do you want to provide this gateway password?",
-        plaintextLabel: "Enter password now",
-        plaintextHint: "Stores the password directly in OpenClaw config",
+        modeMessage: "Как вы хотите указать этот пароль шлюза?",
+        plaintextLabel: "Ввести пароль сейчас",
+        plaintextHint: "Сохраняет пароль прямо в конфиге OpenClaw",
       },
     });
     if (selectedMode === "ref") {
@@ -219,7 +219,7 @@ export async function promptRemoteGatewayConfig(
         prompter,
         preferredEnvVar: "OPENCLAW_GATEWAY_PASSWORD",
         copy: {
-          sourceMessage: "Where is this gateway password stored?",
+          sourceMessage: "Где хранится этот пароль шлюза?",
           envVarPlaceholder: "OPENCLAW_GATEWAY_PASSWORD",
         },
       });
@@ -227,9 +227,9 @@ export async function promptRemoteGatewayConfig(
     } else {
       password = (
         await prompter.text({
-          message: "Gateway password",
+          message: "Пароль шлюза",
           initialValue: typeof password === "string" ? password : undefined,
-          validate: (value) => (value?.trim() ? undefined : "Required"),
+          validate: (value) => (value?.trim() ? undefined : "Обязательно"),
         })
       ).trim();
     }

@@ -55,10 +55,10 @@ export function createTlonSetupWizardBase(params: TlonSetupWizardBaseParams): Ch
   return {
     channel: tlonChannelId(),
     status: {
-      configuredLabel: "configured",
-      unconfiguredLabel: "needs setup",
-      configuredHint: "configured",
-      unconfiguredHint: "urbit messenger",
+      configuredLabel: "настроено",
+      unconfiguredLabel: "требуется настройка",
+      configuredHint: "настроено",
+      unconfiguredHint: "мессенджер urbit",
       configuredScore: 1,
       unconfiguredScore: 4,
       resolveConfigured: ({ cfg, accountId }) => params.resolveConfigured({ cfg, accountId }),

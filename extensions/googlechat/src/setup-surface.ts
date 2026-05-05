@@ -94,10 +94,10 @@ export const googlechatSetupWizard: ChannelSetupWizard = {
   channel,
   status: createStandardChannelSetupStatus({
     channelLabel: "Google Chat",
-    configuredLabel: "configured",
-    unconfiguredLabel: "needs service account",
-    configuredHint: "configured",
-    unconfiguredHint: "needs auth",
+    configuredLabel: "настроено",
+    unconfiguredLabel: "нужен сервисный аккаунт",
+    configuredHint: "настроено",
+    unconfiguredHint: "нужна авторизация",
     includeStatusLine: true,
     resolveConfigured: ({ cfg, accountId }) =>
       resolveGoogleChatAccount({ cfg, accountId }).credentialSource !== "none",
@@ -139,8 +139,8 @@ export const googlechatSetupWizard: ChannelSetupWizard = {
     const method = await prompter.select({
       message: "Google Chat auth method",
       options: [
-        { value: "file", label: "Service account JSON file" },
-        { value: "inline", label: "Paste service account JSON" },
+        { value: "file", label: "JSON-файл сервисного аккаунта" },
+        { value: "inline", label: "Вставить JSON сервисного аккаунта" },
       ],
       initialValue: "file",
     });
@@ -196,8 +196,8 @@ export const googlechatSetupWizard: ChannelSetupWizard = {
     const audienceType = await prompter.select({
       message: "Webhook audience type",
       options: [
-        { value: "app-url", label: "App URL (recommended)" },
-        { value: "project-number", label: "Project number" },
+        { value: "app-url", label: "URL приложения (рекомендуется)" },
+        { value: "project-number", label: "Номер проекта" },
       ],
       initialValue: account.config.audienceType === "project-number" ? "project-number" : "app-url",
     });

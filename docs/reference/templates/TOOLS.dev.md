@@ -1,25 +1,47 @@
 ---
 title: "TOOLS.dev Template"
-summary: "Dev agent tools notes (C-3PO)"
+summary: "Workspace template for TOOLS.dev"
 read_when:
-  - Using the dev gateway templates
-  - Updating the default dev agent identity
+  - Ручная инициализация рабочей области
 ---
 
-# TOOLS.md - User Tool Notes (editable)
+# TOOLS.md — Локальные заметки
 
-This file is for _your_ notes about external tools and conventions.
-It does not define which tools exist; OpenClaw provides built-in tools internally.
+Навыки определяют _как_ работают инструменты. Этот файл — для _твоих_ особенностей, того что уникально для твоей установки.
 
-## Examples
+## Что сюда писать
 
-### imsg
+Например:
 
-- Send an iMessage/SMS: describe who/what, confirm before sending.
-- Prefer short messages; avoid sending secrets.
+- Названия и расположение камер
+- SSH-хосты и псевдонимы
+- Предпочтительные голоса для TTS
+- Названия колонок/комнат
+- Прозвища устройств
+- Всё, что привязано к окружению
 
-### sag
+## Примеры
 
-- Text-to-speech: specify voice, target speaker/room, and whether to stream.
+```markdown
+### Камеры
 
-Add whatever else you want the assistant to know about your local toolchain.
+- гостиная → Основная зона, широкий угол 180°
+- входная-дверь → Вход, срабатывание на движение
+
+### SSH
+
+- домашний-сервер → 192.168.1.100, пользователь: admin
+
+### TTS
+
+- Предпочтительный голос: «Nova» (тёплый, слегка британский)
+- Основная колонка: Кухонный HomePod
+```
+
+## Почему раздельно?
+
+Навыки общие. Твоя установка — твоя. Разделяя их, ты можешь обновлять навыки, не теряя заметок, и делиться навыками, не раскрывая инфраструктуру.
+
+---
+
+Добавляй всё, что помогает делать работу. Это твоя шпаргалка.

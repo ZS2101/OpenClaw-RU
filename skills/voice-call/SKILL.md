@@ -1,6 +1,5 @@
 ---
-name: voice-call
-description: Start voice calls via the OpenClaw voice-call plugin.
+name: voice-calldescription: "Запуск голосовых звонков через плагин voice-call OpenClaw."
 metadata:
   {
     "openclaw":

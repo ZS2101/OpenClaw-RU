@@ -1,0 +1,1 @@
+const P=/^vkteams:/i; export function looksLikeVKTeamsTargetId(r:string):boolean{return r.replace(P,"").trim().length>=3;} export function normalizeVKTeamsMessagingTarget(r:string):string{return r.replace(P,"").trim();} export function normalizeVKTeamsTarget(r:string):string{return r.replace(P,"").trim();}

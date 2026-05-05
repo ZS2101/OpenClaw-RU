@@ -1,9 +1,13 @@
 {
   "id": "arcee",
   "enabledByDefault": true,
-  "providers": ["arcee"],
+  "providers": [
+    "arcee"
+  ],
   "providerAuthEnvVars": {
-    "arcee": ["ARCEEAI_API_KEY"]
+    "arcee": [
+      "ARCEEAI_API_KEY"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -13,7 +17,7 @@
       "choiceLabel": "Arcee AI API key",
       "choiceHint": "Direct (chat.arcee.ai)",
       "groupId": "arcee",
-      "groupLabel": "Arcee AI",
+      "groupLabel": "$ Arcee AI",
       "groupHint": "Direct API or OpenRouter",
       "optionKey": "arceeaiApiKey",
       "cliFlag": "--arceeai-api-key",
@@ -27,7 +31,7 @@
       "choiceLabel": "OpenRouter API key",
       "choiceHint": "Via OpenRouter (openrouter.ai)",
       "groupId": "arcee",
-      "groupLabel": "Arcee AI",
+      "groupLabel": "$ Arcee AI",
       "groupHint": "Direct API or OpenRouter",
       "optionKey": "openrouterApiKey",
       "cliFlag": "--openrouter-api-key",

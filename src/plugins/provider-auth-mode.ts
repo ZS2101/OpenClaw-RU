@@ -21,20 +21,20 @@ export async function resolveSecretInputModeForEnvSelection(params: {
     return "plaintext";
   }
   const selected = await params.prompter.select<SecretInputMode>({
-    message: params.copy?.modeMessage ?? "How do you want to provide this API key?",
+    message: params.copy?.modeMessage ?? "Как вы хотите передать этот API-ключ?",
     initialValue: "plaintext",
     options: [
       {
         value: "plaintext",
-        label: params.copy?.plaintextLabel ?? "Paste API key now",
-        hint: params.copy?.plaintextHint ?? "Stores the key directly in OpenClaw config",
+        label: params.copy?.plaintextLabel ?? "Вставить API-ключ сейчас",
+        hint: params.copy?.plaintextHint ?? "Сохраняет ключ прямо в конфигурации OpenClaw",
       },
       {
         value: "ref",
-        label: params.copy?.refLabel ?? "Use external secret provider",
+        label: params.copy?.refLabel ?? "Использовать внешний секретный провайдер",
         hint:
           params.copy?.refHint ??
-          "Stores a reference to env or configured external secret providers",
+          "Сохраняет ссылку на переменную окружения или настроенный внешний провайдер секретов",
       },
     ],
   });

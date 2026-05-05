@@ -53,7 +53,7 @@ const meta = {
   selectionLabel: "Google Chat (Chat API)",
   docsPath: "/channels/googlechat",
   docsLabel: "googlechat",
-  blurb: "Google Workspace Chat app with HTTP webhook.",
+  blurb: "приложение для Google Workspace Chat с HTTP-вебхуком.",
   aliases: ["gchat", "google-chat"],
   order: 55,
   detailLabel: "Google Chat",

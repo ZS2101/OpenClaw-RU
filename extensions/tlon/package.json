@@ -32,7 +32,7 @@
       "selectionLabel": "Tlon (Urbit)",
       "docsPath": "/channels/tlon",
       "docsLabel": "tlon",
-      "blurb": "decentralized messaging on Urbit; install the plugin to enable.",
+      "blurb": "децентрализованный мессенджер на Urbit; установите плагин для активации.",
       "order": 90,
       "quickstartAllowFrom": true
     },

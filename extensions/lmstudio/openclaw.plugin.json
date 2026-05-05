@@ -1,9 +1,13 @@
 {
   "id": "lmstudio",
   "enabledByDefault": true,
-  "providers": ["lmstudio"],
+  "providers": [
+    "lmstudio"
+  ],
   "providerAuthEnvVars": {
-    "lmstudio": ["LM_API_TOKEN"]
+    "lmstudio": [
+      "LM_API_TOKEN"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -17,7 +21,7 @@
       "cliOption": "--lmstudio-api-key <key>",
       "cliDescription": "LM Studio API key",
       "groupId": "lmstudio",
-      "groupLabel": "LM Studio",
+      "groupLabel": "\u2205 LM Studio",
       "groupHint": "Self-hosted open-weight models"
     }
   ],

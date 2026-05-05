@@ -1,9 +1,13 @@
 {
   "id": "openrouter",
   "enabledByDefault": true,
-  "providers": ["openrouter"],
+  "providers": [
+    "openrouter"
+  ],
   "providerAuthEnvVars": {
-    "openrouter": ["OPENROUTER_API_KEY"]
+    "openrouter": [
+      "OPENROUTER_API_KEY"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -12,7 +16,7 @@
       "choiceId": "openrouter-api-key",
       "choiceLabel": "OpenRouter API key",
       "groupId": "openrouter",
-      "groupLabel": "OpenRouter",
+      "groupLabel": "$ OpenRouter",
       "groupHint": "API key",
       "optionKey": "openrouterApiKey",
       "cliFlag": "--openrouter-api-key",
@@ -21,7 +25,9 @@
     }
   ],
   "contracts": {
-    "mediaUnderstandingProviders": ["openrouter"]
+    "mediaUnderstandingProviders": [
+      "openrouter"
+    ]
   },
   "configSchema": {
     "type": "object",

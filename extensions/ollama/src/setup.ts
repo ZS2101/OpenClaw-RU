@@ -322,7 +322,7 @@ async function promptForOllamaCloudCredential(params: {
     expectedProviders: ["ollama"],
     provider: "ollama",
     envLabel: "OLLAMA_API_KEY",
-    promptMessage: "Ollama API key",
+    promptMessage: "API-ключ Ollama",
     normalize: normalizeApiKeyInput,
     validate: validateApiKeyInput,
     prompter: params.prompter,
@@ -508,11 +508,11 @@ export async function promptAndConfigureOllama(params: {
     options: [
       {
         value: "cloud-local",
-        label: "Cloud + Local",
+        label: "Облако + Локально",
         hint: "Route cloud and local models through your Ollama host",
       },
-      { value: "cloud-only", label: "Cloud only", hint: "Hosted Ollama models via ollama.com" },
-      { value: "local-only", label: "Local only", hint: "Local models only" },
+      { value: "cloud-only", label: "Только облако", hint: "Hosted Ollama models via ollama.com" },
+      { value: "local-only", label: "Только локально", hint: "Local models only" },
     ],
   })) as OllamaInteractiveMode;
   if (mode === "cloud-only") {

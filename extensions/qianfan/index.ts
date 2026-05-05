@@ -14,12 +14,14 @@ export default defineSingleProviderPluginEntry({
     auth: [
       {
         methodId: "api-key",
-        label: "Qianfan API key",
+        label: "API-ключ Qianfan",
+        wizard: { groupLabel: "¥ Qianfan" },
+        groupSortKey: 2,
         hint: "API key",
         optionKey: "qianfanApiKey",
         flagName: "--qianfan-api-key",
         envVar: "QIANFAN_API_KEY",
-        promptMessage: "Enter Qianfan API key",
+        promptMessage: "Введите API-ключ Qianfan",
         defaultModel: QIANFAN_DEFAULT_MODEL_REF,
         applyConfig: (cfg) => applyQianfanConfig(cfg),
       },

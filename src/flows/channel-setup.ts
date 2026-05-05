@@ -531,7 +531,7 @@ export async function setupChannels(
   if (options?.quickstartDefaults) {
     const { entries } = getChannelEntries();
     const choice = await prompter.select({
-      message: "Select channel (QuickStart)",
+      message: "Выберите канал (Быстрый старт)",
       options: [
         ...resolveChannelSetupSelectionContributions({
           entries,
@@ -540,8 +540,8 @@ export async function setupChannels(
         }).map((contribution) => contribution.option),
         {
           value: "__skip__",
-          label: "Skip for now",
-          hint: `You can add channels later via \`${formatCliCommand("openclaw channels add")}\``,
+          label: "Пока пропустить",
+          hint: `Каналы можно добавить позже через \`${formatCliCommand("openclaw channels add")}\``,
         },
       ],
       initialValue: quickstartDefault,
@@ -565,7 +565,7 @@ export async function setupChannels(
           {
             value: doneValue,
             label: "Finished",
-            hint: selection.length > 0 ? "Done" : "Skip for now",
+            hint: selection.length > 0 ? "Готово" : "Пока пропустить",
           },
         ],
         initialValue,

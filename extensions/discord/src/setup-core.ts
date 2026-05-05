@@ -22,9 +22,9 @@ const channel = "discord" as const;
 
 export const DISCORD_TOKEN_HELP_LINES = [
   "1) Discord Developer Portal -> Applications -> New Application",
-  "2) Bot -> Add Bot -> Reset Token -> copy token",
-  "3) OAuth2 -> URL Generator -> scope 'bot' -> invite to your server",
-  "Tip: enable Message Content Intent if you need message text. (Bot -> Privileged Gateway Intents -> Message Content Intent)",
+  "2) Bot -> Add Bot -> Reset Token -> скопируйте токен",
+  "3) OAuth2 -> URL Generator -> scope 'bot' -> пригласите на свой сервер",
+  "Совет: включите Message Content Intent, если вам нужен текст сообщений. (Bot -> Privileged Gateway Intents -> Message Content Intent)",
   `Docs: ${formatDocsLink("/discord", "discord")}`,
 ];
 
@@ -88,10 +88,10 @@ export function createDiscordSetupWizardBase(handlers: {
     channel,
     status: createStandardChannelSetupStatus({
       channelLabel: "Discord",
-      configuredLabel: "configured",
-      unconfiguredLabel: "needs token",
-      configuredHint: "configured",
-      unconfiguredHint: "needs token",
+      configuredLabel: "настроено",
+      unconfiguredLabel: "нужен токен",
+      configuredHint: "настроено",
+      unconfiguredHint: "нужен токен",
       configuredScore: 2,
       unconfiguredScore: 1,
       resolveConfigured: ({ cfg, accountId }) =>
@@ -101,13 +101,13 @@ export function createDiscordSetupWizardBase(handlers: {
       {
         inputKey: "token",
         providerHint: channel,
-        credentialLabel: "Discord bot token",
+        credentialLabel: "Токен бота Discord",
         preferredEnvVar: "DISCORD_BOT_TOKEN",
-        helpTitle: "Discord bot token",
+        helpTitle: "Токен бота Discord",
         helpLines: DISCORD_TOKEN_HELP_LINES,
-        envPrompt: "DISCORD_BOT_TOKEN detected. Use env var?",
+        envPrompt: "Обнаружен DISCORD_BOT_TOKEN. Использовать env var?",
         keepPrompt: "Discord token already configured. Keep it?",
-        inputPrompt: "Enter Discord bot token",
+        inputPrompt: "Введите токен бота Discord",
         allowEnv: ({ accountId }: { accountId: string }) => accountId === DEFAULT_ACCOUNT_ID,
         inspect: ({ cfg, accountId }: { cfg: OpenClawConfig; accountId: string }) => {
           const account = inspectDiscordSetupAccount({ cfg, accountId });
@@ -165,7 +165,7 @@ export function createDiscordSetupWizardBase(handlers: {
         "- 123456789012345678",
         "- @alice",
         "- alice#1234",
-        "Multiple entries: comma-separated.",
+        "Несколько значений: через запятую.",
         `Docs: ${formatDocsLink("/discord", "discord")}`,
       ],
       message: "Discord allowFrom (usernames or ids)",

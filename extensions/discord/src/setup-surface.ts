@@ -61,7 +61,7 @@ async function promptDiscordAllowFrom(params: {
       "- 123456789012345678",
       "- @alice",
       "- alice#1234",
-      "Multiple entries: comma-separated.",
+      "Несколько значений: через запятую.",
       `Docs: ${formatDocsLink("/discord", "discord")}`,
     ],
     message: "Discord allowFrom (usernames or ids)",

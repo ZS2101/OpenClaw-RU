@@ -347,11 +347,11 @@ function resolveRuntimeTransport(params: {
     perplexity && typeof perplexity === "object" && !Array.isArray(perplexity)
       ? (perplexity as { baseUrl?: string; model?: string })
       : undefined;
-  const configuredBaseUrl = normalizeOptionalString(scoped?.baseUrl) ?? "";
-  const configuredModel = normalizeOptionalString(scoped?.model) ?? "";
+  const настроеноBaseUrl = normalizeOptionalString(scoped?.baseUrl) ?? "";
+  const настроеноModel = normalizeOptionalString(scoped?.model) ?? "";
   const baseUrl = (() => {
-    if (configuredBaseUrl) {
-      return configuredBaseUrl;
+    if (настроеноBaseUrl) {
+      return настроеноBaseUrl;
     }
     if (params.keySource === "env") {
       if (params.fallbackEnvVar === "PERPLEXITY_API_KEY") {
@@ -368,7 +368,7 @@ function resolveRuntimeTransport(params: {
     }
     return DEFAULT_PERPLEXITY_BASE_URL;
   })();
-  return configuredBaseUrl || configuredModel || !isDirectPerplexityBaseUrl(baseUrl)
+  return настроеноBaseUrl || настроеноModel || !isDirectPerplexityBaseUrl(baseUrl)
     ? "chat_completions"
     : "search_api";
 }
@@ -452,7 +452,7 @@ function createPerplexityToolDefinition(
         return {
           error: "missing_perplexity_api_key",
           message:
-            "web_search (perplexity) needs an API key. Set PERPLEXITY_API_KEY or OPENROUTER_API_KEY in the Gateway environment, or configure tools.web.search.perplexity.apiKey.",
+            "web_search (perplexity) needs an API-ключ. Set PERPLEXITY_API_KEY or OPENROUTER_API_KEY in the Gateway environment, or configure tools.web.search.perplexity.apiKey.",
           docs: "https://docs.openclaw.ai/tools/web",
         };
       }
@@ -678,9 +678,9 @@ export function createPerplexityWebSearchProvider(): WebSearchProviderPlugin {
   return {
     id: "perplexity",
     label: "Perplexity Search",
-    hint: "Requires Perplexity API key or OpenRouter API key · structured results",
+    hint: "Требуется API-ключ Perplexity или OpenRouter · структурированные результаты",
     onboardingScopes: ["text-inference"],
-    credentialLabel: "Perplexity API key",
+    credentialLabel: "API-ключ Perplexity",
     envVars: ["PERPLEXITY_API_KEY", "OPENROUTER_API_KEY"],
     placeholder: "pplx-...",
     signupUrl: "https://www.perplexity.ai/settings/api",

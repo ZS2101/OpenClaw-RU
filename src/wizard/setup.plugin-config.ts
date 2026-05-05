@@ -180,7 +180,7 @@ async function promptPluginFields(params: {
       if (hasValue) {
         options.unshift({
           value: "__keep__",
-          label: `Keep current (${formatCurrentValue(currentValue)})`,
+          label: `Оставить текущее (${formatCurrentValue(currentValue)})`,
         });
       }
       const selected = await prompter.select({
@@ -310,12 +310,12 @@ export async function setupPluginConfig(params: {
   }
 
   const selected = await params.prompter.multiselect({
-    message: "Configure plugins (select to set up now, or skip)",
+    message: "Настроить плагины (выберите для настройки сейчас или пропустите)",
     options: [
       {
         value: "__skip__",
-        label: "Skip for now",
-        hint: "Continue without configuring plugins",
+        label: "Пока пропустить",
+        hint: "Продолжить без настройки плагинов",
       },
       ...unconfigured.map((p) => ({
         value: p.id,
@@ -331,7 +331,7 @@ export async function setupPluginConfig(params: {
     if (!plugin) {
       continue;
     }
-    await params.prompter.note(`Configure ${plugin.name}`, "Plugin setup");
+    await params.prompter.note(`Configure ${plugin.name}`, "Настройка плагинов");
     config = await promptPluginFields({
       plugin,
       config,
@@ -365,12 +365,12 @@ export async function configurePluginConfig(params: {
   });
 
   if (configurable.length === 0) {
-    await params.prompter.note("No plugins with configurable fields found.", "Plugins");
+    await params.prompter.note("Плагины с настраиваемыми полями не найдены.", "Плагины");
     return params.config;
   }
 
   const selected = await params.prompter.select({
-    message: "Select plugin to configure",
+    message: "Выберите плагин для настройки",
     options: [
       ...configurable.map((p) => {
         const existing = getExistingPluginConfig(params.config, p.id);
@@ -385,7 +385,7 @@ export async function configurePluginConfig(params: {
           hint: `${configuredCount}/${totalCount} configured`,
         };
       }),
-      { value: "__skip__", label: "Back", hint: "Return to section menu" },
+      { value: "__skip__", label: "Назад", hint: "Вернуться в меню раздела" },
     ],
   });
 

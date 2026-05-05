@@ -75,11 +75,11 @@ async function promptSlackAllowFrom(params: {
     resolveToken: (account) => account.userToken ?? account.botToken ?? "",
     noteTitle: "Slack allowlist",
     noteLines: [
-      "Allowlist Slack DMs by username (we resolve to user ids).",
+      "Добавьте в белый список ЛС Slack по юзернейму (мы преобразуем их в user ids).",
       "Examples:",
       "- U12345678",
       "- @alice",
-      "Multiple entries: comma-separated.",
+      "Несколько значений: через запятую.",
       `Docs: ${formatDocsLink("/slack", "slack")}`,
     ],
     message: "Slack allowFrom (usernames or ids)",
@@ -136,14 +136,14 @@ async function resolveSlackGroupAllowlist(params: {
       keys = [...resolvedKeys, ...unresolved.map((entry) => entry.trim()).filter(Boolean)];
       await noteChannelLookupSummary({
         prompter: params.prompter,
-        label: "Slack channels",
+        label: "Каналы Slack",
         resolvedSections: [{ title: "Resolved", values: resolvedKeys }],
         unresolved,
       });
     } catch (error) {
       await noteChannelLookupFailure({
         prompter: params.prompter,
-        label: "Slack channels",
+        label: "Каналы Slack",
         error,
       });
     }

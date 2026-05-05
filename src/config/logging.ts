@@ -14,5 +14,5 @@ export function formatConfigPath(path: string = createConfigIO().configPath): st
 export function logConfigUpdated(runtime: RuntimeEnv, opts: LogConfigUpdatedOptions = {}): void {
   const path = formatConfigPath(opts.path ?? createConfigIO().configPath);
   const suffix = opts.suffix ? ` ${opts.suffix}` : "";
-  runtime.log(`Updated ${path}${suffix}`);
+  runtime.log(`Обновлён ${path}${suffix}`);
 }

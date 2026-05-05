@@ -1,47 +1,47 @@
 ---
-title: "TOOLS.md Template"
-summary: "Workspace template for TOOLS.md"
+title: "Шаблон TOOLS.md"
+summary: "Шаблон рабочей области для TOOLS.md"
 read_when:
-  - Bootstrapping a workspace manually
+  - Ручная инициализация рабочей области
 ---
 
-# TOOLS.md - Local Notes
+# TOOLS.md — Локальные заметки
 
-Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
+Навыки определяют _как_ работают инструменты. Этот файл — для _твоих_ особенностей, того что уникально для твоей установки.
 
-## What Goes Here
+## Что сюда писать
 
-Things like:
+Например:
 
-- Camera names and locations
-- SSH hosts and aliases
-- Preferred voices for TTS
-- Speaker/room names
-- Device nicknames
-- Anything environment-specific
+- Названия и расположение камер
+- SSH-хосты и псевдонимы
+- Предпочтительные голоса для TTS
+- Названия колонок/комнат
+- Прозвища устройств
+- Всё, что привязано к окружению
 
-## Examples
+## Примеры
 
 ```markdown
-### Cameras
+### Камеры
 
-- living-room → Main area, 180° wide angle
-- front-door → Entrance, motion-triggered
+- гостиная → Основная зона, широкий угол 180°
+- входная-дверь → Вход, срабатывание на движение
 
 ### SSH
 
-- home-server → 192.168.1.100, user: admin
+- домашний-сервер → 192.168.1.100, пользователь: admin
 
 ### TTS
 
-- Preferred voice: "Nova" (warm, slightly British)
-- Default speaker: Kitchen HomePod
+- Предпочтительный голос: «Nova» (тёплый, слегка британский)
+- Основная колонка: Кухонный HomePod
 ```
 
-## Why Separate?
+## Почему раздельно?
 
-Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.
+Навыки общие. Твоя установка — твоя. Разделяя их, ты можешь обновлять навыки, не теряя заметок, и делиться навыками, не раскрывая инфраструктуру.
 
 ---
 
-Add whatever helps you do your job. This is your cheat sheet.
+Добавляй всё, что помогает делать работу. Это твоя шпаргалка.

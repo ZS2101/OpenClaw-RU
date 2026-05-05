@@ -10,6 +10,7 @@ export type AuthChoiceOption = {
   groupId?: AuthChoiceGroupId;
   groupLabel?: string;
   groupHint?: string;
+  groupSortKey?: number;
   assistantPriority?: number;
   assistantVisibility?: "visible" | "manual-only";
 };
@@ -18,17 +19,18 @@ export type AuthChoiceGroup = {
   value: AuthChoiceGroupId;
   label: string;
   hint?: string;
+  sortKey?: number;
   options: AuthChoiceOption[];
 };
 
 export const CORE_AUTH_CHOICE_OPTIONS: ReadonlyArray<AuthChoiceOption> = [
   {
     value: "custom-api-key",
-    label: "Custom Provider",
-    hint: "Any OpenAI or Anthropic compatible endpoint",
+    label: "Свой провайдер",
+    hint: "Любой эндпоинт, совместимый с OpenAI или Anthropic",
     groupId: "custom",
-    groupLabel: "Custom Provider",
-    groupHint: "Any OpenAI or Anthropic compatible endpoint",
+    groupLabel: "Свой провайдер (Custom)",
+    groupHint: "Любой эндпоинт, совместимый с OpenAI или Anthropic",
   },
 ];
 

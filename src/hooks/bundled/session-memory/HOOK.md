@@ -1,6 +1,6 @@
 ---
 name: session-memory
-description: "Save session context to memory when /new or /reset command is issued"
+description: "Сохранять контекст сессии в память при вызове команд /new или /reset"
 homepage: https://docs.openclaw.ai/automation/hooks#session-memory
 metadata:
   {

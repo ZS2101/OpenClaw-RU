@@ -1,12 +1,25 @@
 {
   "id": "minimax",
   "enabledByDefault": true,
-  "legacyPluginIds": ["minimax-portal-auth"],
-  "providers": ["minimax", "minimax-portal"],
-  "autoEnableWhenConfiguredProviders": ["minimax", "minimax-portal"],
+  "legacyPluginIds": [
+    "minimax-portal-auth"
+  ],
+  "providers": [
+    "minimax",
+    "minimax-portal"
+  ],
+  "autoEnableWhenConfiguredProviders": [
+    "minimax",
+    "minimax-portal"
+  ],
   "providerAuthEnvVars": {
-    "minimax": ["MINIMAX_API_KEY"],
-    "minimax-portal": ["MINIMAX_OAUTH_TOKEN", "MINIMAX_API_KEY"]
+    "minimax": [
+      "MINIMAX_API_KEY"
+    ],
+    "minimax-portal": [
+      "MINIMAX_OAUTH_TOKEN",
+      "MINIMAX_API_KEY"
+    ]
   },
   "providerAuthChoices": [
     {
@@ -16,18 +29,23 @@
       "choiceLabel": "MiniMax OAuth (Global)",
       "choiceHint": "Global endpoint - api.minimax.io",
       "groupId": "minimax",
-      "groupLabel": "MiniMax",
+      "groupLabel": "\u00a5 MiniMax",
       "groupHint": "M2.7 (recommended)"
     },
     {
       "provider": "minimax",
       "method": "api-global",
       "choiceId": "minimax-global-api",
-      "deprecatedChoiceIds": ["minimax", "minimax-api", "minimax-cloud", "minimax-api-lightning"],
+      "deprecatedChoiceIds": [
+        "minimax",
+        "minimax-api",
+        "minimax-cloud",
+        "minimax-api-lightning"
+      ],
       "choiceLabel": "MiniMax API key (Global)",
       "choiceHint": "Global endpoint - api.minimax.io",
       "groupId": "minimax",
-      "groupLabel": "MiniMax",
+      "groupLabel": "\u00a5 MiniMax",
       "groupHint": "M2.7 (recommended)",
       "optionKey": "minimaxApiKey",
       "cliFlag": "--minimax-api-key",
@@ -41,18 +59,20 @@
       "choiceLabel": "MiniMax OAuth (CN)",
       "choiceHint": "CN endpoint - api.minimaxi.com",
       "groupId": "minimax",
-      "groupLabel": "MiniMax",
+      "groupLabel": "\u00a5 MiniMax",
       "groupHint": "M2.7 (recommended)"
     },
     {
       "provider": "minimax",
       "method": "api-cn",
       "choiceId": "minimax-cn-api",
-      "deprecatedChoiceIds": ["minimax-api-key-cn"],
+      "deprecatedChoiceIds": [
+        "minimax-api-key-cn"
+      ],
       "choiceLabel": "MiniMax API key (CN)",
       "choiceHint": "CN endpoint - api.minimaxi.com",
       "groupId": "minimax",
-      "groupLabel": "MiniMax",
+      "groupLabel": "\u00a5 MiniMax",
       "groupHint": "M2.7 (recommended)",
       "optionKey": "minimaxApiKey",
       "cliFlag": "--minimax-api-key",
@@ -61,15 +81,31 @@
     }
   ],
   "contracts": {
-    "speechProviders": ["minimax"],
-    "mediaUnderstandingProviders": ["minimax", "minimax-portal"],
-    "imageGenerationProviders": ["minimax", "minimax-portal"],
-    "musicGenerationProviders": ["minimax"],
-    "videoGenerationProviders": ["minimax"],
-    "webSearchProviders": ["minimax"]
+    "speechProviders": [
+      "minimax"
+    ],
+    "mediaUnderstandingProviders": [
+      "minimax",
+      "minimax-portal"
+    ],
+    "imageGenerationProviders": [
+      "minimax",
+      "minimax-portal"
+    ],
+    "musicGenerationProviders": [
+      "minimax"
+    ],
+    "videoGenerationProviders": [
+      "minimax"
+    ],
+    "webSearchProviders": [
+      "minimax"
+    ]
   },
   "configContracts": {
-    "compatibilityRuntimePaths": ["tools.web.search.apiKey"]
+    "compatibilityRuntimePaths": [
+      "tools.web.search.apiKey"
+    ]
   },
   "uiHints": {
     "webSearch.apiKey": {
@@ -92,11 +128,17 @@
         "additionalProperties": false,
         "properties": {
           "apiKey": {
-            "type": ["string", "object"]
+            "type": [
+              "string",
+              "object"
+            ]
           },
           "region": {
             "type": "string",
-            "enum": ["global", "cn"]
+            "enum": [
+              "global",
+              "cn"
+            ]
           }
         }
       }

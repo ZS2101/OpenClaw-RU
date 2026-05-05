@@ -83,7 +83,7 @@ export default definePluginEntry({
       auth: [
         {
           id: "device",
-          label: "GitHub device login",
+          label: "Авторизация устройства в GitHub",
           hint: "Browser device-code flow",
           kind: "device_code",
           run: async (ctx) => await runGitHubCopilotAuth(ctx),
@@ -93,7 +93,9 @@ export default definePluginEntry({
         setup: {
           choiceId: "github-copilot",
           choiceLabel: "GitHub Copilot",
-          choiceHint: "Device login with your GitHub account",
+          groupLabel: "$ GitHub Copilot",
+          groupSortKey: 3,
+          choiceHint: "Авторизация устройства через аккаунт GitHub",
           methodId: "device",
         },
       },
