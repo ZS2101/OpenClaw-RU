@@ -1,7 +1,7 @@
 # 🦞 OpenClaw RU — Русская редакция
 
 <p align="center">
-  <img src="https://imgur.com/NdG37ki" alt="OpenClaw RU" width="500"><br>
+  <img src="RU LOGO.png" alt="OpenClaw RU" width="500"><br>
   <!-- ← замени src="" на ссылку на картинку: src="assets/banner.png" -->
 </p>
 
@@ -22,7 +22,7 @@
 
 <p align="center">
   <em>Каналы и провайдеры</em><br>
-  <img src="https://imgur.com/dhsAUu5" alt="Каналы и провайдеры" width="600"><br>
+  <img src="ru wizard channels.png" alt="Каналы и провайдеры" width="600"><br>
   <!-- добавь скрин: список каналов или провайдеров -->
 </p>
 
