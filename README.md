@@ -16,7 +16,7 @@
 
 <p align="center">
   <em>Визард на русском</em><br>
-  <img src="https://imgur.com/SFE4bG6" alt="Визард OpenClaw RU" width="600"><br>
+  <img src="WIZARD RU.png" alt="Визард OpenClaw RU" width="600"><br>
   <!-- добавь скрин: openclaw onboard на русском -->
 </p>
 
@@ -28,7 +28,7 @@
 
 <p align="center">
   <em>Скиллы</em><br>
-  <img src="https://imgur.com/undefined" alt="Скиллы на русском" width="600"><br>
+  <img src="СКИЛЛЫ.png" alt="Скиллы на русском" width="600"><br>
   <!-- добавь скрин: выбор скиллов -->
 </p>
 
