@@ -1,7 +1,7 @@
 # 🦞 OpenClaw RU — Русская редакция
 
 <p align="center">
-  <img src="" alt="OpenClaw RU" width="500"><br>
+  <img src="https://imgur.com/NdG37ki" alt="OpenClaw RU" width="500"><br>
   <!-- ← замени src="" на ссылку на картинку: src="assets/banner.png" -->
 </p>
 
@@ -16,19 +16,19 @@
 
 <p align="center">
   <em>Визард на русском</em><br>
-  <img src="" alt="Визард OpenClaw RU" width="600"><br>
+  <img src="https://imgur.com/SFE4bG6" alt="Визард OpenClaw RU" width="600"><br>
   <!-- добавь скрин: openclaw onboard на русском -->
 </p>
 
 <p align="center">
   <em>Каналы и провайдеры</em><br>
-  <img src="" alt="Каналы и провайдеры" width="600"><br>
+  <img src="https://imgur.com/dhsAUu5" alt="Каналы и провайдеры" width="600"><br>
   <!-- добавь скрин: список каналов или провайдеров -->
 </p>
 
 <p align="center">
   <em>Скиллы</em><br>
-  <img src="" alt="Скиллы на русском" width="600"><br>
+  <img src="https://imgur.com/undefined" alt="Скиллы на русском" width="600"><br>
   <!-- добавь скрин: выбор скиллов -->
 </p>
 
