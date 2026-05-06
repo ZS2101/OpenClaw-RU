@@ -1,6 +1,5 @@
-import type { ChannelPlugin } from "openclaw/plugin-sdk/channel-core";
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
+import type { ChannelPlugin } from "openclaw/plugin-sdk/channel-core";
 import { resolveYandexAccount, listYandexAccountIds } from "./accounts.js";
 import { resolveYandexToken } from "./token.js";
 import type { YandexProbeResult } from "./types.js";

@@ -1,7 +1,6 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
+import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { resolveVkAccount } from "./accounts.js";
-import { resolveVkToken } from "./token.js";
 
 export interface VkGroupGatingResult {
   shouldProcess: boolean;
@@ -26,7 +25,9 @@ export function applyVkGroupGating(params: {
   });
 
   const isGroup = params.peerId > 2_000_000_000;
-  if (!isGroup) return { shouldProcess: true };
+  if (!isGroup) {
+    return { shouldProcess: true };
+  }
 
   const policy = account.groupPolicy ?? "open";
   if (policy === "disabled") {

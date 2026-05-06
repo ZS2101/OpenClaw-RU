@@ -1,5 +1,5 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
+import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { resolveYandexAccount } from "./accounts.js";
 import { resolveYandexToken, yandexAuthHeader } from "./token.js";
 import type { YandexProbeResult } from "./types.js";
@@ -10,8 +10,8 @@ async function yandexApiCall(
   token: string,
   method: string,
   endpoint: string,
-  body?: any,
-): Promise<any> {
+  body?: unknown,
+): Promise<Record<string, unknown>> {
   const url = `${API_BASE}${endpoint}`;
   const res = await fetch(url, {
     method,
@@ -27,7 +27,7 @@ async function yandexApiCall(
     throw new Error(`Yandex API error ${res.status}: ${text}`);
   }
 
-  return res.json();
+  return res.json() as unknown as Record<string, unknown>;
 }
 
 // ─── Send message ──────────────────────────────────────────
@@ -39,7 +39,9 @@ export async function sendMessageYandex(
 ): Promise<{ messageId: string }> {
   const account = resolveYandexAccount({ cfg, accountId: accountId ?? DEFAULT_ACCOUNT_ID });
   const token = resolveYandexToken(account);
-  if (!token) throw new Error("Yandex Messenger token not configured");
+  if (!token) {
+    throw new Error("Yandex Messenger token not configured");
+  }
 
   const body: Record<string, unknown> = { text: params.text };
 
@@ -61,10 +63,7 @@ export async function sendMessageYandex(
 
 // ─── Webhook management ────────────────────────────────────
 
-export async function setYandexWebhook(
-  token: string,
-  webhookUrl: string | null,
-): Promise<void> {
+export async function setYandexWebhook(token: string, webhookUrl: string | null): Promise<void> {
   await yandexApiCall(token, "POST", "/self/update/", {
     webhook_url: webhookUrl,
   });
@@ -78,7 +77,9 @@ export async function probeYandex(
 ): Promise<YandexProbeResult> {
   const account = resolveYandexAccount({ cfg, accountId: accountId ?? DEFAULT_ACCOUNT_ID });
   const token = resolveYandexToken(account);
-  if (!token) return { ok: false, latencyMs: 0, error: "No token configured" };
+  if (!token) {
+    return { ok: false, latencyMs: 0, error: "No token configured" };
+  }
 
   const startedAt = Date.now();
   try {
@@ -86,7 +87,7 @@ export async function probeYandex(
     return {
       ok: true,
       latencyMs: Date.now() - startedAt,
-      botName: result.display_name ?? result.login,
+      botName: (result.display_name as string) ?? (result.login as string),
     };
   } catch (err) {
     return {
@@ -110,8 +111,12 @@ export async function uploadYandexFile(
   const url = `${API_BASE}/messages/sendFile/`;
   const formData = new FormData();
   formData.append("document", new Blob([buffer]), fileName);
-  if (chatId) formData.append("chat_id", chatId);
-  if (login) formData.append("login", login);
+  if (chatId) {
+    formData.append("chat_id", chatId);
+  }
+  if (login) {
+    formData.append("login", login);
+  }
 
   const res = await fetch(url, {
     method: "POST",

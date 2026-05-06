@@ -1,3 +1,4 @@
+import type { Request, Response } from "express";
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
 import {
   buildChannelOutboundSessionRoute,
@@ -11,19 +12,15 @@ import {
 } from "openclaw/plugin-sdk/channel-status";
 import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { createChannelDirectoryAdapter } from "openclaw/plugin-sdk/directory-runtime";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import {
-  createDefaultChannelRuntimeState,
-} from "openclaw/plugin-sdk/status-helpers";
-import { resolveOKAccount, listOKAccountIds, type ResolvedOKAccount } from "./accounts.js";
-import { resolveOKToken } from "./token.js";
+import { createDefaultChannelRuntimeState } from "openclaw/plugin-sdk/status-helpers";
+import { resolveOKAccount, listOKAccountIds } from "./accounts.js";
+import { sendMessageOK } from "./api.js";
 import { looksLikeOKTargetId, normalizeOKMessagingTarget } from "./normalize.js";
-import * as webhookModule from "./webhook.js";
 import { probeOKChannel } from "./probe.js";
-import type { OKProbeResult } from "./types.js";
 import { okSetupAdapter } from "./setup-core.js";
 import { okSetupWizard } from "./setup-surface.js";
-import { sendMessageOK } from "./api.js";
+import { resolveOKToken } from "./token.js";
+import * as webhookModule from "./webhook.js";
 
 // Lazy webhook loader
 let webhookPromise: Promise<typeof webhookModule> | undefined;
@@ -106,7 +103,7 @@ export const okPlugin = createChatChannelPlugin({
   // ─── Gateway: register webhook HTTP handler ────────────
   gateway: {
     registerHttpHandlers: ({ app }) => {
-      app.post("/webhooks/odnoklassniki", async (req: any, res: any) => {
+      app.post("/webhooks/odnoklassniki", async (req: Request, res: Response) => {
         try {
           const webhook = await loadWebhook();
           await webhook.handleOKWebhookEvent(req.body);
@@ -147,9 +144,7 @@ export const okPlugin = createChatChannelPlugin({
         channel: "odnoklassniki",
         accountId,
         resolveCredentialStatus: () => {
-          const token = resolveOKToken(
-            resolveOKAccount({ cfg, accountId }),
-          );
+          const token = resolveOKToken(resolveOKAccount({ cfg, accountId }));
           return { configured: Boolean(token), token: token ?? undefined };
         },
       }),
@@ -172,8 +167,12 @@ export const okPlugin = createChatChannelPlugin({
     checkDmAccess: ({ cfg, accountId, senderId }) => {
       const account = resolveOKAccount({ cfg, accountId });
       const policy = account.dmPolicy ?? "pairing";
-      if (policy === "open" || policy === "pairing") return { allowed: true };
-      if (policy === "disabled") return { allowed: false };
+      if (policy === "open" || policy === "pairing") {
+        return { allowed: true };
+      }
+      if (policy === "disabled") {
+        return { allowed: false };
+      }
       if (policy === "allowlist") {
         const allowFrom = account.allowFrom ?? [];
         return {
@@ -199,7 +198,9 @@ export const okPlugin = createChatChannelPlugin({
     resolveSelf: async ({ cfg, accountId }) => {
       const account = resolveOKAccount({ cfg, accountId });
       const token = resolveOKToken(account);
-      if (!token) return null;
+      if (!token) {
+        return null;
+      }
       try {
         const info = await (await import("./api.js")).probeOK(cfg, accountId);
         return { id: "self", name: info.botName ?? account.name ?? "OK Bot", type: "bot" };
@@ -211,7 +212,7 @@ export const okPlugin = createChatChannelPlugin({
     resolveGroups: async ({ cfg, accountId }) => {
       const account = resolveOKAccount({ cfg, accountId });
       const groups = account.groups ?? {};
-      return Object.entries(groups).map(([id, config]) => ({
+      return Object.entries(groups).map(([id, _config]) => ({
         id,
         name: `Chat ${id}`,
         configured: true,

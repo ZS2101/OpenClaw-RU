@@ -1,12 +1,6 @@
-import {
-  DEFAULT_ACCOUNT_ID,
-  hasConfiguredSecretInput,
-  patchChannelConfigForAccount,
-  setSetupChannelEnabled,
-} from "openclaw/plugin-sdk/setup";
 import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/text-runtime";
-import { listOKAccountIds, resolveOKAccount } from "./accounts.js";
+import { DEFAULT_ACCOUNT_ID, patchChannelConfigForAccount } from "openclaw/plugin-sdk/setup";
+import { resolveOKAccount } from "./accounts.js";
 import { resolveOKToken } from "./token.js";
 
 const CHANNEL = "odnoklassniki" as const;
@@ -54,7 +48,9 @@ export const okSetupAdapter = {
     accountId: string;
     name?: string;
   }) => {
-    if (!name) return cfg;
+    if (!name) {
+      return cfg;
+    }
     return patchChannelConfigForAccount({
       cfg,
       channel: CHANNEL,

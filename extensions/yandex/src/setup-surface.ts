@@ -10,7 +10,6 @@ import {
 import type { ChannelSetupWizard } from "openclaw/plugin-sdk/setup";
 import { normalizeOptionalString } from "openclaw/plugin-sdk/text-runtime";
 import { listYandexAccountIds, resolveYandexAccount } from "./accounts.js";
-import { resolveYandexToken } from "./token.js";
 import {
   YANDEX_ALLOWFROM_HELP_LINES,
   YANDEX_TOKEN_HELP_LINES,
@@ -18,6 +17,7 @@ import {
   yandexSetupAdapter,
   isYandexConfigured,
 } from "./setup-core.js";
+import { resolveYandexToken } from "./token.js";
 
 const CHANNEL = "yandex" as const;
 
@@ -68,8 +68,7 @@ export const yandexSetupWizard: ChannelSetupWizard = {
     helpLines: YANDEX_ALLOWFROM_HELP_LINES,
     message: "Yandex allowFrom (logins/emails)",
     placeholder: "user@yandex.ru",
-    invalidWithoutCredentialNote:
-      "Yandex allowFrom requires valid logins.",
+    invalidWithoutCredentialNote: "Yandex allowFrom requires valid logins.",
     parseInputs: splitSetupEntries,
     parseId: parseYandexAllowFromId,
     resolveEntries: async ({ entries }) =>
@@ -85,7 +84,7 @@ export const yandexSetupWizard: ChannelSetupWizard = {
         patch: { dmPolicy: "allowlist", allowFrom },
       }),
   }),
-  finalize: async ({ cfg, accountId, prompter }) => {
+  finalize: async ({ _cfg, _accountId, _prompter }) => {
     // No special warnings
   },
   disable: (cfg) => setSetupChannelEnabled(cfg, CHANNEL, false),

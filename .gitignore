@@ -37,6 +37,7 @@ apps/android/benchmark/results/
 *.bun-build
 apps/macos/.build/
 apps/shared/MoltbotKit/.build/
+apps/shared/ClawdisKit/.build/
 apps/shared/OpenClawKit/.build/
 apps/shared/OpenClawKit/Package.resolved
 **/ModuleCache/

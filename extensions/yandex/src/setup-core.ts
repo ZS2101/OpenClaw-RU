@@ -1,12 +1,6 @@
-import {
-  DEFAULT_ACCOUNT_ID,
-  hasConfiguredSecretInput,
-  patchChannelConfigForAccount,
-  setSetupChannelEnabled,
-} from "openclaw/plugin-sdk/setup";
 import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/text-runtime";
-import { listYandexAccountIds, resolveYandexAccount } from "./accounts.js";
+import { DEFAULT_ACCOUNT_ID, patchChannelConfigForAccount } from "openclaw/plugin-sdk/setup";
+import { resolveYandexAccount } from "./accounts.js";
 import { resolveYandexToken } from "./token.js";
 
 const CHANNEL = "yandex" as const;
@@ -56,7 +50,9 @@ export const yandexSetupAdapter = {
     accountId: string;
     name?: string;
   }) => {
-    if (!name) return cfg;
+    if (!name) {
+      return cfg;
+    }
     return patchChannelConfigForAccount({
       cfg,
       channel: CHANNEL,

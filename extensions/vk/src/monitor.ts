@@ -1,15 +1,14 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
+import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { resolveVkAccount } from "./accounts.js";
-import { resolveVkToken } from "./token.js";
+import { applyVkGroupGating, isVkGroupPeer } from "./group-policy.js";
 import {
   getLongPollServer,
   getLongPollEvents,
   type VkLongPollServer,
   type VkLongPollEvent,
 } from "./send.js";
-import { applyVkGroupGating, isVkGroupPeer } from "./group-policy.js";
-import type { VkProbeResult } from "./types.js";
+import { resolveVkToken } from "./token.js";
 
 // ─── Types ────────────────────────────────────────────────
 
@@ -20,7 +19,7 @@ export interface VkInboundMessage {
   text: string;
   conversationMessageId?: number;
   replyMessageId?: number;
-  attachments?: any[];
+  attachments?: unknown[];
   timestamp: number;
   chatType: "dm" | "group";
 }
@@ -42,7 +41,9 @@ export async function startVkMonitor(options: VkMonitorOptions): Promise<() => v
     accountId: options.accountId ?? DEFAULT_ACCOUNT_ID,
   });
   const token = resolveVkToken(account);
-  if (!token) throw new Error("VK token not configured");
+  if (!token) {
+    throw new Error("VK token not configured");
+  }
 
   let shouldStop = false;
   let pollServer: VkLongPollServer | null = null;
@@ -61,7 +62,10 @@ export async function startVkMonitor(options: VkMonitorOptions): Promise<() => v
   }
 
   async function poll(): Promise<void> {
-    while (!shouldStop) {
+    for (;;) {
+      if (shouldStop) {
+        break;
+      }
       try {
         if (!pollServer) {
           await connect();
@@ -95,7 +99,7 @@ export async function startVkMonitor(options: VkMonitorOptions): Promise<() => v
   }
 
   // Start polling (non-blocking)
-  const pollPromise = poll();
+  const _pollPromise = poll();
 
   return () => {
     shouldStop = true;
@@ -105,10 +109,14 @@ export async function startVkMonitor(options: VkMonitorOptions): Promise<() => v
 // ─── Update handler ───────────────────────────────────────
 
 async function handleUpdate(update: VkLongPollEvent, options: VkMonitorOptions): Promise<void> {
-  if (update.type !== "message_new") return;
+  if (update.type !== "message_new") {
+    return;
+  }
 
   const msg = update.object;
-  if (!msg?.message) return;
+  if (!msg?.message) {
+    return;
+  }
 
   const message = msg.message;
   const peerId = message.peer_id;
@@ -117,9 +125,13 @@ async function handleUpdate(update: VkLongPollEvent, options: VkMonitorOptions):
   const messageId = message.conversation_message_id || message.id;
 
   // Skip own messages (out=1 in community Long Poll message_new events)
-  if (message.out === 1) return;
+  if (message.out === 1) {
+    return;
+  }
 
-  if (!senderId || !text.trim()) return;
+  if (!senderId || !text.trim()) {
+    return;
+  }
 
   const chatType = isVkGroupPeer(peerId) ? "group" : "dm";
 
@@ -131,7 +143,9 @@ async function handleUpdate(update: VkLongPollEvent, options: VkMonitorOptions):
       peerId,
       text,
     });
-    if (!gating.shouldProcess) return;
+    if (!gating.shouldProcess) {
+      return;
+    }
   }
 
   const inbound: VkInboundMessage = {

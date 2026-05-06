@@ -1,5 +1,3 @@
-import type { VkAccountConfig } from "./types.js";
-
 const VK_PREFIX = /^vk:/i;
 
 /** Check if a string looks like a VK target (ID or peer_id) */

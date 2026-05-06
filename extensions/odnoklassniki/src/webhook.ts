@@ -1,9 +1,8 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
+import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { resolveOKAccount } from "./accounts.js";
-import { resolveOKToken } from "./token.js";
 import { setOKWebhook } from "./api.js";
-import { applyOKGroupGating } from "./group-policy.js";
+import { resolveOKToken } from "./token.js";
 
 // ─── Types ────────────────────────────────────────────────
 
@@ -35,19 +34,25 @@ export function setOKWebhookHandler(handler: OKMessageHandler | null): void {
 }
 
 export async function handleOKWebhookEvent(
-  body: any,
-  options?: OKMonitorOptions,
+  body: unknown,
+  _options?: OKMonitorOptions,
 ): Promise<void> {
   const handler = activeHandler;
-  if (!handler) return;
+  if (!handler) {
+    return;
+  }
 
   // OK sends: { webhookType: "MESSAGE_CREATED", sender: { user_id, name }, recipient: { chat_id }, message: { text, mid, seq }, timestamp }
-  if (body?.webhookType !== "MESSAGE_CREATED") return;
+  if (body?.webhookType !== "MESSAGE_CREATED") {
+    return;
+  }
 
   const chatId = body.recipient?.chat_id || "unknown";
   const userId = body.sender?.user_id || "unknown";
   const text = body.message?.text?.trim();
-  if (!text) return;
+  if (!text) {
+    return;
+  }
 
   // OK.ru: ALL webhook messages are user→group/bot chats.
   // There's no chat_type in the webhook payload to distinguish DMs from multi-user groups.
@@ -76,7 +81,9 @@ export async function startOKMonitor(options: OKMonitorOptions): Promise<() => v
     accountId: options.accountId ?? DEFAULT_ACCOUNT_ID,
   });
   const token = resolveOKToken(account);
-  if (!token) throw new Error("OK token not configured");
+  if (!token) {
+    throw new Error("OK token not configured");
+  }
 
   const log = options.verbose ? console.log : () => {};
 

@@ -1,10 +1,8 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
+import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { resolveYandexAccount } from "./accounts.js";
-import { resolveYandexToken } from "./token.js";
 import { setYandexWebhook } from "./api.js";
-import { applyYandexGroupGating } from "./group-policy.js";
-
+import { resolveYandexToken } from "./token.js";
 // ─── Types ────────────────────────────────────────────────
 
 export interface YandexInboundMessage {
@@ -34,7 +32,9 @@ export async function startYandexMonitor(options: YandexMonitorOptions): Promise
     accountId: options.accountId ?? DEFAULT_ACCOUNT_ID,
   });
   const token = resolveYandexToken(account);
-  if (!token) throw new Error("Yandex Messenger token not configured");
+  if (!token) {
+    throw new Error("Yandex Messenger token not configured");
+  }
 
   const log = options.verbose ? console.log : () => {};
 
@@ -44,7 +44,9 @@ export async function startYandexMonitor(options: YandexMonitorOptions): Promise
       await setYandexWebhook(token, account.webhookUrl);
       log(`[yandex] Webhook registered: ${account.webhookUrl}`);
     } catch (err) {
-      log(`[yandex] Webhook registration failed: ${err instanceof Error ? err.message : String(err)}`);
+      log(
+        `[yandex] Webhook registration failed: ${err instanceof Error ? err.message : String(err)}`,
+      );
       log("[yandex] Continuing — webhook may already be registered");
     }
   } else {
@@ -69,47 +71,58 @@ export function setYandexWebhookHandler(handler: YandexMessageHandler | null): v
   activeHandler = handler;
 }
 
+interface YandexWebhookUpdate {
+  text?: string;
+  from?: { robot?: boolean; login?: string; id?: string; display_name?: string };
+  chat?: { type?: string; id?: string };
+  message_id?: number;
+  timestamp?: number;
+}
+
 export async function handleYandexWebhookEvent(
-  body: any,
-  options?: YandexMonitorOptions,
+  body: unknown,
+  _options?: YandexMonitorOptions,
 ): Promise<void> {
   const handler = activeHandler;
-  if (!handler) return;
+  if (!handler) {
+    return;
+  }
 
   // Yandex webhook body is { ok, updates: [...] } — same shape as getUpdates response
-  const updates: any[] = body?.updates;
-  if (!Array.isArray(updates) || updates.length === 0) return;
+  const updates: unknown[] = (body as Record<string, unknown>)?.updates as unknown[];
+  if (!Array.isArray(updates) || updates.length === 0) {
+    return;
+  }
 
-  for (const update of updates) {
+  for (const u of updates) {
+    const update = u as YandexWebhookUpdate;
     // Skip non-text updates (stickers, files with no text, etc.)
-    const text: string | undefined = update.text?.trim();
-    if (!text) continue;
+    const text = update.text?.trim();
+    if (!text) {
+      continue;
+    }
 
     // Skip messages from bots (including our own echoes)
-    if (update.from?.robot) continue;
+    if (update.from?.robot) {
+      continue;
+    }
 
     const chatType: "dm" | "group" =
-      update.chat?.type === "private" ? "dm" :
-      update.chat?.type === "group" ? "group" :
-      update.chat?.type === "channel" ? "group" :  // treat channels as groups
-      "dm";
+      update.chat?.type === "private"
+        ? "dm"
+        : update.chat?.type === "group"
+          ? "group"
+          : update.chat?.type === "channel"
+            ? "group" // treat channels as groups
+            : "dm";
 
     // For DMs (private), the chat has no `id` — use sender's login as chatId
     // For groups/channels, use chat.id
-    const chatId: string =
-      update.chat?.id ?? update.from?.login ?? "unknown";
+    const chatId: string = update.chat?.id ?? update.from?.login ?? "unknown";
     const userId: string = update.from?.login ?? update.from?.id ?? "unknown";
 
-    // Group gating
-    if (chatType === "group") {
-      const gating = applyYandexGroupGating({
-        cfg: options?.cfg,
-        accountId: options?.accountId,
-        chatId,
-        text,
-      });
-      if (!gating.shouldProcess) continue;
-    }
+    // Group gating is handled by the framework's security layer (dmPolicy/groupPolicy)
+    // via the lifecycle onStart handler. We don't have cfg here.
 
     const inbound: YandexInboundMessage = {
       id: String(update.message_id ?? Date.now()),

@@ -1,5 +1,5 @@
-import { DEFAULT_ACCOUNT_ID, patchChannelConfigForAccount, setSetupChannelEnabled } from "openclaw/plugin-sdk/setup";
 import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
+import { DEFAULT_ACCOUNT_ID, patchChannelConfigForAccount } from "openclaw/plugin-sdk/setup";
 import { resolveMAXAccount } from "./accounts.js";
 import { resolveMAXToken } from "./token.js";
 
@@ -23,10 +23,27 @@ export const MAX_ALLOWFROM_HELP_LINES = [
 
 export const maxSetupAdapter = {
   resolveAccountId: ({ accountId }: { accountId?: string }) => accountId ?? DEFAULT_ACCOUNT_ID,
-  applyAccountConfig: ({ cfg, accountId, input }: { cfg: OpenClawConfig; accountId: string; input: Record<string, unknown> }) =>
-    patchChannelConfigForAccount({ cfg, channel: CHANNEL, accountId, patch: input }),
-  applyAccountName: ({ cfg, accountId, name }: { cfg: OpenClawConfig; accountId: string; name?: string }) =>
-    name ? patchChannelConfigForAccount({ cfg, channel: CHANNEL, accountId, patch: { name } }) : cfg,
+  applyAccountConfig: ({
+    cfg,
+    accountId,
+    input,
+  }: {
+    cfg: OpenClawConfig;
+    accountId: string;
+    input: Record<string, unknown>;
+  }) => patchChannelConfigForAccount({ cfg, channel: CHANNEL, accountId, patch: input }),
+  applyAccountName: ({
+    cfg,
+    accountId,
+    name,
+  }: {
+    cfg: OpenClawConfig;
+    accountId: string;
+    name?: string;
+  }) =>
+    name
+      ? patchChannelConfigForAccount({ cfg, channel: CHANNEL, accountId, patch: { name } })
+      : cfg,
 };
 
 export function isMAXConfigured(cfg: OpenClawConfig, accountId: string): boolean {

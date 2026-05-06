@@ -1,38 +1,25 @@
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
 import {
   buildChannelOutboundSessionRoute,
-  clearAccountEntryFields,
   createChatChannelPlugin,
 } from "openclaw/plugin-sdk/channel-core";
-import { createAccountStatusSink } from "openclaw/plugin-sdk/channel-lifecycle";
 import { attachChannelToResult } from "openclaw/plugin-sdk/channel-send-result";
 import {
   PAIRING_APPROVED_MESSAGE,
   buildTokenChannelStatusSummary,
-  projectCredentialSnapshotFields,
   resolveConfiguredFromCredentialStatuses,
 } from "openclaw/plugin-sdk/channel-status";
 import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { createChannelDirectoryAdapter } from "openclaw/plugin-sdk/directory-runtime";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import {
-  createComputedAccountStatusAdapter,
-  createDefaultChannelRuntimeState,
-} from "openclaw/plugin-sdk/status-helpers";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/text-runtime";
-import { resolveVkAccount, listVkAccountIds, type ResolvedVkAccount } from "./accounts.js";
-import { resolveVkToken } from "./token.js";
-import { looksLikeVkTargetId, normalizeVkMessagingTarget } from "./normalize.js";
+import { createDefaultChannelRuntimeState } from "openclaw/plugin-sdk/status-helpers";
+import { resolveVkAccount, listVkAccountIds } from "./accounts.js";
 import * as monitorModule from "./monitor.js";
+import { looksLikeVkTargetId, normalizeVkMessagingTarget } from "./normalize.js";
 import { probeVkChannel } from "./probe.js";
-import type { VkProbeResult } from "./types.js";
+import { sendMessageVk, resolveVkGroupInfo } from "./send.js";
 import { vkSetupAdapter } from "./setup-core.js";
 import { vkSetupWizard } from "./setup-surface.js";
-import {
-  sendMessageVk,
-  resolveVkGroupInfo,
-  resolveVkUserInfo,
-} from "./send.js";
+import { resolveVkToken } from "./token.js";
 
 // Lazy monitor loader (avoids loading Long Poll on plugin discovery)
 let monitorPromise: Promise<typeof monitorModule> | undefined;
@@ -51,7 +38,9 @@ const vkOutboundAdapter = {
     payload: { text?: string };
   }) => {
     const peerId = Number(normalizeVkMessagingTarget(params.to));
-    if (isNaN(peerId)) throw new Error(`Invalid VK peer ID: ${params.to}`);
+    if (isNaN(peerId)) {
+      throw new Error(`Invalid VK peer ID: ${params.to}`);
+    }
     const result = await sendMessageVk(params.cfg, params.accountId, {
       peerId,
       text: params.payload.text,
@@ -133,9 +122,7 @@ export const vkPlugin = createChatChannelPlugin({
         channel: "vk",
         accountId,
         resolveCredentialStatus: () => {
-          const token = resolveVkToken(
-            resolveVkAccount({ cfg, accountId }),
-          );
+          const token = resolveVkToken(resolveVkAccount({ cfg, accountId }));
           return { configured: Boolean(token), token: token ?? undefined };
         },
       }),
@@ -158,8 +145,12 @@ export const vkPlugin = createChatChannelPlugin({
     checkDmAccess: ({ cfg, accountId, senderId }) => {
       const account = resolveVkAccount({ cfg, accountId });
       const policy = account.dmPolicy ?? "pairing";
-      if (policy === "open" || policy === "pairing") return { allowed: true };
-      if (policy === "disabled") return { allowed: false };
+      if (policy === "open" || policy === "pairing") {
+        return { allowed: true };
+      }
+      if (policy === "disabled") {
+        return { allowed: false };
+      }
       if (policy === "allowlist") {
         const allowFrom = account.allowFrom ?? [];
         return {
@@ -185,23 +176,27 @@ export const vkPlugin = createChatChannelPlugin({
     resolveSelf: async ({ cfg, accountId }) => {
       const account = resolveVkAccount({ cfg, accountId });
       const token = resolveVkToken(account);
-      if (!token) return null;
+      if (!token) {
+        return null;
+      }
       // Try to get group info
       const groupId = account.groupId;
       if (groupId) {
         const info = await resolveVkGroupInfo(token, groupId);
-        if (info) return { id: String(info.id), name: info.name, type: "group" };
+        if (info) {
+          return { id: String(info.id), name: info.name, type: "group" };
+        }
       }
       return { id: "unknown", name: account.name ?? "VK Bot", type: "bot" };
     },
-    resolvePeers: async ({ cfg, accountId }) => {
+    resolvePeers: async ({ _cfg, _accountId }) => {
       // VK doesn't have a "list contacts" API. Return empty for now.
       return [];
     },
     resolveGroups: async ({ cfg, accountId }) => {
       const account = resolveVkAccount({ cfg, accountId });
       const groups = account.groups ?? {};
-      return Object.entries(groups).map(([id, config]) => ({
+      return Object.entries(groups).map(([id, _config]) => ({
         id,
         name: `Chat ${id}`,
         configured: true,

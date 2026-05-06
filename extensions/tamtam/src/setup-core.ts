@@ -1,11 +1,5 @@
-import {
-  DEFAULT_ACCOUNT_ID,
-  hasConfiguredSecretInput,
-  patchChannelConfigForAccount,
-  setSetupChannelEnabled,
-} from "openclaw/plugin-sdk/setup";
 import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/text-runtime";
+import { DEFAULT_ACCOUNT_ID, patchChannelConfigForAccount } from "openclaw/plugin-sdk/setup";
 import { resolveTamtamAccount } from "./accounts.js";
 import { resolveTamtamToken } from "./token.js";
 
@@ -28,10 +22,27 @@ export const TAMTAM_ALLOWFROM_HELP_LINES = [
 
 export const tamtamSetupAdapter = {
   resolveAccountId: ({ accountId }: { accountId?: string }) => accountId ?? DEFAULT_ACCOUNT_ID,
-  applyAccountConfig: ({ cfg, accountId, input }: { cfg: OpenClawConfig; accountId: string; input: Record<string, unknown> }) =>
-    patchChannelConfigForAccount({ cfg, channel: CHANNEL, accountId, patch: input }),
-  applyAccountName: ({ cfg, accountId, name }: { cfg: OpenClawConfig; accountId: string; name?: string }) =>
-    name ? patchChannelConfigForAccount({ cfg, channel: CHANNEL, accountId, patch: { name } }) : cfg,
+  applyAccountConfig: ({
+    cfg,
+    accountId,
+    input,
+  }: {
+    cfg: OpenClawConfig;
+    accountId: string;
+    input: Record<string, unknown>;
+  }) => patchChannelConfigForAccount({ cfg, channel: CHANNEL, accountId, patch: input }),
+  applyAccountName: ({
+    cfg,
+    accountId,
+    name,
+  }: {
+    cfg: OpenClawConfig;
+    accountId: string;
+    name?: string;
+  }) =>
+    name
+      ? patchChannelConfigForAccount({ cfg, channel: CHANNEL, accountId, patch: { name } })
+      : cfg,
 };
 
 export function isTamTamConfigured(cfg: OpenClawConfig, accountId: string): boolean {

@@ -1,5 +1,5 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
+import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { resolveOKAccount } from "./accounts.js";
 import { resolveOKToken } from "./token.js";
 import type { OKProbeResult } from "./types.js";
@@ -7,11 +7,7 @@ import type { OKProbeResult } from "./types.js";
 const API_BASE = "https://api.ok.ru/graph/me";
 const API_ROOT = "https://api.ok.ru/graph";
 
-async function okApiCall(
-  token: string,
-  method: string,
-  body?: any,
-): Promise<any> {
+async function okApiCall(token: string, method: string, body?: unknown): Promise<unknown> {
   const url = `${API_BASE}/${method}?access_token=${encodeURIComponent(token)}`;
   const res = await fetch(url, {
     method: body ? "POST" : "GET",
@@ -41,7 +37,9 @@ export async function sendMessageOK(
 ): Promise<{ messageId: string }> {
   const account = resolveOKAccount({ cfg, accountId: accountId ?? DEFAULT_ACCOUNT_ID });
   const token = resolveOKToken(account);
-  if (!token) throw new Error("OK token not configured");
+  if (!token) {
+    throw new Error("OK token not configured");
+  }
 
   const body: Record<string, unknown> = {
     recipient: { chat_id: params.target },
@@ -50,7 +48,7 @@ export async function sendMessageOK(
 
   if (params.replyToId) {
     // API expects reply_to = mid: prefix format (e.g. "mid:C3ecb9d02a600.15cea67d78d2059")
-    (body.message as any).reply_to = params.replyToId;
+    (body.message as Record<string, unknown>).reply_to = params.replyToId;
   }
 
   // Send uses chat-scoped endpoint, not /me/ prefix
@@ -66,13 +64,15 @@ export async function sendMessageOK(
     throw new Error(`OK API error ${res.status}: ${text}`);
   }
 
-  const result = await res.json();
+  const result = (await res.json()) as Record<string, unknown>;
   if (result.error_code) {
-    throw new Error(`OK API error: ${result.error_msg || result.error_code}`);
+    throw new Error(
+      `OK API error: ${(result.error_msg as string) ?? (result.error_code as string)}`,
+    );
   }
 
   // Response echoes message with mid field
-  return { messageId: result.mid ?? "unknown" };
+  return { messageId: (result.mid as string) ?? "unknown" };
 }
 
 // ─── Webhook management ────────────────────────────────────
@@ -85,21 +85,20 @@ export async function setOKWebhook(token: string, webhookUrl: string | null): Pr
   }
 }
 
-export async function getOKSubscriptions(token: string): Promise<any[]> {
+export async function getOKSubscriptions(token: string): Promise<unknown[]> {
   // API returns: { subscriptions: [{ url, time }] }
-  const result = await okApiCall(token, "subscriptions");
-  return result.subscriptions ?? [];
+  const result = (await okApiCall(token, "subscriptions")) as Record<string, unknown>;
+  return (result.subscriptions ?? []) as unknown[];
 }
 
 // ─── Health probe ──────────────────────────────────────────
 
-export async function probeOK(
-  cfg: OpenClawConfig,
-  accountId: string,
-): Promise<OKProbeResult> {
+export async function probeOK(cfg: OpenClawConfig, accountId: string): Promise<OKProbeResult> {
   const account = resolveOKAccount({ cfg, accountId: accountId ?? DEFAULT_ACCOUNT_ID });
   const token = resolveOKToken(account);
-  if (!token) return { ok: false, latencyMs: 0, error: "No token configured" };
+  if (!token) {
+    return { ok: false, latencyMs: 0, error: "No token configured" };
+  }
 
   const startedAt = Date.now();
   try {
@@ -125,18 +124,26 @@ export async function uploadOKFile(
   // Step 1: get upload URL
   const url = `${API_BASE}/fileUploadUrl?type=${encodeURIComponent(attachmentType)}&access_token=${encodeURIComponent(token)}`;
   const res = await fetch(url, { method: "GET" });
-  if (!res.ok) throw new Error(`OK fileUploadUrl error ${res.status}`);
+  if (!res.ok) {
+    throw new Error(`OK fileUploadUrl error ${res.status}`);
+  }
   const uploadResult = await res.json();
-  if (uploadResult.error_code) throw new Error(`OK API error: ${uploadResult.error_msg || uploadResult.error_code}`);
+  if (uploadResult.error_code) {
+    throw new Error(`OK API error: ${uploadResult.error_msg || uploadResult.error_code}`);
+  }
   const uploadUrl = uploadResult.url || uploadResult;
-  if (!uploadUrl) throw new Error("Failed to get OK upload URL");
+  if (!uploadUrl) {
+    throw new Error("Failed to get OK upload URL");
+  }
 
   // Step 2: upload file via multipart
   const formData = new FormData();
   formData.append("file", new Blob([buffer]), fileName);
 
   const uploadRes = await fetch(uploadUrl, { method: "POST", body: formData });
-  if (!uploadRes.ok) throw new Error(`OK file upload error ${uploadRes.status}`);
+  if (!uploadRes.ok) {
+    throw new Error(`OK file upload error ${uploadRes.status}`);
+  }
 
   return uploadResult.token || "unknown";
 }

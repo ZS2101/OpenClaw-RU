@@ -1,1 +1,13 @@
-const P=/^vkteams:/i; export function looksLikeVKTeamsTargetId(r:string):boolean{return r.replace(P,"").trim().length>=3;} export function normalizeVKTeamsMessagingTarget(r:string):string{return r.replace(P,"").trim();} export function normalizeVKTeamsTarget(r:string):string{return r.replace(P,"").trim();}
+const VT_PREFIX = /^vkteams:/i;
+
+/** Check if a routing target looks like a VK Teams identifier */
+export function looksLikeVKTeamsTargetId(raw: string): boolean {
+  return raw.replace(VT_PREFIX, "").trim().length >= 3;
+}
+
+/** Strip the vkteams: prefix from a messaging target */
+export function normalizeVKTeamsMessagingTarget(raw: string): string {
+  return raw.replace(VT_PREFIX, "").trim();
+}
+
+export { normalizeVKTeamsMessagingTarget as normalizeVKTeamsTarget };

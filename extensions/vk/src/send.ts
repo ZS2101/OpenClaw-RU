@@ -1,5 +1,5 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
+import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { resolveVkAccount } from "./accounts.js";
 import { resolveVkToken } from "./token.js";
 import type { VkProbeResult } from "./types.js";
@@ -12,7 +12,7 @@ async function vkApiCall(
   method: string,
   params: Record<string, string | number>,
   apiVersion = "5.199",
-): Promise<any> {
+): Promise<unknown> {
   const url = new URL(`${VK_API_BASE}${method}`);
   url.searchParams.set("access_token", token);
   url.searchParams.set("v", apiVersion);
@@ -47,7 +47,9 @@ export async function sendMessageVk(
 ): Promise<{ messageId: number }> {
   const account = resolveVkAccount({ cfg, accountId: accountId ?? DEFAULT_ACCOUNT_ID });
   const token = resolveVkToken(account);
-  if (!token) throw new Error("VK token not configured");
+  if (!token) {
+    throw new Error("VK token not configured");
+  }
 
   const randomId = params.randomId ?? Math.floor(Math.random() * 2_147_483_647);
 
@@ -55,28 +57,38 @@ export async function sendMessageVk(
     peer_id: params.peerId,
     random_id: randomId,
   };
-  if (params.text) apiParams.message = params.text;
-  if (params.replyTo) apiParams.reply_to = params.replyTo;
-  if (params.attachment) apiParams.attachment = params.attachment;
-  if (params.keyboard) apiParams.keyboard = params.keyboard;
+  if (params.text) {
+    apiParams.message = params.text;
+  }
+  if (params.replyTo) {
+    apiParams.reply_to = params.replyTo;
+  }
+  if (params.attachment) {
+    apiParams.attachment = params.attachment;
+  }
+  if (params.keyboard) {
+    apiParams.keyboard = params.keyboard;
+  }
 
   const result = await vkApiCall(token, "messages.send", apiParams, account.apiVersion);
   // VK API: single peer → response = integer message_id; multiple → array of {peer_id, message_id}
-  const msgId = typeof result === "number"
-    ? result
-    : (Array.isArray(result) ? result[0]?.message_id : (result as any)?.message_id) ?? 0;
+  const msgId =
+    typeof result === "number"
+      ? result
+      : ((Array.isArray(result)
+          ? result[0]?.message_id
+          : (result as Record<string, unknown>)?.message_id) ?? 0);
   return { messageId: msgId };
 }
 
 // ─── Probe / health check ──────────────────────────────────
 
-export async function probeVk(
-  cfg: OpenClawConfig,
-  accountId: string,
-): Promise<VkProbeResult> {
+export async function probeVk(cfg: OpenClawConfig, accountId: string): Promise<VkProbeResult> {
   const account = resolveVkAccount({ cfg, accountId: accountId ?? DEFAULT_ACCOUNT_ID });
   const token = resolveVkToken(account);
-  if (!token) return { ok: false, latencyMs: 0, error: "No token configured" };
+  if (!token) {
+    return { ok: false, latencyMs: 0, error: "No token configured" };
+  }
 
   const startedAt = Date.now();
   try {
@@ -108,7 +120,7 @@ export interface VkLongPollServer {
 
 export interface VkLongPollEvent {
   type: string;
-  object: any;
+  object: unknown;
   group_id: number;
 }
 
@@ -117,7 +129,12 @@ export async function getLongPollServer(
   groupId: number,
   apiVersion = "5.199",
 ): Promise<VkLongPollServer> {
-  const result = await vkApiCall(token, "groups.getLongPollServer", { group_id: groupId }, apiVersion);
+  const result = await vkApiCall(
+    token,
+    "groups.getLongPollServer",
+    { group_id: groupId },
+    apiVersion,
+  );
   return result as VkLongPollServer;
 }
 
@@ -152,7 +169,9 @@ export async function resolveVkGroupInfo(
   try {
     const result = await vkApiCall(token, "groups.getById", { group_id: groupId }, apiVersion);
     const group = Array.isArray(result) ? result[0] : null;
-    if (!group) return null;
+    if (!group) {
+      return null;
+    }
     return { id: group.id, name: group.name, screenName: group.screen_name };
   } catch {
     return null;
@@ -167,9 +186,16 @@ export async function resolveVkUserInfo(
   apiVersion = "5.199",
 ): Promise<{ id: number; firstName: string; lastName: string } | null> {
   try {
-    const result = await vkApiCall(token, "users.get", { user_ids: userId, fields: "" }, apiVersion);
+    const result = await vkApiCall(
+      token,
+      "users.get",
+      { user_ids: userId, fields: "" },
+      apiVersion,
+    );
     const user = Array.isArray(result) ? result[0] : null;
-    if (!user) return null;
+    if (!user) {
+      return null;
+    }
     return { id: user.id, firstName: user.first_name, lastName: user.last_name };
   } catch {
     return null;

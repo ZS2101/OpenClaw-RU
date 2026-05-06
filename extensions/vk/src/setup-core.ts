@@ -1,12 +1,6 @@
-import {
-  DEFAULT_ACCOUNT_ID,
-  hasConfiguredSecretInput,
-  patchChannelConfigForAccount,
-  setSetupChannelEnabled,
-} from "openclaw/plugin-sdk/setup";
 import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/text-runtime";
-import { listVkAccountIds, resolveVkAccount } from "./accounts.js";
+import { DEFAULT_ACCOUNT_ID, patchChannelConfigForAccount } from "openclaw/plugin-sdk/setup";
+import { resolveVkAccount } from "./accounts.js";
 import { resolveVkToken } from "./token.js";
 
 const CHANNEL = "vk" as const;
@@ -63,7 +57,9 @@ export const vkSetupAdapter = {
     accountId: string;
     name?: string;
   }) => {
-    if (!name) return cfg;
+    if (!name) {
+      return cfg;
+    }
     return patchChannelConfigForAccount({
       cfg,
       channel: CHANNEL,
@@ -75,10 +71,7 @@ export const vkSetupAdapter = {
 
 // ─── Helper: check if configured ───────────────────────────
 
-export function isVkConfigured(
-  cfg: OpenClawConfig,
-  accountId: string,
-): boolean {
+export function isVkConfigured(cfg: OpenClawConfig, accountId: string): boolean {
   const account = resolveVkAccount({ cfg, accountId });
   return Boolean(resolveVkToken(account));
 }

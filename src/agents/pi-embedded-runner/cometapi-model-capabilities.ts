@@ -151,7 +151,9 @@ const skipNextMissRefresh = new Set<string>();
 
 function isImageModel(model: CometApiModel): boolean {
   // 1) Explicit modality field
-  if (model.modality?.includes("image")) return true;
+  if (model.modality?.includes("image")) {
+    return true;
+  }
 
   // 2) supported_endpoint_types hints at image capability
   if (model.supported_endpoint_types) {
@@ -159,44 +161,88 @@ function isImageModel(model: CometApiModel): boolean {
       ? model.supported_endpoint_types
       : [];
     const joined = endpoints.join(" ").toLowerCase();
-    if (joined.includes("image") || joined.includes("vision") || joined.includes("multimodal"))
+    if (joined.includes("image") || joined.includes("vision") || joined.includes("multimodal")) {
       return true;
+    }
   }
 
   // 3) Model ID heuristics — common vision / multimodal model families
   const id = model.id.toLowerCase();
   const visionKeywords = [
-    "vision", "vl-", "-vl", "multimodal",
-    "gpt-4o", "gpt-4-turbo", "gpt-4.1",
-    "claude-3.5", "claude-3-", "claude-4",
-    "gemini-1.5", "gemini-2",
-    "llava", "cogvlm", "qwen-vl", "qwen2-vl",
-    "pixtral", "minicpm-v", "internvl", "phi-3-vision", "phi-3.5-vision",
-    "glm-4v", "yi-vision", "deepseek-vl", "deepseek-vl2",
+    "vision",
+    "vl-",
+    "-vl",
+    "multimodal",
+    "gpt-4o",
+    "gpt-4-turbo",
+    "gpt-4.1",
+    "claude-3.5",
+    "claude-3-",
+    "claude-4",
+    "gemini-1.5",
+    "gemini-2",
+    "llava",
+    "cogvlm",
+    "qwen-vl",
+    "qwen2-vl",
+    "pixtral",
+    "minicpm-v",
+    "internvl",
+    "phi-3-vision",
+    "phi-3.5-vision",
+    "glm-4v",
+    "yi-vision",
+    "deepseek-vl",
+    "deepseek-vl2",
   ];
-  if (visionKeywords.some((kw) => id.includes(kw))) return true;
+  if (visionKeywords.some((kw) => id.includes(kw))) {
+    return true;
+  }
 
   // 4) owned_by heuristics — providers whose default models usually support images;
   //    narrow to model ids that DON'T contain text-only markers
   const textOnlyMarkers = [
-    "text-only", "textonly", "no-vision", "text-",
-    "embedding", "moderation", "tts", "whisper",
-    "davinci", "babbage", "curie", "ada",
-    "gpt-3", "gpt-35",
+    "text-only",
+    "textonly",
+    "no-vision",
+    "text-",
+    "embedding",
+    "moderation",
+    "tts",
+    "whisper",
+    "davinci",
+    "babbage",
+    "curie",
+    "ada",
+    "gpt-3",
+    "gpt-35",
   ];
-  if (textOnlyMarkers.some((m) => id.includes(m))) return false;
+  if (textOnlyMarkers.some((m) => id.includes(m))) {
+    return false;
+  }
 
   const owner = (model.owned_by ?? "").toLowerCase();
   const visionOwners = new Set([
-    "openai", "anthropic", "google",
-    "qwen", "internlm", "stepfun", "minimax",
+    "openai",
+    "anthropic",
+    "google",
+    "qwen",
+    "internlm",
+    "stepfun",
+    "minimax",
   ]);
   // OpenAI gpt-4 class models (excluding base/old completions)
-  if (owner === "openai" && (id.startsWith("gpt-4") || id.startsWith("o1") || id.startsWith("o3") || id.startsWith("o4")))
+  if (
+    owner === "openai" &&
+    (id.startsWith("gpt-4") || id.startsWith("o1") || id.startsWith("o3") || id.startsWith("o4"))
+  ) {
     return true;
+  }
   if (visionOwners.has(owner)) {
     // Tighten: only flag if model id doesn't look text-only
-    if (/claude|gemini|sonnet|haiku|flash|sprint/.test(id)) return true;
+    if (/claude|gemini|sonnet|haiku|flash|sprint/.test(id)) {
+      return true;
+    }
   }
 
   return false;

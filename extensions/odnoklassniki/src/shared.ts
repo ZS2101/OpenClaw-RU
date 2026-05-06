@@ -1,6 +1,5 @@
-import type { ChannelPlugin } from "openclaw/plugin-sdk/channel-core";
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
+import type { ChannelPlugin } from "openclaw/plugin-sdk/channel-core";
 import { resolveOKAccount, listOKAccountIds } from "./accounts.js";
 import { resolveOKToken } from "./token.js";
 import type { OKProbeResult } from "./types.js";

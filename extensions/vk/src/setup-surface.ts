@@ -8,10 +8,8 @@ import {
   splitSetupEntries,
 } from "openclaw/plugin-sdk/setup";
 import type { ChannelSetupWizard } from "openclaw/plugin-sdk/setup";
-import { normalizeOptionalString, normalizeE164 } from "openclaw/plugin-sdk/text-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
+import { normalizeOptionalString } from "openclaw/plugin-sdk/text-runtime";
 import { listVkAccountIds, resolveVkAccount } from "./accounts.js";
-import { resolveVkToken } from "./token.js";
 import {
   VK_ALLOWFROM_HELP_LINES,
   VK_TOKEN_HELP_LINES,
@@ -19,6 +17,7 @@ import {
   vkSetupAdapter,
   isVkConfigured,
 } from "./setup-core.js";
+import { resolveVkToken } from "./token.js";
 
 const CHANNEL = "vk" as const;
 
@@ -33,9 +32,7 @@ export const vkSetupWizard: ChannelSetupWizard = {
     configuredScore: 1,
     unconfiguredScore: 1,
     resolveConfigured: ({ cfg, accountId }) =>
-      (accountId ? [accountId] : listVkAccountIds(cfg)).some((id) =>
-        isVkConfigured(cfg, id),
-      ),
+      (accountId ? [accountId] : listVkAccountIds(cfg)).some((id) => isVkConfigured(cfg, id)),
   }),
   credentials: [
     {
@@ -86,7 +83,7 @@ export const vkSetupWizard: ChannelSetupWizard = {
         patch: { dmPolicy: "allowlist", allowFrom },
       }),
   }),
-  finalize: async ({ cfg, accountId, prompter }) => {
+  finalize: async ({ _cfg, _accountId, _prompter }) => {
     // No special warnings needed for VK
   },
   disable: (cfg) => setSetupChannelEnabled(cfg, CHANNEL, false),

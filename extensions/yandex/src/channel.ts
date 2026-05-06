@@ -1,3 +1,4 @@
+import type { Request, Response } from "express";
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
 import {
   buildChannelOutboundSessionRoute,
@@ -11,19 +12,15 @@ import {
 } from "openclaw/plugin-sdk/channel-status";
 import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { createChannelDirectoryAdapter } from "openclaw/plugin-sdk/directory-runtime";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import {
-  createDefaultChannelRuntimeState,
-} from "openclaw/plugin-sdk/status-helpers";
-import { resolveYandexAccount, listYandexAccountIds, type ResolvedYandexAccount } from "./accounts.js";
-import { resolveYandexToken } from "./token.js";
+import { createDefaultChannelRuntimeState } from "openclaw/plugin-sdk/status-helpers";
+import { resolveYandexAccount, listYandexAccountIds } from "./accounts.js";
+import { sendMessageYandex } from "./api.js";
 import { looksLikeYandexTargetId, normalizeYandexMessagingTarget } from "./normalize.js";
-import * as webhookModule from "./webhook.js";
 import { probeYandexChannel } from "./probe.js";
-import type { YandexProbeResult } from "./types.js";
 import { yandexSetupAdapter } from "./setup-core.js";
 import { yandexSetupWizard } from "./setup-surface.js";
-import { sendMessageYandex } from "./api.js";
+import { resolveYandexToken } from "./token.js";
+import * as webhookModule from "./webhook.js";
 
 // Lazy webhook loader
 let webhookPromise: Promise<typeof webhookModule> | undefined;
@@ -106,7 +103,7 @@ export const yandexPlugin = createChatChannelPlugin({
   // ─── Gateway: register webhook HTTP handler ────────────
   gateway: {
     registerHttpHandlers: ({ app }) => {
-      app.post("/webhooks/yandex", async (req: any, res: any) => {
+      app.post("/webhooks/yandex", async (req: Request, res: Response) => {
         try {
           const webhook = await loadWebhook();
           await webhook.handleYandexWebhookEvent(req.body);
@@ -147,9 +144,7 @@ export const yandexPlugin = createChatChannelPlugin({
         channel: "yandex",
         accountId,
         resolveCredentialStatus: () => {
-          const token = resolveYandexToken(
-            resolveYandexAccount({ cfg, accountId }),
-          );
+          const token = resolveYandexToken(resolveYandexAccount({ cfg, accountId }));
           return { configured: Boolean(token), token: token ?? undefined };
         },
       }),
@@ -172,8 +167,12 @@ export const yandexPlugin = createChatChannelPlugin({
     checkDmAccess: ({ cfg, accountId, senderId }) => {
       const account = resolveYandexAccount({ cfg, accountId });
       const policy = account.dmPolicy ?? "pairing";
-      if (policy === "open" || policy === "pairing") return { allowed: true };
-      if (policy === "disabled") return { allowed: false };
+      if (policy === "open" || policy === "pairing") {
+        return { allowed: true };
+      }
+      if (policy === "disabled") {
+        return { allowed: false };
+      }
       if (policy === "allowlist") {
         const allowFrom = account.allowFrom ?? [];
         return {
@@ -199,7 +198,9 @@ export const yandexPlugin = createChatChannelPlugin({
     resolveSelf: async ({ cfg, accountId }) => {
       const account = resolveYandexAccount({ cfg, accountId });
       const token = resolveYandexToken(account);
-      if (!token) return null;
+      if (!token) {
+        return null;
+      }
       try {
         const info = await (await import("./api.js")).probeYandex(cfg, accountId);
         return { id: "self", name: info.botName ?? account.name ?? "Yandex Bot", type: "bot" };
@@ -211,7 +212,7 @@ export const yandexPlugin = createChatChannelPlugin({
     resolveGroups: async ({ cfg, accountId }) => {
       const account = resolveYandexAccount({ cfg, accountId });
       const groups = account.groups ?? {};
-      return Object.entries(groups).map(([id, config]) => ({
+      return Object.entries(groups).map(([id, _config]) => ({
         id,
         name: `Chat ${id}`,
         configured: true,

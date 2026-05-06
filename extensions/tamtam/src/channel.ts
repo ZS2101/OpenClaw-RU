@@ -1,35 +1,25 @@
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
 import {
   buildChannelOutboundSessionRoute,
-  clearAccountEntryFields,
   createChatChannelPlugin,
 } from "openclaw/plugin-sdk/channel-core";
-import { createAccountStatusSink } from "openclaw/plugin-sdk/channel-lifecycle";
 import { attachChannelToResult } from "openclaw/plugin-sdk/channel-send-result";
 import {
   PAIRING_APPROVED_MESSAGE,
   buildTokenChannelStatusSummary,
-  projectCredentialSnapshotFields,
   resolveConfiguredFromCredentialStatuses,
 } from "openclaw/plugin-sdk/channel-status";
 import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { createChannelDirectoryAdapter } from "openclaw/plugin-sdk/directory-runtime";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import {
-  createComputedAccountStatusAdapter,
-  createDefaultChannelRuntimeState,
-} from "openclaw/plugin-sdk/status-helpers";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/text-runtime";
-import { resolveTamtamAccount, listTamtamAccountIds, type ResolvedTamtamAccount } from "./accounts.js";
-import { resolveTamtamToken } from "./token.js";
-import { looksLikeTamtamTargetId, normalizeTamtamMessagingTarget } from "./normalize.js";
+import { createDefaultChannelRuntimeState } from "openclaw/plugin-sdk/status-helpers";
+import { resolveTamtamAccount, listTamtamAccountIds } from "./accounts.js";
 import * as monitorModule from "./monitor.js";
+import { looksLikeTamtamTargetId, normalizeTamtamMessagingTarget } from "./normalize.js";
 import { probeTamtamChannel } from "./probe.js";
-import type { TamtamProbeResult } from "./types.js";
+import { sendMessageTamtam } from "./send.js";
 import { tamtamSetupAdapter } from "./setup-core.js";
 import { tamtamSetupWizard } from "./setup-surface.js";
-import { sendMessageTamtam, resolveTamtamChatInfo } from "./send.js";
-
+import { resolveTamtamToken } from "./token.js";
 let monitorPromise: Promise<typeof monitorModule> | undefined;
 async function loadMonitor() {
   monitorPromise ??= import("./monitor.js");
@@ -95,8 +85,10 @@ export const tamtamPlugin = createChatChannelPlugin({
       buildChannelOutboundSessionRoute({ cfg, channel: "tamtam", accountId, to }),
     send: async (params) => {
       const result = await tamtamOutboundAdapter.sendPayload({
-        cfg: params.cfg, accountId: params.accountId,
-        to: params.to, payload: params.payload,
+        cfg: params.cfg,
+        accountId: params.accountId,
+        to: params.to,
+        payload: params.payload,
       });
       return attachChannelToResult(result, { channel: "tamtam" });
     },
@@ -106,14 +98,17 @@ export const tamtamPlugin = createChatChannelPlugin({
     ...createDefaultChannelRuntimeState(),
     resolveConfigured: ({ cfg, accountId }) =>
       resolveConfiguredFromCredentialStatuses({
-        cfg, channel: "tamtam", accountId,
+        cfg,
+        channel: "tamtam",
+        accountId,
         resolveCredentialStatus: () => {
           const token = resolveTamtamToken(resolveTamtamAccount({ cfg, accountId }));
           return { configured: Boolean(token), token: token ?? undefined };
         },
       }),
     buildSummary: buildTokenChannelStatusSummary({
-      channel: "tamtam", label: "TamTam",
+      channel: "tamtam",
+      label: "TamTam",
       formatAccountLabel: (account) => account.name ?? "TamTam",
     }),
   },
@@ -126,8 +121,12 @@ export const tamtamPlugin = createChatChannelPlugin({
     checkDmAccess: ({ cfg, accountId, senderId }) => {
       const account = resolveTamtamAccount({ cfg, accountId });
       const policy = account.dmPolicy ?? "pairing";
-      if (policy === "open" || policy === "pairing") return { allowed: true };
-      if (policy === "disabled") return { allowed: false };
+      if (policy === "open" || policy === "pairing") {
+        return { allowed: true };
+      }
+      if (policy === "disabled") {
+        return { allowed: false };
+      }
       if (policy === "allowlist") {
         const allowFrom = account.allowFrom ?? [];
         return { allowed: allowFrom.includes("*") || allowFrom.includes(senderId) };
@@ -148,7 +147,9 @@ export const tamtamPlugin = createChatChannelPlugin({
     resolveSelf: async ({ cfg, accountId }) => {
       const account = resolveTamtamAccount({ cfg, accountId });
       const token = resolveTamtamToken(account);
-      if (!token) return null;
+      if (!token) {
+        return null;
+      }
       try {
         const info = await (await import("./send.js")).probeTamtam(cfg, accountId);
         return { id: "self", name: info.botName ?? "TamTam Bot", type: "bot" };
@@ -159,8 +160,10 @@ export const tamtamPlugin = createChatChannelPlugin({
     resolvePeers: async () => [],
     resolveGroups: async ({ cfg, accountId }) => {
       const account = resolveTamtamAccount({ cfg, accountId });
-      return Object.entries(account.groups ?? {}).map(([id, config]) => ({
-        id, name: `Chat ${id}`, configured: true,
+      return Object.entries(account.groups ?? {}).map(([id, _config]) => ({
+        id,
+        name: `Chat ${id}`,
+        configured: true,
       }));
     },
   }),

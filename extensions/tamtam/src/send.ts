@@ -1,5 +1,5 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
+import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { resolveTamtamAccount } from "./accounts.js";
 import { resolveTamtamToken } from "./token.js";
 import type { TamtamProbeResult } from "./types.js";
@@ -9,10 +9,10 @@ const API_BASE = "https://botapi.tamtam.chat";
 async function tamtamApiCall(
   token: string,
   method: string,
-  params?: Record<string, any>,
+  params?: Record<string, unknown>,
   httpMethod: "GET" | "POST" = "POST",
   queryParams?: Record<string, string>,
-): Promise<any> {
+): Promise<unknown> {
   const url = new URL(`${API_BASE}/${method}`);
   url.searchParams.set("access_token", token);
   if (queryParams) {
@@ -48,11 +48,13 @@ export async function sendMessageTamtam(
 ): Promise<{ messageId: string }> {
   const account = resolveTamtamAccount({ cfg, accountId: accountId ?? DEFAULT_ACCOUNT_ID });
   const token = resolveTamtamToken(account);
-  if (!token) throw new Error("Tamtam token not configured");
+  if (!token) {
+    throw new Error("Tamtam token not configured");
+  }
 
   // TamTam uses user_id for DMs and chat_id for groups.
   // We encode group targets as negative numbers (sign convention).
-  const body: any = { text: params.text };
+  const body: Record<string, unknown> = { text: params.text };
   const queryParams: Record<string, string> = {};
 
   const targetNum = Number(params.target);
@@ -73,8 +75,14 @@ export async function sendMessageTamtam(
   }
 
   // Response: SendMessageResult { message: Message { body: { mid: "..." } } }
-  const result = await tamtamApiCall(token, "messages", body, "POST", queryParams);
-  return { messageId: result.message?.body?.mid ?? result.message_id ?? "unknown" };
+  const result = (await tamtamApiCall(token, "messages", body, "POST", queryParams)) as Record<
+    string,
+    unknown
+  >;
+  return {
+    messageId:
+      (result.message as Record<string, unknown>)?.body?.["mid"] ?? result.message_id ?? "unknown",
+  };
 }
 
 // ─── Long Poll (getUpdates) ────────────────────────────────
@@ -82,9 +90,9 @@ export async function sendMessageTamtam(
 export interface TamtamUpdate {
   update_type: string;
   timestamp: number;
-  message?: any;
-  callback?: any;
-  user?: any;
+  message?: unknown;
+  callback?: unknown;
+  user?: unknown;
   chat_id?: number;
 }
 
@@ -93,14 +101,14 @@ export async function getTamtamUpdates(
   marker: number,
 ): Promise<{ updates: TamtamUpdate[]; marker: number }> {
   // GET /updates with query params per spec
-  const result = await tamtamApiCall(token, "updates", undefined, "GET", {
+  const result = (await tamtamApiCall(token, "updates", undefined, "GET", {
     marker: String(marker),
     limit: "50",
     timeout: "30",
-  });
+  })) as Record<string, unknown>;
   return {
-    updates: result.updates ?? [],
-    marker: result.marker ?? marker,
+    updates: (result.updates ?? []) as TamtamUpdate[],
+    marker: (result.marker ?? marker) as number,
   };
 }
 
@@ -112,7 +120,9 @@ export async function probeTamtam(
 ): Promise<TamtamProbeResult> {
   const account = resolveTamtamAccount({ cfg, accountId: accountId ?? DEFAULT_ACCOUNT_ID });
   const token = resolveTamtamToken(account);
-  if (!token) return { ok: false, latencyMs: 0, error: "No token configured" };
+  if (!token) {
+    return { ok: false, latencyMs: 0, error: "No token configured" };
+  }
 
   const startedAt = Date.now();
   try {
@@ -120,7 +130,7 @@ export async function probeTamtam(
     return {
       ok: true,
       latencyMs: Date.now() - startedAt,
-      botName: info.name,
+      botName: (info as Record<string, unknown>).name as string,
     };
   } catch (err) {
     return {
@@ -139,7 +149,13 @@ export async function resolveTamtamChatInfo(
 ): Promise<{ chatId: number; title?: string; type?: string } | null> {
   try {
     const result = await tamtamApiCall(token, `chats/${chatId}`, {}, "GET");
-    return result ? { chatId: result.chat_id, title: result.title, type: result.type } : null;
+    return result
+      ? {
+          chatId: (result as Record<string, unknown>).chat_id as number,
+          title: (result as Record<string, unknown>).title as string,
+          type: (result as Record<string, unknown>).type as string,
+        }
+      : null;
   } catch {
     return null;
   }

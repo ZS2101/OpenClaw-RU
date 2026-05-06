@@ -1,1 +1,14 @@
-import { createPluginRuntimeStore } from "openclaw/plugin-sdk/runtime-store"; import type { PluginRuntime } from "openclaw/plugin-sdk/core"; export interface VKTeamsRuntime extends PluginRuntime {stopPolling?:()=>void;} const s=createPluginRuntimeStore<VKTeamsRuntime>({pluginId:"vkteams",errorMessage:"VK Teams runtime not initialized"}); export const getVKTeamsRuntime=s.getRuntime; export const setVKTeamsRuntime=s.setRuntime;
+import type { PluginRuntime } from "openclaw/plugin-sdk/core";
+import { createPluginRuntimeStore } from "openclaw/plugin-sdk/runtime-store";
+
+export interface VKTeamsRuntime extends PluginRuntime {
+  stopPolling?: () => void;
+}
+
+const store = createPluginRuntimeStore<VKTeamsRuntime>({
+  pluginId: "vkteams",
+  errorMessage: "VK Teams runtime not initialized",
+});
+
+export const getVKTeamsRuntime = store.getRuntime;
+export const setVKTeamsRuntime = store.setRuntime;

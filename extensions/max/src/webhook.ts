@@ -1,9 +1,8 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
+import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 import { resolveMAXAccount } from "./accounts.js";
-import { resolveMAXToken } from "./token.js";
 import { setMAXWebhook } from "./api.js";
-import { applyMAXGroupGating } from "./group-policy.js";
+import { resolveMAXToken } from "./token.js";
 
 // ─── Types ────────────────────────────────────────────────
 
@@ -28,30 +27,62 @@ export interface MAXMonitorOptions {
 
 // ─── Active handler (bridges HTTP webhook → agent) ────────
 
+interface MAXWebhookBody {
+  update_type?: string;
+  timestamp?: number;
+  message_id?: string;
+  chat_id?: string;
+  sender?: { user_id?: string; name?: string; first_name?: string; is_bot?: boolean };
+  // When MAX sends a message directly (not wrapped in update.message)
+  body?: { text?: string; mid?: string };
+  recipient?: { chat_id?: string; user_id?: string };
+  message?: {
+    body?: { text?: string; mid?: string };
+    sender?: { user_id?: string; name?: string; first_name?: string; is_bot?: boolean };
+    recipient?: { chat_id?: string; user_id?: string };
+    timestamp?: number;
+  };
+}
+
 let activeHandler: MAXMessageHandler | null = null;
 
 export function setMAXWebhookHandler(handler: MAXMessageHandler | null): void {
   activeHandler = handler;
 }
 
-export async function handleMAXWebhookEvent(body: any): Promise<void> {
+export async function handleMAXWebhookEvent(body: unknown): Promise<void> {
   const handler = activeHandler;
-  if (!handler) return;
+  if (!handler) {
+    return;
+  }
+
+  const b = body as MAXWebhookBody;
 
   // Only process message_created events — skip bot_started, message_callback, etc.
-  if (body.update_type && body.update_type !== "message_created") return;
+  if (b.update_type && b.update_type !== "message_created") {
+    return;
+  }
 
   // MAX sends an Update object: { update_type, timestamp, message }
-  const msg = body.message || body;
+  const msg = b.message || b;
 
-  if (!msg?.body?.text?.trim()) return;
+  if (!msg.body?.text?.trim()) {
+    return;
+  }
 
   const text = msg.body.text.trim();
-  const msgId = msg.body?.mid ?? body.message_id ?? String(Date.now());
-  const chatId = String(msg.recipient?.chat_id ?? body.chat_id ?? msg.sender?.user_id ?? msg.recipient?.user_id ?? "unknown");
-  const userId = String(msg.sender?.user_id ?? body.sender?.user_id ?? "unknown");
+  const msgId = msg.body?.mid ?? b.message_id ?? String(Date.now());
+  const chatId =
+    msg.recipient?.chat_id ??
+    b.chat_id ??
+    msg.sender?.user_id ??
+    msg.recipient?.user_id ??
+    "unknown";
+  const userId = msg.sender?.user_id ?? b.sender?.user_id ?? "unknown";
   const isBot = msg.sender?.is_bot === true;
-  if (isBot) return;
+  if (isBot) {
+    return;
+  }
 
   const isGroup = chatId !== userId || Number(chatId) !== Number(userId);
   const chatType = isGroup ? "group" : "dm";
@@ -66,8 +97,8 @@ export async function handleMAXWebhookEvent(body: any): Promise<void> {
     chatId,
     userId,
     text,
-    senderName: msg.sender?.name ?? msg.sender?.first_name ?? body.sender?.name,
-    timestamp: body.timestamp || msg.timestamp || Date.now(),
+    senderName: msg.sender?.name ?? msg.sender?.first_name ?? b.sender?.name,
+    timestamp: b.timestamp || msg.timestamp || Date.now(),
     chatType,
   };
 
@@ -77,9 +108,14 @@ export async function handleMAXWebhookEvent(body: any): Promise<void> {
 // ─── Webhook monitoring ──────────────────────────────────
 
 export async function startMAXMonitor(options: MAXMonitorOptions): Promise<() => void> {
-  const account = resolveMAXAccount({ cfg: options.cfg, accountId: options.accountId ?? DEFAULT_ACCOUNT_ID });
+  const account = resolveMAXAccount({
+    cfg: options.cfg,
+    accountId: options.accountId ?? DEFAULT_ACCOUNT_ID,
+  });
   const token = resolveMAXToken(account);
-  if (!token) throw new Error("MAX token not configured");
+  if (!token) {
+    throw new Error("MAX token not configured");
+  }
 
   const log = options.verbose ? console.log : () => {};
 
