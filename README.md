@@ -1,7 +1,7 @@
 # 🦞 OpenClaw RU — Русская редакция
 
 <p align="center">
-  <img src="RU LOGO.png" alt="OpenClaw RU" width="500"><br>
+  <img src="open 1.png" alt="OpenClaw RU" width="500"><br>
   <!-- ← замени src="" на ссылку на картинку: src="assets/banner.png" -->
 </p>
 
