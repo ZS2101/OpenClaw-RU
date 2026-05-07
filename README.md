@@ -112,10 +112,10 @@ Aкции, индексы, облигации, валюты, дивиденды,
 - **Шаблоны:** SOUL.md, AGENTS.md, IDENTITY.md, USER.md, TOOLS.md, BOOTSTRAP.md
 ---
 
-## Требования и установка
+## Требования
 | Компонент | Версия | Установка |
 |----------|--------|----------|
-| **Node.js** | ≥ 22.14.0 | [nodejs.org](https://nodejs.org) — скачай LTS (22.x) |
+| **Node.js** | ≥ 22.14.0 | [nodejs.org](https://nodejs.org) — LTS (22.x) |
 | **pnpm** | любая | `npm install -g pnpm` |
 | **Git** | любая | [git-scm.com](https://git-scm.com) |
 
