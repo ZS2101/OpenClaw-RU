@@ -112,6 +112,20 @@ Aкции, индексы, облигации, валюты, дивиденды,
 - **Шаблоны:** SOUL.md, AGENTS.md, IDENTITY.md, USER.md, TOOLS.md, BOOTSTRAP.md
 ---
 
+## Требования и установка
+| Компонент | Версия | Установка |
+|----------|--------|----------|
+| **Node.js** | ≥ 22.14.0 | [nodejs.org](https://nodejs.org) — скачай LTS (22.x) |
+| **pnpm** | любая | `npm install -g pnpm` |
+| **Git** | любая | [git-scm.com](https://git-scm.com) |
+
+Проверка после установки:
+
+```bash
+node --version # ≥ 22.14.0
+pnpm --version
+git --version
+
 ## Установка
 
 ```bash
@@ -120,8 +134,11 @@ git clone https://github.com/ZS2101/OpenClaw-RU.git
 cd OpenClaw-RU
 
 # Установите зависимости и соберите
-npm install
-npm run build
+pnpm install
+pnpm build
+
+# Добавьте openclaw в глобальные команды
+pnpm link --global
 
 # Запустите визард
 openclaw onboard
