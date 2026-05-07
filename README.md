@@ -30,13 +30,18 @@
 </p>
 
 <p align="center">
+  <em>Переведенные тэглайны</em><br>
+  <img src="tagline-demo-2.png" alt="Визард OpenClaw RU" width="600"><br>
+</p>
+
+<p align="center">
   <em>Каналы</em><br>
   <img src="ru wizard channels.png" alt="Каналы и провайдеры" width="600"><br>
 </p>
 
 <p align="center">
-  <em>Скиллы</em><br>
-  <img src="СКИЛЛЫ.png" alt="Скиллы на русском" width="600"><br>
+  <em>Новые провайдеры</em><br>
+  <img src="models-demo-1.png" alt="Скиллы на русском" width="600"><br>
 </p>
 
 ---
@@ -138,6 +143,7 @@ openclaw tui
 
 ## Нашли баг или хотите помочь?
 
+Позже допишу...
 
 ## Недоработки
 
