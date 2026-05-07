@@ -6,12 +6,13 @@
 
 <p align="center">
   <strong>Персональный AI-ассистент на русском</strong><br>
-  <em>Полная русификация OpenClaw + новые провайдеры, каналы и скиллы<br>для русскоязычных пользователей и локального AI</em>
+  <em>Русификация OpenClaw + новые провайдеры, каналы и скиллы<br>для русскоязычных пользователей и локального AI</em>
 </p>
 <p align="center">
   <p align="center">
-  <a href="https://github.com/ZS2101/OpenClaw-RU/stargazers"><img src="https://img.shields.io/github/stars/ZS2101/OpenClaw-RU?style=for-the-badge&color=facc15" alt="Stars"></a><a href="https://github.com/ZS2101/OpenClaw-RU/blob/openclaw-ru/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" alt="License MIT"></a><a href="https://github.com/ZS2101/OpenClaw-RU/commits/openclaw-ru"><img src="https://img.shields.io/github/last-commit/ZS2101/OpenClaw-RU/openclaw-ru?style=for-the-badge&color=3b82f6" alt="Last Commit"></a>
+  <a href="https://github.com/ZS2101/OpenClaw-RU/stargazers"><img src="https://img.shields.io/github/stars/ZS2101/OpenClaw-RU?style=for-the-badge&color=facc15" alt="Stars"></a>&nbsp;&nbsp;<a href="https://github.com/ZS2101/OpenClaw-RU/blob/openclaw-ru/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" alt="License MIT"></a>&nbsp;&nbsp;<a href="https://github.com/ZS2101/OpenClaw-RU/commits/openclaw-ru"><img src="https://img.shields.io/github/last-commit/ZS2101/OpenClaw-RU/openclaw-ru?style=for-the-badge&color=3b82f6" alt="Last Commit"></a>
 </p>
+
 
 
 ---
