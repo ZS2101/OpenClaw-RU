@@ -16,9 +16,6 @@
   <a href="https://github.com/ZS2101/OpenClaw-RU/blob/openclaw-ru/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" alt="License MIT">
   </a>
-  <a href="https://github.com/ZS2101/OpenClaw-RU">
-    <img src="https://img.shields.io/badge/OpenClaw-Русский_форк-ff4500?style=for-the-badge&logo=github" alt="Русский форк">
-  </a>
   <a href="https://github.com/ZS2101/OpenClaw-RU/commits/openclaw-ru">
     <img src="https://img.shields.io/github/last-commit/ZS2101/OpenClaw-RU/openclaw-ru?style=for-the-badge&color=3b82f6" alt="Last Commit">
   </a>
