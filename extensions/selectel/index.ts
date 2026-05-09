@@ -1,7 +1,11 @@
-import { definePluginEntry, type ProviderAuthMethod, type ProviderRuntimeModel } from "openclaw/plugin-sdk/plugin-entry";
+import {
+  definePluginEntry,
+  type ProviderAuthMethod,
+  type ProviderRuntimeModel,
+} from "openclaw/plugin-sdk/plugin-entry";
 import type { OpenClawConfig } from "openclaw/plugin-sdk/plugin-entry";
 import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-auth-api-key";
-import { applySelectelConfig, Selectel_DEFAULT_MODEL_REF } from "./onboard.js";
+import { applySelectelConfig, SELECTEL_DEFAULT_MODEL_REF } from "./onboard.js";
 
 function getSelectelBaseUrl(): string {
   return process.env.SELECTEL_BASE_URL?.replace(/\/+$/, "") || "";
@@ -11,9 +15,22 @@ function getSelectelContextWindow(): number {
   const val = process.env.SELECTEL_MODEL_CONTEXT_WINDOW;
   if (val) {
     const n = Number(val);
-    if (Number.isFinite(n) && n >= 1024) { return n; }
+    if (Number.isFinite(n) && n >= 1024) {
+      return n;
+    }
   }
   return 32768; // sensible default
+}
+
+function getSelectelMaxTokens(): number {
+  const val = process.env.SELECTEL_MAX_TOKENS;
+  if (val) {
+    const n = Number(val);
+    if (Number.isFinite(n) && n >= 256) {
+      return n;
+    }
+  }
+  return 4096; // sensible default
 }
 
 /**
@@ -29,7 +46,7 @@ function buildSelectelAuthMethod(): ProviderAuthMethod {
     flagName: "--selectel-api-key",
     envVar: "SELECTEL_API_KEY",
     promptMessage: "Введите API-ключ Selectel",
-    defaultModel: Selectel_DEFAULT_MODEL_REF,
+    defaultModel: SELECTEL_DEFAULT_MODEL_REF,
     expectedProviders: ["selectel"],
     applyConfig: (cfg) => applySelectelConfig(cfg),
     noteMessage: [
@@ -51,7 +68,7 @@ function buildSelectelAuthMethod(): ProviderAuthMethod {
     ...apiKeyMethod,
     /** Extend run: after API key, ask for inference endpoint URL. */
     run: async (ctx) => {
-      const result = await apiKeyMethod.run!(ctx);
+      const result = await apiKeyMethod.run(ctx);
 
       const baseUrl = await ctx.prompter.text({
         message:
@@ -88,7 +105,24 @@ function buildSelectelAuthMethod(): ProviderAuthMethod {
         },
       });
       const contextWindow = Number(contextWindowStr.trim());
-      const contextWindowNote = `Model context window: ${contextWindow.toLocaleString()} tokens`;
+
+      // Ask for max generation tokens
+      const maxTokensStr = await ctx.prompter.text({
+        message: "Введите максимальное число токенов генерации (maxTokens, например 32768):",
+        placeholder: "32768",
+        validate: (v: string) => {
+          const trimmed = v.trim();
+          if (!trimmed) {
+            return "maxTokens обязателен";
+          }
+          const n = Number(trimmed);
+          if (!Number.isFinite(n) || n < 256) {
+            return "Введите число токенов (минимум 256)";
+          }
+          return undefined;
+        },
+      });
+      const maxTokens = Number(maxTokensStr.trim());
 
       return {
         ...result,
@@ -100,14 +134,16 @@ function buildSelectelAuthMethod(): ProviderAuthMethod {
               ...result.configPatch?.env?.vars,
               SELECTEL_BASE_URL: trimmed,
               SELECTEL_MODEL_CONTEXT_WINDOW: String(contextWindow),
+              SELECTEL_MAX_TOKENS: String(maxTokens),
             },
           },
         } as Partial<OpenClawConfig>,
         notes: [
           ...(result.notes ?? []),
           `Endpoint configured: ${trimmed}`,
-          contextWindowNote,
-          `To use manually: export SELECTEL_BASE_URL="${trimmed}" SELECTEL_MODEL_CONTEXT_WINDOW=${contextWindow}`,
+          `Model context window: ${contextWindow.toLocaleString()} tokens`,
+          `Max tokens: ${maxTokens.toLocaleString()}`,
+          `To use manually: export SELECTEL_BASE_URL="${trimmed}" SELECTEL_MODEL_CONTEXT_WINDOW=${contextWindow} SELECTEL_MAX_TOKENS=${maxTokens}`,
         ],
       };
     },
@@ -123,7 +159,12 @@ export default definePluginEntry({
       id: "selectel",
       label: "Selectel",
       docsPath: "/providers/selectel",
-      envVars: ["SELECTEL_API_KEY", "SELECTEL_BASE_URL", "SELECTEL_MODEL_CONTEXT_WINDOW"],
+      envVars: [
+        "SELECTEL_API_KEY",
+        "SELECTEL_BASE_URL",
+        "SELECTEL_MODEL_CONTEXT_WINDOW",
+        "SELECTEL_MAX_TOKENS",
+      ],
       auth: [buildSelectelAuthMethod()],
       catalog: {
         order: "simple",
@@ -155,6 +196,7 @@ export default definePluginEntry({
       resolveDynamicModel: (ctx): ProviderRuntimeModel => {
         const baseUrl = getSelectelBaseUrl();
         const contextWindow = getSelectelContextWindow();
+        const maxTokens = getSelectelMaxTokens();
         return {
           id: ctx.modelId,
           name: ctx.modelId,
@@ -165,7 +207,7 @@ export default definePluginEntry({
           input: ["text"],
           cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
           contextWindow,
-          maxTokens: 4096,
+          maxTokens,
         };
       },
     });

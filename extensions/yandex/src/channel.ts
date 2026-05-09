@@ -49,116 +49,146 @@ const yandexOutboundAdapter = {
 // ─── Main plugin definition ──────────────────────────────
 
 export const yandexPlugin = createChatChannelPlugin({
-  id: "yandex",
-  meta: {
-    displayName: "Yandex Messenger",
-    helpLink: "https://yandex.ru/dev/messenger/",
-  },
-  defaults: {
-    queue: { debounceMs: 500 },
-  },
-  config: {
-    channel: "yandex" as const,
-    resolveAccount: resolveYandexAccount,
-    listAccountIds: listYandexAccountIds,
-    defaultAccountId: () => DEFAULT_ACCOUNT_ID,
-    resolveToken: resolveYandexToken,
-  },
-  setup: yandexSetupAdapter,
-  setupWizard: yandexSetupWizard,
+  base: {
+    id: "yandex",
+    meta: {
+      displayName: "Yandex Messenger",
+      helpLink: "https://yandex.ru/dev/messenger/",
+    },
+    defaults: {
+      queue: { debounceMs: 500 },
+    },
+    config: {
+      channel: "yandex" as const,
+      resolveAccount: resolveYandexAccount,
+      listAccountIds: listYandexAccountIds,
+      defaultAccountId: () => DEFAULT_ACCOUNT_ID,
+      resolveToken: resolveYandexToken,
+    },
+    setup: yandexSetupAdapter,
+    setupWizard: yandexSetupWizard,
 
-  // ─── Lifecycle (webhook registration) ─────────────────
-  lifecycle: {
-    onStart: async (params) => {
-      const webhook = await loadWebhook();
+    // ─── Lifecycle (webhook registration) ───────────────
+    lifecycle: {
+      onStart: async (params) => {
+        const webhook = await loadWebhook();
 
-      // Set the global webhook handler so the HTTP endpoint can reach the agent
-      webhook.setYandexWebhookHandler(async (msg) => {
-        await params.onMessage({
-          id: msg.id,
-          from: msg.userId,
-          to: msg.chatId,
-          body: msg.text,
-          chatType: msg.chatType,
-          senderName: msg.senderName,
-          timestamp: msg.timestamp,
+        // Set the global webhook handler so the HTTP endpoint can reach the agent
+        webhook.setYandexWebhookHandler(async (msg) => {
+          await params.onMessage({
+            id: msg.id,
+            from: msg.userId,
+            to: msg.chatId,
+            body: msg.text,
+            chatType: msg.chatType,
+            senderName: msg.senderName,
+            timestamp: msg.timestamp,
+          });
         });
-      });
 
-      const stop = await webhook.startYandexMonitor({
-        cfg: params.cfg,
-        accountId: params.accountId,
-        handler: async () => {}, // handled via global handler
-      });
+        const stop = await webhook.startYandexMonitor({
+          cfg: params.cfg,
+          accountId: params.accountId,
+          handler: async () => {}, // handled via global handler
+        });
 
-      return {
-        stop: () => {
-          webhook.setYandexWebhookHandler(null);
-          stop();
-        },
-      };
+        return {
+          stop: () => {
+            webhook.setYandexWebhookHandler(null);
+            stop();
+          },
+        };
+      },
     },
-  },
 
-  // ─── Gateway: register webhook HTTP handler ────────────
-  gateway: {
-    registerHttpHandlers: ({ app }) => {
-      app.post("/webhooks/yandex", async (req: Request, res: Response) => {
-        try {
-          const webhook = await loadWebhook();
-          await webhook.handleYandexWebhookEvent(req.body);
-          res.json({ ok: true });
-        } catch (err) {
-          res.status(500).json({ error: String(err) });
-        }
-      });
+    // ─── Gateway: register webhook HTTP handler ──────────
+    gateway: {
+      registerHttpHandlers: ({ app }) => {
+        app.post("/webhooks/yandex", async (req: Request, res: Response) => {
+          try {
+            const webhook = await loadWebhook();
+            await webhook.handleYandexWebhookEvent(req.body);
+            res.json({ ok: true });
+          } catch (err) {
+            res.status(500).json({ error: String(err) });
+          }
+        });
+      },
     },
-  },
 
-  // ─── Outbound ────────────────────────────────────────
-  outbound: {
-    resolveRoute: ({ cfg, accountId, to }) =>
-      buildChannelOutboundSessionRoute({
-        cfg,
+    // ─── Status ────────────────────────────────────────
+    status: {
+      ...createDefaultChannelRuntimeState(),
+      resolveConfigured: ({ cfg, accountId }) =>
+        resolveConfiguredFromCredentialStatuses({
+          cfg,
+          channel: "yandex",
+          accountId,
+          resolveCredentialStatus: () => {
+            const token = resolveYandexToken(resolveYandexAccount({ cfg, accountId }));
+            return { configured: Boolean(token), token: token ?? undefined };
+          },
+        }),
+      buildSummary: buildTokenChannelStatusSummary({
         channel: "yandex",
-        accountId,
-        to,
+        label: "Яндекс Мессенджер",
+        formatAccountLabel: (account) => account.name ?? "Yandex",
       }),
-    send: async (params) => {
-      const result = await yandexOutboundAdapter.sendPayload({
-        cfg: params.cfg,
-        accountId: params.accountId,
-        to: params.to,
-        payload: params.payload,
-      });
-      return attachChannelToResult(result, { channel: "yandex" });
     },
-  },
 
-  // ─── Status ──────────────────────────────────────────
-  status: {
-    ...createDefaultChannelRuntimeState(),
-    resolveConfigured: ({ cfg, accountId }) =>
-      resolveConfiguredFromCredentialStatuses({
-        cfg,
-        channel: "yandex",
-        accountId,
-        resolveCredentialStatus: () => {
-          const token = resolveYandexToken(resolveYandexAccount({ cfg, accountId }));
-          return { configured: Boolean(token), token: token ?? undefined };
-        },
-      }),
-    buildSummary: buildTokenChannelStatusSummary({
+    // ─── Probe ─────────────────────────────────────────
+    probe: {
+      probe: async ({ cfg, accountId }) => {
+        return probeYandexChannel(cfg, accountId);
+      },
+    },
+
+    // ─── Groups ────────────────────────────────────────
+    groups: {
+      resolveRequireMention: ({ cfg, accountId, groupId }) => {
+        const account = resolveYandexAccount({ cfg, accountId });
+        const groupConfig = account.groups?.[groupId];
+        return groupConfig?.requireMention ?? false;
+      },
+    },
+
+    // ─── Directory ─────────────────────────────────────
+    directory: createChannelDirectoryAdapter({
       channel: "yandex",
-      label: "Яндекс Мессенджер",
-      formatAccountLabel: (account) => account.name ?? "Yandex",
+      resolveSelf: async ({ cfg, accountId }) => {
+        const account = resolveYandexAccount({ cfg, accountId });
+        const token = resolveYandexToken(account);
+        if (!token) {
+          return null;
+        }
+        try {
+          const info = await (await import("./api.js")).probeYandex(cfg, accountId);
+          return { id: "self", name: info.botName ?? account.name ?? "Yandex Bot", type: "bot" };
+        } catch {
+          return { id: "self", name: account.name ?? "Yandex Bot", type: "bot" };
+        }
+      },
+      resolvePeers: async () => [],
+      resolveGroups: async ({ cfg, accountId }) => {
+        const account = resolveYandexAccount({ cfg, accountId });
+        const groups = account.groups ?? {};
+        return Object.entries(groups).map(([id, _config]) => ({
+          id,
+          name: `Chat ${id}`,
+          configured: true,
+        }));
+      },
     }),
-  },
 
-  // ─── Probe ───────────────────────────────────────────
-  probe: {
-    probe: async ({ cfg, accountId }) => {
-      return probeYandexChannel(cfg, accountId);
+    // ─── Pairing ───────────────────────────────────────
+    conversationBindings: {
+      supportsCurrentConversationBinding: false,
+    },
+
+    // ─── Target resolution ─────────────────────────────
+    messaging: {
+      normalizeTarget: normalizeYandexMessagingTarget,
+      looksLikeTargetId: looksLikeYandexTargetId,
     },
   },
 
@@ -183,55 +213,28 @@ export const yandexPlugin = createChatChannelPlugin({
     },
   },
 
-  // ─── Groups ──────────────────────────────────────────
-  groups: {
-    resolveRequireMention: ({ cfg, accountId, groupId }) => {
-      const account = resolveYandexAccount({ cfg, accountId });
-      const groupConfig = account.groups?.[groupId];
-      return groupConfig?.requireMention ?? false;
+  // ─── Outbound ────────────────────────────────────────
+  outbound: {
+    resolveRoute: ({ cfg, accountId, to }) =>
+      buildChannelOutboundSessionRoute({
+        cfg,
+        channel: "yandex",
+        accountId,
+        to,
+      }),
+    send: async (params) => {
+      const result = await yandexOutboundAdapter.sendPayload({
+        cfg: params.cfg,
+        accountId: params.accountId,
+        to: params.to,
+        payload: params.payload,
+      });
+      return attachChannelToResult(result, { channel: "yandex" });
     },
   },
-
-  // ─── Directory ───────────────────────────────────────
-  directory: createChannelDirectoryAdapter({
-    channel: "yandex",
-    resolveSelf: async ({ cfg, accountId }) => {
-      const account = resolveYandexAccount({ cfg, accountId });
-      const token = resolveYandexToken(account);
-      if (!token) {
-        return null;
-      }
-      try {
-        const info = await (await import("./api.js")).probeYandex(cfg, accountId);
-        return { id: "self", name: info.botName ?? account.name ?? "Yandex Bot", type: "bot" };
-      } catch {
-        return { id: "self", name: account.name ?? "Yandex Bot", type: "bot" };
-      }
-    },
-    resolvePeers: async () => [],
-    resolveGroups: async ({ cfg, accountId }) => {
-      const account = resolveYandexAccount({ cfg, accountId });
-      const groups = account.groups ?? {};
-      return Object.entries(groups).map(([id, _config]) => ({
-        id,
-        name: `Chat ${id}`,
-        configured: true,
-      }));
-    },
-  }),
 
   // ─── Pairing ─────────────────────────────────────────
-  conversationBindings: {
-    supportsCurrentConversationBinding: false,
-  },
-
   pairing: {
     approvedMessage: () => PAIRING_APPROVED_MESSAGE,
-  },
-
-  // ─── Target resolution ───────────────────────────────
-  messaging: {
-    normalizeTarget: normalizeYandexMessagingTarget,
-    looksLikeTargetId: looksLikeYandexTargetId,
   },
 });

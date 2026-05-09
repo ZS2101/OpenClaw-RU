@@ -25,7 +25,7 @@ export async function startVTMonitor(opts: {
     cfg: opts.cfg,
     accountId: opts.accountId ?? DEFAULT_ACCOUNT_ID,
   });
-  const t = a.token?.trim() || process.env.VKTEAMS_BOT_TOKEN?.trim();
+  const t = resolveVTToken(a);
   if (!t) {
     throw new Error("VK Teams token not configured");
   }

@@ -1,6 +1,6 @@
 import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 
-export const YANDEXCLOUD_DEFAULT_MODEL_REF = "yandexcloud/yandexgpt";
+export const YANDEXCLOUD_DEFAULT_MODEL_REF = "yandexcloud/yandexgpt-5-pro";
 
 export function applyYandexCloudConfig(cfg: OpenClawConfig): OpenClawConfig {
   return {

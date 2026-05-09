@@ -16,6 +16,7 @@ import { resolveVkAccount, listVkAccountIds } from "./accounts.js";
 import * as monitorModule from "./monitor.js";
 import { looksLikeVkTargetId, normalizeVkMessagingTarget } from "./normalize.js";
 import { probeVkChannel } from "./probe.js";
+import { checkVkDmAccess } from "./security.js";
 import { sendMessageVk, resolveVkGroupInfo } from "./send.js";
 import { vkSetupAdapter } from "./setup-core.js";
 import { vkSetupWizard } from "./setup-surface.js";
@@ -143,21 +144,8 @@ export const vkPlugin = createChatChannelPlugin({
   // ─── Security ────────────────────────────────────────
   security: {
     checkDmAccess: ({ cfg, accountId, senderId }) => {
-      const account = resolveVkAccount({ cfg, accountId });
-      const policy = account.dmPolicy ?? "pairing";
-      if (policy === "open" || policy === "pairing") {
-        return { allowed: true };
-      }
-      if (policy === "disabled") {
-        return { allowed: false };
-      }
-      if (policy === "allowlist") {
-        const allowFrom = account.allowFrom ?? [];
-        return {
-          allowed: allowFrom.includes("*") || allowFrom.includes(senderId),
-        };
-      }
-      return { allowed: true };
+      const result = checkVkDmAccess({ cfg, accountId, senderId });
+      return { allowed: result.allowed };
     },
   },
 
@@ -182,7 +170,7 @@ export const vkPlugin = createChatChannelPlugin({
       // Try to get group info
       const groupId = account.groupId;
       if (groupId) {
-        const info = await resolveVkGroupInfo(token, groupId);
+        const info = await resolveVkGroupInfo(token, groupId, account.apiVersion);
         if (info) {
           return { id: String(info.id), name: info.name, type: "group" };
         }

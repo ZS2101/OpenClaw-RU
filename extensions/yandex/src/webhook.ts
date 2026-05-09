@@ -114,7 +114,7 @@ export async function handleYandexWebhookEvent(
           ? "group"
           : update.chat?.type === "channel"
             ? "group" // treat channels as groups
-            : "dm";
+            : "dm"; // fallback: default to dm when chat info is absent
 
     // For DMs (private), the chat has no `id` — use sender's login as chatId
     // For groups/channels, use chat.id

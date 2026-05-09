@@ -1,6 +1,6 @@
 import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 
-export const Selectel_DEFAULT_MODEL_REF = "selectel/default";
+export const SELECTEL_DEFAULT_MODEL_REF = "selectel/default";
 
 export function applySelectelConfig(cfg: OpenClawConfig): OpenClawConfig {
   const baseUrl = process.env.SELECTEL_BASE_URL?.replace(/\/+$/, "") || "";

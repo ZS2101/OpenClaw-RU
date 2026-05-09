@@ -124,7 +124,9 @@ async function handleUpdate(update: VkLongPollEvent, options: VkMonitorOptions):
   const text = message.text || "";
   const messageId = message.conversation_message_id || message.id;
 
-  // Skip own messages (out=1 in community Long Poll message_new events)
+  // Skip own messages (out=1 in community Long Poll message_new events).
+  // NOTE: `out` field only exists in Community Long Poll (Bots API).
+  // Callback/User Long Poll may use different mechanisms — test accordingly.
   if (message.out === 1) {
     return;
   }

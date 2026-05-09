@@ -154,7 +154,15 @@ export async function getLongPollEvents(
   const data = await res.json();
 
   if (data.failed) {
-    throw new Error(`Long Poll failed: ${data.failed}`);
+    const codes: Record<number, string> = {
+      1: "history expired",
+      2: "key expired",
+      3: "user info lost",
+      4: "version expired",
+    };
+    const detail =
+      typeof data.failed === "number" ? (codes[data.failed] ?? `code ${data.failed}`) : data.failed;
+    throw new Error(`Long Poll failed: ${detail}`);
   }
   return { ts: data.ts ?? ts, updates: data.updates ?? [] };
 }

@@ -4,6 +4,9 @@ import { resolveOKAccount } from "./accounts.js";
 import { resolveOKToken } from "./token.js";
 import type { OKProbeResult } from "./types.js";
 
+// NOTE: Two URL patterns for the same API:
+// - management calls (subscribe/me/subscriptions) use API_BASE + "/<method>"
+// - message sends use API_ROOT + "/<chat_id>/messages"
 const API_BASE = "https://api.ok.ru/graph/me";
 const API_ROOT = "https://api.ok.ru/graph";
 

@@ -3,9 +3,11 @@ import manifest from "./openclaw.plugin.json" with { type: "json" };
 
 const YC = manifest.modelCatalog.providers.selectel;
 
-export const SelectelCLOUD_BASE_URL = YC.baseUrl;
-export const SelectelCLOUD_MODEL_CATALOG: ModelDefinitionConfig[] = YC.models;
+export const SELECTEL_BASE_URL = YC.baseUrl;
+export const SELECTEL_MODEL_CATALOG: ModelDefinitionConfig[] = YC.models;
 
-export function buildSelectelModelDefinition(m: (typeof SelectelCLOUD_MODEL_CATALOG)[number]): ModelDefinitionConfig {
+export function buildSelectelModelDefinition(
+  m: (typeof SELECTEL_MODEL_CATALOG)[number],
+): ModelDefinitionConfig {
   return { ...m, api: "openai-completions" };
 }

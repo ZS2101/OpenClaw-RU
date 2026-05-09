@@ -9,28 +9,89 @@ import { wrapGigaChatProviderStream } from "./stream.js";
 
 const BASE_URL = "https://gigachat.devices.sberbank.ru/api/v1";
 
-function resolveDynamicModel(
-  ctx: ProviderResolveDynamicModelContext,
-): ProviderRuntimeModel {
+// Official GigaChat gen-2 model IDs per https://developers.sber.ru/docs/ru/gigachat/models
+// Gen-1 IDs (GigaChat, GigaChat-Pro, GigaChat-Max) auto-redirect to gen-2 equivalents.
+// Pricing converted from ₽ to USD at current RUB/USD rate (74.1955 as of 2026-05-09).
+// Source: https://developers.sber.ru/docs/ru/gigachat/tariffs/individual-tariffs
+const GIGACHAT_STATIC_MODELS = [
+  {
+    id: "GigaChat-2",
+    name: "GigaChat 2 Lite",
+    input: ["text"],
+    contextWindow: 131072,
+    maxTokens: 32768,
+    reasoning: false,
+    cost: { input: 0.88, output: 0.88, cacheRead: 0, cacheWrite: 0 },
+  },
+  {
+    id: "GigaChat-2-Pro",
+    name: "GigaChat 2 Pro",
+    input: ["text", "image", "audio"],
+    contextWindow: 131072,
+    maxTokens: 32768,
+    reasoning: false,
+    cost: { input: 6.74, output: 6.74, cacheRead: 0, cacheWrite: 0 },
+  },
+  {
+    id: "GigaChat-2-Max",
+    name: "GigaChat 2 Max",
+    input: ["text", "image", "audio"],
+    contextWindow: 131072,
+    maxTokens: 32768,
+    reasoning: false,
+    cost: { input: 8.76, output: 8.76, cacheRead: 0, cacheWrite: 0 },
+  },
+  // Gen-1 aliases — API auto-redirects to gen-2 equivalents
+  {
+    id: "GigaChat",
+    name: "GigaChat (→ GigaChat 2 Lite)",
+    input: ["text"],
+    contextWindow: 131072,
+    maxTokens: 32768,
+    reasoning: false,
+    cost: { input: 0.88, output: 0.88, cacheRead: 0, cacheWrite: 0 },
+  },
+  {
+    id: "GigaChat-Pro",
+    name: "GigaChat-Pro (→ GigaChat 2 Pro)",
+    input: ["text", "image", "audio"],
+    contextWindow: 131072,
+    maxTokens: 32768,
+    reasoning: false,
+    cost: { input: 6.74, output: 6.74, cacheRead: 0, cacheWrite: 0 },
+  },
+  {
+    id: "GigaChat-Max",
+    name: "GigaChat-Max (→ GigaChat 2 Max)",
+    input: ["text", "image", "audio"],
+    contextWindow: 131072,
+    maxTokens: 32768,
+    reasoning: false,
+    cost: { input: 8.76, output: 8.76, cacheRead: 0, cacheWrite: 0 },
+  },
+];
+
+function resolveDynamicModel(ctx: ProviderResolveDynamicModelContext): ProviderRuntimeModel {
+  // Look up the model in the static catalog for accurate params
+  const entry = GIGACHAT_STATIC_MODELS.find((m) => m.id === ctx.modelId);
   return {
     id: ctx.modelId,
-    name: ctx.modelId,
+    name: entry?.name ?? ctx.modelId,
     api: "openai-completions",
     provider: "gigachat",
     baseUrl: BASE_URL,
-    reasoning: false,
-    input: ["text"],
-    cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
-    contextWindow: 32768,
-    maxTokens: 4096,
+    reasoning: entry?.reasoning ?? false,
+    input: entry?.input ?? ["text"],
+    cost: entry?.cost ?? { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+    contextWindow: entry?.contextWindow ?? 131072,
+    maxTokens: entry?.maxTokens ?? 32768,
   };
 }
 
 export default definePluginEntry({
   id: "gigachat",
   name: "GigaChat Provider",
-  description:
-    "Встроенный GigaChat (Сбер) с автообновлением OAuth-токена и 3 моделями",
+  description: "Встроенный GigaChat (Сбер) с автообновлением OAuth-токена и 3 моделями",
   register(api) {
     api.registerProvider({
       id: "gigachat",
@@ -72,7 +133,9 @@ export default definePluginEntry({
         order: "simple",
         run: async (ctx) => {
           const k = ctx.resolveProviderApiKey("gigachat").apiKey;
-          if (!k) return null;
+          if (!k) {
+            return null;
+          }
           return {
             provider: {
               baseUrl: BASE_URL,
@@ -89,50 +152,7 @@ export default definePluginEntry({
           provider: {
             baseUrl: BASE_URL,
             api: "openai-completions",
-            models: [
-              {
-                id: "GigaChat-2-Lite",
-                name: "GigaChat 2 Lite",
-                input: ["text"],
-                contextWindow: 131072,
-                maxTokens: 32768,
-                reasoning: false,
-                cost: {
-                  input: 0.65,  // 65 ₽ per 1M tokens (≈$0.65 USD)
-                  output: 0.65,
-                  cacheRead: 0,
-                  cacheWrite: 0,
-                },
-              },
-              {
-                id: "GigaChat-2-Pro",
-                name: "GigaChat 2 Pro",
-                input: ["text", "image", "audio"],
-                contextWindow: 131072,
-                maxTokens: 32768,
-                reasoning: false,
-                cost: {
-                  input: 5.0,  // 500 ₽ per 1M tokens (≈$5.00 USD)
-                  output: 5.0,
-                  cacheRead: 0,
-                  cacheWrite: 0,
-                },
-              },
-              {
-                id: "GigaChat-2-Max",
-                name: "GigaChat 2 Max",
-                input: ["text", "image", "audio"],
-                contextWindow: 131072,
-                maxTokens: 32768,
-                reasoning: false,
-                cost: {
-                  input: 6.5,  // 650 ₽ per 1M tokens (≈$6.50 USD)
-                  output: 6.5,
-                  cacheRead: 0,
-                  cacheWrite: 0,
-                },
-              },
-            ],
+            models: GIGACHAT_STATIC_MODELS,
           },
         }),
       },

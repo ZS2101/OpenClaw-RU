@@ -1,6 +1,6 @@
 import type { OpenClawConfig } from "openclaw/plugin-sdk/config-types";
 
-export const CometAPI_DEFAULT_MODEL_REF = "cometapi/gpt-4o-mini";
+export const COMETAPI_DEFAULT_MODEL_REF = "cometapi/gpt-4o-mini";
 
 export function applyCometAPIConfig(cfg: OpenClawConfig): OpenClawConfig {
   return {

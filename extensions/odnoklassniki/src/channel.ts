@@ -184,6 +184,8 @@ export const okPlugin = createChatChannelPlugin({
   },
 
   // ─── Groups ──────────────────────────────────────────
+  // NOTE: OK webhook payload lacks chat_type — all messages are treated as DM.
+  // groupPolicy, groupAllowFrom and requireMention have no effect via webhooks.
   groups: {
     resolveRequireMention: ({ cfg, accountId, groupId }) => {
       const account = resolveOKAccount({ cfg, accountId });
@@ -210,6 +212,8 @@ export const okPlugin = createChatChannelPlugin({
     },
     resolvePeers: async () => [],
     resolveGroups: async ({ cfg, accountId }) => {
+      // NOTE: group resolution is non-functional via webhooks (see webhook.ts).
+      // Kept for future API compatibility.
       const account = resolveOKAccount({ cfg, accountId });
       const groups = account.groups ?? {};
       return Object.entries(groups).map(([id, _config]) => ({

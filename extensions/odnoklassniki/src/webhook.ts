@@ -54,11 +54,16 @@ export async function handleOKWebhookEvent(
     return;
   }
 
-  // OK.ru: ALL webhook messages are user→group/bot chats.
-  // There's no chat_type in the webhook payload to distinguish DMs from multi-user groups.
-  // Treat all as "dm" since they're direct user-to-bot interactions.
-  // Group gating (mention requirements) doesn't apply to this context.
+  // OK.ru webhook payload does NOT include chat_type.
+  // All webhook messages are user→bot interactions; multi-user group detection
+  // is not possible via webhooks alone. Group config (resolveGroups,
+  // resolveRequireMention, groupPolicy, groupAllowFrom) is non-functional
+  // and kept for future API compatibility only.
   const chatType = "dm" as const;
+
+  // NOTE: OK webhook does not expose bot/robot flags on senders.
+  // If other integrations post to the same chat, those messages will be
+  // processed — adjust dmPolicy/allowFrom accordingly.
 
   const inbound: OKInboundMessage = {
     id: body.message?.mid || String(Date.now()),

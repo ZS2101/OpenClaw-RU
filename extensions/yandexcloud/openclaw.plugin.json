@@ -5,9 +5,7 @@
   },
   "enabledByDefault": true,
   "providerDiscoveryEntry": "./provider-discovery.ts",
-  "providers": [
-    "yandexcloud"
-  ],
+  "providers": ["yandexcloud"],
   "providerRequest": {
     "providers": {
       "yandexcloud": {
@@ -42,9 +40,7 @@
           {
             "id": "aliceai-llm",
             "name": "Alice AI LLM",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 65536,
             "maxTokens": 16384,
             "cost": {
@@ -57,9 +53,7 @@
           {
             "id": "deepseek-v32",
             "name": "DeepSeek 3.2",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 131072,
             "maxTokens": 32768,
             "reasoning": true,
@@ -73,9 +67,7 @@
           {
             "id": "deepseek-r1-distill-llama-70b",
             "name": "DeepSeek R1 Distill Llama 70B",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 32768,
             "maxTokens": 8192,
             "reasoning": true,
@@ -89,9 +81,7 @@
           {
             "id": "deepseek-r1-distill-qwen-32b",
             "name": "DeepSeek R1 Distill Qwen 32B",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 32768,
             "maxTokens": 8192,
             "reasoning": true,
@@ -105,10 +95,7 @@
           {
             "id": "deepseek-vl2",
             "name": "DeepSeek VL2",
-            "input": [
-              "text",
-              "image"
-            ],
+            "input": ["text", "image"],
             "contextWindow": 32768,
             "maxTokens": 8192,
             "cost": {
@@ -121,10 +108,7 @@
           {
             "id": "deepseek-vl2-tiny",
             "name": "DeepSeek VL2 Tiny",
-            "input": [
-              "text",
-              "image"
-            ],
+            "input": ["text", "image"],
             "contextWindow": 32768,
             "maxTokens": 4096,
             "cost": {
@@ -137,9 +121,7 @@
           {
             "id": "gpt-oss-120b",
             "name": "GPT OSS 120B",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 131072,
             "maxTokens": 16384,
             "reasoning": true,
@@ -153,9 +135,7 @@
           {
             "id": "gpt-oss-20b",
             "name": "GPT OSS 20B",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 131072,
             "maxTokens": 16384,
             "reasoning": true,
@@ -169,9 +149,7 @@
           {
             "id": "gemma-3-12b-it",
             "name": "Gemma 3 12B IT",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 8192,
             "maxTokens": 4096,
             "cost": {
@@ -184,9 +162,7 @@
           {
             "id": "gemma-3-1b-it",
             "name": "Gemma 3 1B IT",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 8192,
             "maxTokens": 4096,
             "cost": {
@@ -199,10 +175,7 @@
           {
             "id": "gemma-3-27b-it",
             "name": "Gemma 3 27B IT",
-            "input": [
-              "text",
-              "image"
-            ],
+            "input": ["text", "image"],
             "contextWindow": 131072,
             "maxTokens": 8192,
             "cost": {
@@ -215,9 +188,7 @@
           {
             "id": "gemma-3-4b-it",
             "name": "Gemma 3 4B IT",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 8192,
             "maxTokens": 4096,
             "cost": {
@@ -230,9 +201,7 @@
           {
             "id": "llama3.1-70b-instruct",
             "name": "Llama 3.1 70B Instruct",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 8192,
             "maxTokens": 4096,
             "cost": {
@@ -245,9 +214,7 @@
           {
             "id": "phi-4",
             "name": "Phi-4",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 16384,
             "maxTokens": 8192,
             "cost": {
@@ -260,10 +227,7 @@
           {
             "id": "qwen2-vl-7b-instruct",
             "name": "Qwen2 VL 7B Instruct",
-            "input": [
-              "text",
-              "image"
-            ],
+            "input": ["text", "image"],
             "contextWindow": 32768,
             "maxTokens": 8192,
             "cost": {
@@ -276,9 +240,7 @@
           {
             "id": "qwen2.5-32b-instruct",
             "name": "Qwen2.5 32B Instruct",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 131072,
             "maxTokens": 16384,
             "cost": {
@@ -291,9 +253,7 @@
           {
             "id": "qwen2.5-72b-instruct",
             "name": "Qwen2.5 72B Instruct",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 131072,
             "maxTokens": 16384,
             "cost": {
@@ -306,9 +266,7 @@
           {
             "id": "qwen2.5-7b-instruct",
             "name": "Qwen2.5 7B Instruct",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 131072,
             "maxTokens": 8192,
             "cost": {
@@ -321,10 +279,7 @@
           {
             "id": "qwen2.5-vl-32b-instruct",
             "name": "Qwen2.5 VL 32B Instruct",
-            "input": [
-              "text",
-              "image"
-            ],
+            "input": ["text", "image"],
             "contextWindow": 131072,
             "maxTokens": 16384,
             "cost": {
@@ -337,10 +292,7 @@
           {
             "id": "qwen2.5-vl-7b-instruct",
             "name": "Qwen2.5 VL 7B Instruct",
-            "input": [
-              "text",
-              "image"
-            ],
+            "input": ["text", "image"],
             "contextWindow": 131072,
             "maxTokens": 8192,
             "cost": {
@@ -353,9 +305,7 @@
           {
             "id": "qwen3-0.6b",
             "name": "Qwen3 0.6B",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 32768,
             "maxTokens": 4096,
             "cost": {
@@ -368,9 +318,7 @@
           {
             "id": "qwen3-1.7b",
             "name": "Qwen3 1.7B",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 32768,
             "maxTokens": 4096,
             "cost": {
@@ -383,9 +331,7 @@
           {
             "id": "qwen3-235b-a22b",
             "name": "Qwen3 235B A22B",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 131072,
             "maxTokens": 16384,
             "reasoning": true,
@@ -399,9 +345,7 @@
           {
             "id": "qwen3-235b-a22b-fp8",
             "name": "Qwen3 235B A22B FP8",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 262144,
             "maxTokens": 16384,
             "reasoning": true,
@@ -415,9 +359,7 @@
           {
             "id": "qwen3-30b-a3b",
             "name": "Qwen3 30B A3B",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 131072,
             "maxTokens": 16384,
             "cost": {
@@ -430,9 +372,7 @@
           {
             "id": "qwen3-32b",
             "name": "Qwen3 32B",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 131072,
             "maxTokens": 16384,
             "cost": {
@@ -445,9 +385,7 @@
           {
             "id": "qwen3-4b",
             "name": "Qwen3 4B",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 131072,
             "maxTokens": 8192,
             "cost": {
@@ -460,9 +398,7 @@
           {
             "id": "qwen3-8b",
             "name": "Qwen3 8B",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 131072,
             "maxTokens": 8192,
             "cost": {
@@ -475,9 +411,7 @@
           {
             "id": "qwen3-14b",
             "name": "Qwen3 14B",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 32768,
             "maxTokens": 8192,
             "cost": {
@@ -490,10 +424,7 @@
           {
             "id": "qwen3.5-35b-a3b",
             "name": "Qwen3.5 35B A3B FP8",
-            "input": [
-              "text",
-              "image"
-            ],
+            "input": ["text", "image"],
             "contextWindow": 262144,
             "maxTokens": 32768,
             "reasoning": true,
@@ -507,10 +438,7 @@
           {
             "id": "qwen3.6-35b-a3b",
             "name": "Qwen3.6 35B A3B",
-            "input": [
-              "text",
-              "image"
-            ],
+            "input": ["text", "image"],
             "contextWindow": 262144,
             "maxTokens": 32768,
             "reasoning": true,
@@ -524,9 +452,7 @@
           {
             "id": "qwq-32b",
             "name": "QwQ 32B",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 131072,
             "maxTokens": 16384,
             "reasoning": true,
@@ -540,9 +466,7 @@
           {
             "id": "t-pro-it-2.0",
             "name": "T-pro-it 2.0 FP8",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 32768,
             "maxTokens": 8192,
             "cost": {
@@ -555,9 +479,7 @@
           {
             "id": "yandexgpt-5-lite",
             "name": "YandexGPT 5 Lite",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 32768,
             "maxTokens": 4096,
             "cost": {
@@ -570,9 +492,7 @@
           {
             "id": "yandexgpt-5-pro",
             "name": "YandexGPT 5 Pro",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 32768,
             "maxTokens": 4096,
             "cost": {
@@ -585,11 +505,74 @@
           {
             "id": "yandexgpt-5.1",
             "name": "YandexGPT 5.1 Pro",
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "contextWindow": 32768,
             "maxTokens": 4096,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "speech-realtime-250923",
+            "name": "Yandex Speech Realtime v250923",
+            "input": ["text"],
+            "contextWindow": 32768,
+            "maxTokens": 4096,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "text-search-doc-1.0",
+            "name": "Yandex Text embeddings (doc) 1",
+            "input": ["text"],
+            "contextWindow": 32768,
+            "maxTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "text-search-query-1.0",
+            "name": "Yandex Text embeddings (query) 1",
+            "input": ["text"],
+            "contextWindow": 8192,
+            "maxTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "text-embeddings-1.0",
+            "name": "Yandex Text embeddings 1",
+            "input": ["text"],
+            "contextWindow": 8192,
+            "maxTokens": 0,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          },
+          {
+            "id": "yandex-art-2.0",
+            "name": "YandexART 2.0",
+            "input": ["text"],
+            "contextWindow": 500,
+            "maxTokens": 0,
             "cost": {
               "input": 0,
               "output": 0,
