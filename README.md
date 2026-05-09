@@ -54,9 +54,9 @@
 
 | Провайдер | Описание |
 |-----------|----------|
-| **YandexCloud** | Яндекс Облако — YandexGPT через API Foundation Models |
+| **YandexCloud** | Яндекс Облако — API Foundation Models |
 | **Cloud.ru** | Облачная платформа Cloud.ru с LLM-моделями |
-| **Selectel** | Selectel Cloud — GPU и модели |
+| **Selectel** | Selectel Cloud — аренда gpu |
 | **Gigachat** | Сбер GigaChat — российская LLM |
 | **CometAPI** | CometAPI — универсальный API-шлюз к 500+ моделям |
 
