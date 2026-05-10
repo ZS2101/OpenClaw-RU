@@ -13,6 +13,35 @@ User-Agent header is required; use `User-Agent: OpenClaw/1.0 (agent@example.com)
 | 👤 user | OAuth2 user token (applicant)          |
 | 🏢 emp  | OAuth2 employer/manager token          |
 
+## OAuth2 / Авторизация
+
+### GET https://hh.ru/oauth/authorize — Authorization request
+
+🔓 anon — User opens this URL in browser. Parameters:
+
+- `response_type=code` (required)
+- `client_id` (required, from dev.hh.ru app)
+- `redirect_uri` (optional, must match app settings)
+- `state` (optional, passed back to redirect URI)
+
+User authorizes on hh.ru → hh.ru redirects to `redirect_uri?code=AUTHORIZATION_CODE`.
+
+### POST https://api.hh.ru/oauth/token — Get token
+
+🔓 anon — Exchange authorization code for tokens. Parameters:
+
+- `grant_type=authorization_code` (for user token)
+- `client_id`, `client_secret`
+- `code` (from redirect URI)
+- `redirect_uri` (must match)
+
+Response: `{ "access_token": "...", "refresh_token": "...", "token_type": "bearer", "expires_in": 1209600 }`
+Token lifetime: 14 days (1 209 600 seconds).
+
+Refresh: `grant_type=refresh_token` with `refresh_token` param. Returns new access_token + refresh_token pair.
+
+App-level token: `grant_type=client_credentials` — no user context, limited access (geolocation, etc).
+
 ## Vacancies (Public)
 
 ### GET /vacancies — Search
@@ -148,7 +177,33 @@ Params: `city` (int, required)
 
 ### POST /negotiations — Respond to vacancy
 
-👤 user — body: `{ vacancy_id, resume_id, message }`
+👤 user — Apply to a vacancy. Request body:
+
+```json
+{
+  "vacancy_id": "12345678",
+  "resume_id": "abc123",
+  "message": "Сопроводительное письмо (опционально)"
+}
+```
+
+Parameters:
+
+- `vacancy_id` (required) — vacancy ID from search results
+- `resume_id` (required) — one of your resume IDs (get from `GET /resumes/mine`)
+- `message` (optional) — cover letter, max ~2000 characters
+
+### GET /negotiations/{id}/messages — Read messages
+
+👤 user — Get conversation with employer about a specific response
+
+### POST /negotiations/{id}/messages — Send message
+
+👤 user — Send a message to employer. Body: `{ "message": "text" }`
+
+### PUT /negotiations/{id} — Edit response
+
+👤 user — Update cover letter message after applying
 
 ### GET /negotiations/{id} — Single response details
 

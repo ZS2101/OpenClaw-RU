@@ -122,14 +122,57 @@ Workarounds:
 
 ## Auth (OAuth2)
 
-For methods requiring authorization:
+Token header: `Authorization: Bearer <token>`
 
-1. Register app at https://dev.hh.ru
-2. Get client_id and client_secret
-3. OAuth2 flow: authorization code for user-level, client_credentials for app-level
-4. Token header: `Authorization: Bearer <token>`
+### Register app
 
-Methods needing auth: posting vacancies (employer), managing resumes (applicant), negotiations/responses, employer resume search.
+1. Go to https://dev.hh.ru → create app
+2. Get `client_id` and `client_secret`
+3. Set redirect_uri (e.g. `https://example.com/oauth/callback`)
+
+### OAuth2 endpoints
+
+Base: `https://api.hh.ru` (same as public API) and `https://hh.ru/oauth`
+
+```bash
+# Step 1: User opens in browser → authorizes → gets code via redirect
+open "https://hh.ru/oauth/authorize?response_type=code&client_id=CLIENT_ID&redirect_uri=REDIRECT_URI"
+
+# Step 2: Exchange code for token
+curl -X POST -d 'grant_type=authorization_code' \
+  -d "client_id=CLIENT_ID" -d "client_secret=CLIENT_SECRET" \
+  -d "code=CODE_FROM_STEP1" -d "redirect_uri=REDIRECT_URI" \
+  -H 'User-Agent: OpenClaw/1.0' \
+  'https://api.hh.ru/oauth/token'
+# Response: { "access_token": "...", "refresh_token": "...", "expires_in": 1209600 }
+
+# Step 3: Refresh expired token
+curl -X POST -d 'grant_type=refresh_token' \
+  -d "refresh_token=REFRESH_TOKEN" \
+  -H 'User-Agent: OpenClaw/1.0' \
+  'https://api.hh.ru/oauth/token'
+
+# App-level token (no user, limited access)
+curl -X POST -d 'grant_type=client_credentials' \
+  -d "client_id=CLIENT_ID" -d "client_secret=CLIENT_SECRET" \
+  -H 'User-Agent: OpenClaw/1.0' \
+  'https://api.hh.ru/oauth/token'
+```
+
+### Methods unlocked with auth
+
+| Method                                  | Auth    | Action                                                  |
+| --------------------------------------- | ------- | ------------------------------------------------------- |
+| `GET /negotiations`                     | 👤 user | List your responses/отклики                             |
+| `POST /negotiations`                    | 👤 user | Respond to a vacancy (vacancy_id + resume_id + message) |
+| `GET /negotiations/{id}/messages`       | 👤 user | Read messages with employer                             |
+| `POST /negotiations/{id}/messages`      | 👤 user | Send message to employer                                |
+| `GET /resumes/mine`                     | 👤 user | List your resumes                                       |
+| `GET /vacancies/{id}/preferred_contact` | 👤 user | Get direct contacts (email/phone) if employer enabled   |
+| Employer vacancy posting                | 🏢 emp  | `POST /vacancies`, `PUT /vacancies/{id}`                |
+| Employer resume search                  | 🏢 emp  | `GET /resumes`                                          |
+
+**Note:** OAuth2 token may also bypass the geo-blocking on `/vacancies` and `/employers`.
 
 ## Reference
 
